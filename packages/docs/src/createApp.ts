@@ -1,5 +1,6 @@
 import "@ontic/pear/style.css";
 import "./assets/main.css";
+import "./assets/theme.css";
 
 import { createSSRApp } from "vue";
 import App from "./App.vue";
