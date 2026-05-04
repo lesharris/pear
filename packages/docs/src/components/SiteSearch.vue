@@ -151,6 +151,7 @@ function close() {
           v-for="(result, i) in results"
           :key="result.url"
           :id="`search-result-${i}`"
+          :href="result.url"
           class="search-result"
           :class="{ 'search-result--active': activeIndex === i }"
           role="option"
