@@ -1,0 +1,42 @@
+{
+  "name": "@ontic/pear-docs",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "[ -f public/search-index.json ] || bun run build:search && vite",
+    "build": "run-p type-check \"build-only {@}\" --",
+    "build-only": "vite build && bun scripts/prerender.ts",
+    "build:search": "bun scripts/prerender.ts --public",
+    "type-check": "vue-tsc --build",
+    "preview": "bun run build && wrangler dev",
+    "deploy": "bun run build && wrangler deploy",
+    "cf:deploy": "wrangler deploy",
+    "cf:upload": "wrangler versions upload",
+    "cf:typegen": "bun run wrangler types"
+  },
+  "dependencies": {
+    "@ontic/pear": "workspace:*",
+    "@shikijs/langs": "^4.0.2",
+    "@shikijs/themes": "^4.0.2",
+    "@vue/server-renderer": "^3.5.33",
+    "flexsearch": "^0.8.212",
+    "lucide-vue-next": "^1.0.0",
+    "shiki": "^4.0.2",
+    "vue": "^3.5.33",
+    "vue-router": "^5.0.6"
+  },
+  "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.35.0",
+    "@tsconfig/node24": "^24.0.4",
+    "@types/node": "^25.6.0",
+    "@vitejs/plugin-vue": "^6.0.6",
+    "@vue/tsconfig": "^0.9.1",
+    "npm-run-all2": "^8.0.4",
+    "playwright": "^1.59.1",
+    "typescript": "~6.0.3",
+    "vite": "^8.0.10",
+    "vite-plugin-vue-devtools": "^8.1.1",
+    "vue-tsc": "^3.2.7",
+    "wrangler": "^4.87.0"
+  }
+}

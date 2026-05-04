@@ -1,0 +1,56 @@
+{
+  "name": "@ontic/pear",
+  "version": "0.1.1",
+  "description": "A thin Vue 3 component library built on PicoCSS",
+  "type": "module",
+  "main": "./dist/pear.js",
+  "types": "./dist/src/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/pear.js",
+      "types": "./dist/src/index.d.ts"
+    },
+    "./style.css": "./dist/pear.css"
+  },
+  "files": ["dist"],
+  "sideEffects": ["dist/pear.css"],
+  "scripts": {
+    "build": "vite build",
+    "build:watch": "vite build --watch",
+    "type-check": "vue-tsc --build",
+    "prepublishOnly": "cp ../../README.md ./README.md && bun run build",
+    "postpublish": "rm ./README.md"
+  },
+  "keywords": ["vue", "vue3", "components", "ui", "pico", "picocss", "component-library"],
+  "author": "Les Harris <les@lesharris.com>",
+  "license": "MIT",
+  "homepage": "https://pear.ontic.cloud",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/onticcloud/pear.git"
+  },
+  "bugs": {
+    "url": "https://github.com/onticcloud/pear/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "lucide-vue-next": ">=1.0.0",
+    "vue": ">=3.5"
+  },
+  "devDependencies": {
+    "@picocss/pico": "^2.0.6",
+    "@tsconfig/node24": "^24.0.4",
+    "@types/node": "^25.6.0",
+    "@vitejs/plugin-vue": "^6.0.6",
+    "@vue/tsconfig": "^0.9.1",
+    "lucide-vue-next": "^1.0.0",
+    "sass": "^1.89.1",
+    "typescript": "~6.0.3",
+    "vite": "^8.0.10",
+    "vite-plugin-dts": "^4.5.4",
+    "vue": "^3.5.33",
+    "vue-tsc": "^3.2.7"
+  }
+}
