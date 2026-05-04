@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, ref, watch } from "vue";
+import { computed, onBeforeUnmount, onMounted, ref, useId, watch } from "vue";
 import { Document, type EnrichedDocumentSearchResults } from "flexsearch";
 import { useRouter } from "vue-router";
 
@@ -8,12 +8,23 @@ type SearchResult = { title: string; url: string };
 
 const router = useRouter();
 
+const id = useId();
+
+const searchInputId = `site-search-${id}`;
+const resultsId = `search-results-${id}`;
+
 const query = ref("");
 const results = ref<SearchResult[]>([]);
 const activeIndex = ref(-1);
 const wrapperEl = ref<HTMLElement | null>(null);
 
 const isOpen = computed(() => query.value.length > 0);
+
+const activeDescendant = computed(() =>
+  activeIndex.value >= 0
+    ? `${resultsId}-option-${activeIndex.value}`
+    : undefined,
+);
 
 let index: Document<SearchDoc> | null = null;
 
@@ -39,6 +50,7 @@ onMounted(async () => {
   try {
     const res = await fetch("/search-index.json");
     const data: Record<string, string> = await res.json();
+
     await Promise.all(
       Object.entries(data).map(([key, val]) => index!.import(key, val)),
     );
@@ -87,17 +99,20 @@ function onKeydown(e: KeyboardEvent) {
 
   if (e.key === "ArrowDown") {
     e.preventDefault();
+
     if (results.value.length > 0) {
       activeIndex.value = (activeIndex.value + 1) % results.value.length;
     }
   } else if (e.key === "ArrowUp") {
     e.preventDefault();
+
     if (results.value.length > 0) {
       activeIndex.value =
         (activeIndex.value - 1 + results.value.length) % results.value.length;
     }
   } else if (e.key === "Enter") {
     const target = results.value[activeIndex.value];
+
     if (target) {
       navigate(target.url);
     }
@@ -132,9 +147,19 @@ function close() {
     @keydown="onKeydown"
     @focusout="onFocusOut"
   >
+    <label :for="searchInputId" class="p-sr-only">
+      Search documentation
+    </label>
+
     <input
+      :id="searchInputId"
       v-model="query"
       type="search"
+      role="combobox"
+      aria-autocomplete="list"
+      :aria-expanded="isOpen"
+      :aria-controls="resultsId"
+      :aria-activedescendant="activeDescendant"
       placeholder="Search… ⌘K"
       class="search-input"
       autocomplete="off"
@@ -142,6 +167,7 @@ function close() {
 
     <div
       v-if="isOpen"
+      :id="resultsId"
       class="search-panel"
       role="listbox"
       aria-label="Search results"
@@ -150,19 +176,20 @@ function close() {
         <a
           v-for="(result, i) in results"
           :key="result.url"
-          :id="`search-result-${i}`"
+          :id="`${resultsId}-option-${i}`"
           :href="result.url"
           class="search-result"
           :class="{ 'search-result--active': activeIndex === i }"
           role="option"
           :aria-selected="activeIndex === i"
           @mousedown.prevent
-          @click="navigate(result.url)"
+          @click.prevent="navigate(result.url)"
         >
           <span class="search-result-title">{{ result.title }}</span>
           <span class="search-result-path">{{ result.url }}</span>
         </a>
       </template>
+
       <div v-else class="search-empty">
         No results for "{{ query }}"
       </div>
