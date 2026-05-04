@@ -9,6 +9,7 @@ export const docsMeta = {
     { id: "intro", label: "Getting Started" },
     { id: "install", label: "Installation" },
     { id: "pico", label: "Pico CSS" },
+    { id: "theming", label: "Accent Color" },
   ],
 } satisfies DocsMeta;
 </script>
@@ -46,6 +47,56 @@ const picoCode = String.raw`
     </article>
   </main>
 </template>
+`;
+
+const themingCode = String.raw`
+/* Light mode */
+[data-theme="light"],
+:root:not([data-theme="dark"]) {
+  --pico-primary:                  #0172ad; /* link / text accent            */
+  --pico-primary-background:       #0172ad; /* button / switch / progress bg */
+  --pico-primary-border:           var(--pico-primary-background);
+  --pico-primary-underline:        rgba(1, 114, 173, 0.5);
+  --pico-primary-hover:            #015887; /* hover text / link             */
+  --pico-primary-hover-background: #02659a; /* hover button bg               */
+  --pico-primary-hover-border:     var(--pico-primary-hover-background);
+  --pico-primary-hover-underline:  var(--pico-primary-hover);
+  --pico-primary-focus:            rgba(2, 154, 232, 0.5);  /* focus ring    */
+  --pico-primary-inverse:          #fff;    /* text color on filled buttons   */
+  --pico-text-selection-color:     rgba(2, 154, 232, 0.25); /* ::selection   */
+}
+
+/* Dark mode — explicit (useTheme sets data-theme="dark") */
+[data-theme="dark"] {
+  --pico-primary:                  #01aaff;
+  --pico-primary-background:       #0172ad;
+  --pico-primary-border:           var(--pico-primary-background);
+  --pico-primary-underline:        rgba(1, 170, 255, 0.5);
+  --pico-primary-hover:            #79c0ff;
+  --pico-primary-hover-background: #017fc0;
+  --pico-primary-hover-border:     var(--pico-primary-hover-background);
+  --pico-primary-hover-underline:  var(--pico-primary-hover);
+  --pico-primary-focus:            rgba(1, 170, 255, 0.375);
+  --pico-primary-inverse:          #fff;
+  --pico-text-selection-color:     rgba(1, 170, 255, 0.1875);
+}
+
+/* Dark mode — system (useTheme removes data-theme, OS preference applies) */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --pico-primary:                  #01aaff;
+    --pico-primary-background:       #0172ad;
+    --pico-primary-border:           var(--pico-primary-background);
+    --pico-primary-underline:        rgba(1, 170, 255, 0.5);
+    --pico-primary-hover:            #79c0ff;
+    --pico-primary-hover-background: #017fc0;
+    --pico-primary-hover-border:     var(--pico-primary-hover-background);
+    --pico-primary-hover-underline:  var(--pico-primary-hover);
+    --pico-primary-focus:            rgba(1, 170, 255, 0.375);
+    --pico-primary-inverse:          #fff;
+    --pico-text-selection-color:     rgba(1, 170, 255, 0.1875);
+  }
+}
 `;
 </script>
 
@@ -109,6 +160,34 @@ const picoCode = String.raw`
             </article>
           </main>
         </DocsExample>
+      </AppStack>
+    </p-card>
+  </section>
+
+  <section id="theming" data-section class="docs-section">
+    <p-card>
+      <template #header>Defining Your Own Themes</template>
+
+      <AppStack>
+        <p>
+          Pear ships with azure as the default accent. All primary colors are
+          CSS custom properties, so you can swap the accent by overriding them
+          in your own stylesheet. All PicoCSS CSS variables are supported since that is what is doing the actual styling. It should be loaded after
+          <code>@ontic/pear/style.css</code> wherever you load that.
+        </p>
+        <p>
+          Three selector blocks are needed because <code>useTheme</code> sets
+          <code>data-theme="light"</code> or <code>data-theme="dark"</code> for
+          explicit choices, and removes the attribute entirely when following the
+          system preference.
+        </p>
+        <p>
+          One variable worth noting: <code>--pico-primary-inverse</code> is the
+          text color rendered on top of filled primary buttons. Use
+          <code>#fff</code> for most colors; use <code>#000</code> for bright
+          accents like amber, lime, yellow, and pumpkin.
+        </p>
+        <DocsExample :code="themingCode" language="css" title="your-theme.css" />
       </AppStack>
     </p-card>
   </section>
