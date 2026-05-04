@@ -128,7 +128,7 @@ onMounted(() => {
                 <code>defineModel()</code>, <code>provide</code>/<code
                   >inject</code
                 >
-                contexts, and composables — built for Vue 3.4+.
+                contexts, and composables — built for Vue 3.5+.
               </p>
             </div>
           </div>
