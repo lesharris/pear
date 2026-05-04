@@ -5,7 +5,7 @@
 </p>
 <br/>
 <p align="center">
-  <a href="https://npmjs.com/package/@ontic/pear"><img src="https://badgen.net/npm/v/@ontic/pear" alt="npm package"></a>
+  <img src="https://img.shields.io/npm/v/@ontic/pear" alt="npm package"></a>
 </p>
 <br/>
 
