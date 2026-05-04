@@ -256,7 +256,7 @@ body {
   line-height: 1.4;
   text-decoration: none;
   color: var(--pico-muted-color);
-  border-left: 2px solid var(--pico-muted-border-color);
+  border-left: 2px solid var(--docs-toc-rail, var(--pico-muted-border-color));
   border-radius: 0 var(--pico-border-radius, 0.25rem) var(--pico-border-radius, 0.25rem) 0;
   transition: color 0.15s, background-color 0.15s, border-color 0.15s;
 }

@@ -10,6 +10,7 @@ const { codeToHtml } = createSingletonShorthands(
       html: () => import("@shikijs/langs/html"),
       shell: () => import("@shikijs/langs/shellscript"),
       ts: () => import("@shikijs/langs/typescript"),
+      css: () => import("@shikijs/langs/css"),
     },
     themes: {
       "github-dark": () => import("@shikijs/themes/github-dark"),
