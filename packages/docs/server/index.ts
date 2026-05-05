@@ -16,7 +16,9 @@ export default {
 		}
 
 		if (!isDocumentRequest(request, url)) {
-			return env.ASSETS.fetch(request);
+			const assetResponse = await env.ASSETS.fetch(request);
+			if (assetResponse.status !== 404) return assetResponse;
+			// Unknown path with an extension (e.g. /docs/phpinfo.php) — fall through to SSR 404
 		}
 
 		const { appHtml, route } = await render(url.pathname + url.search);
