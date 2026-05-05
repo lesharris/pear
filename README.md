@@ -56,7 +56,7 @@ const app = createApp(App)
 app.mount('#app')
 ```
 
-Pear components are used directly — no global registration needed. Import what you use.
+No global registration, Pear components are used directly. Import what you use.
 
 ### Example
 
@@ -78,7 +78,7 @@ const email = ref('')
 </template>
 ```
 
-`PField` automatically wires up `id`, `aria-describedby`, and validation state to any child form component — no prop drilling required.
+`PField` automatically wires up `id`, `aria-describedby`, and validation state to any child form component.
 
 ### Theme switching
 

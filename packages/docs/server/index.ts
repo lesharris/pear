@@ -1,5 +1,5 @@
 import { render } from "../src/entry-server";
-import { defaultDescription, defaultTitle, getRouteMetadata } from "../src/metadata";
+import { getRouteMetadata } from "../src/metadata";
 
 type EnvWithAssets = Env & {
 	ASSETS: Fetcher;
@@ -8,12 +8,6 @@ type EnvWithAssets = Env & {
 export default {
 	async fetch(request, env) {
 		const url = new URL(request.url);
-
-		if (url.pathname.startsWith("/api/")) {
-			return Response.json({
-				name: "Cloudflare",
-			});
-		}
 
 		if (!isDocumentRequest(request, url)) {
 			const assetResponse = await env.ASSETS.fetch(request);
