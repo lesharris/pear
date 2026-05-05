@@ -13,12 +13,12 @@
 
 > Thin Vue 3 component library built on [PicoCSS](https://picocss.com/).
 
-- 🪶 Lightweight — a thin wrapper around PicoCSS, no heavy dependencies
-- 🎨 Themeable — built-in light/dark/system theme support
-- 📐 Layout primitives — `PStack`, `PGrid`, `PSidebar`, and more from Every Layout
-- 🧩 Composable forms — `PField` provides context to child inputs automatically
-- 🪟 Modal system — `PModalProvider` + `useModal` for imperative modals
-- 💪 Type safe — full TypeScript support with exported types
+- 🪶 Lightweight
+- 🎨 Themeable
+- 📐 Layout primitives
+- 🧩 Composable forms
+- 🪟 Modal system
+- 💪 Type safe
 
 ## Installation
 
