@@ -48,7 +48,7 @@ export default {
 				escapeScriptJson(jsonLd),
 			)
 			.replace("<!--ssr-outlet-->", appHtml);
-		const status = route.matched.length > 0 ? 200 : 404;
+		const status = route.name === "not-found" ? 404 : 200;
 
 		return new Response(html, {
 			status,

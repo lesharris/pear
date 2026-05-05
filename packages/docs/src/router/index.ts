@@ -24,6 +24,7 @@ import DropdownsView, { docsMeta as dropdownsMeta } from "../views/DropdownsView
 import NavigationView, { docsMeta as navigationMeta } from "../views/NavigationView.vue";
 import TooltipsView, { docsMeta as tooltipsMeta } from "../views/TooltipsView.vue";
 import ThemeSwitcherView, { docsMeta as themeSwitcherMeta } from "../views/ThemeSwitcherView.vue";
+import NotFoundView from "../views/NotFoundView.vue";
 
 import type { DocsMeta } from "../types/docs";
 
@@ -72,6 +73,7 @@ export function createDocsRouter() {
           { path: "theme-switcher", name: "theme-switcher", component: ThemeSwitcherView, meta: themeSwitcherMeta },
         ],
       },
+      { path: "/:pathMatch(.*)*", name: "not-found", component: NotFoundView },
     ],
   });
 }
