@@ -1,4 +1,3 @@
-<!-- src/components/PGrid.vue -->
 <script setup lang="ts">
 const {
   min = '0%',

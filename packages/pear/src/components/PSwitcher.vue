@@ -1,4 +1,3 @@
-<!-- src/components/PSwitcher.vue -->
 <script setup lang="ts">
 const {
   threshold = '30rem',

@@ -1,4 +1,3 @@
-<!-- src/components/PSidebar.vue -->
 <script setup lang="ts">
 const {
   side = 'left',

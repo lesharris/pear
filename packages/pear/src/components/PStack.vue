@@ -1,4 +1,3 @@
-<!-- src/components/PStack.vue -->
 <script setup lang="ts">
 const { gap = 'var(--pico-spacing)', as = 'div' } = defineProps<{
   gap?: string

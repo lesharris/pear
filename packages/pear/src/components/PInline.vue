@@ -1,4 +1,3 @@
-<!-- src/components/PInline.vue -->
 <script setup lang="ts">
 const {
   gap = 'var(--pico-spacing)',

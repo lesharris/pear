@@ -1,4 +1,3 @@
-<!-- src/components/PCluster.vue -->
 <script setup lang="ts">
 const {
   gap = 'var(--pico-spacing)',

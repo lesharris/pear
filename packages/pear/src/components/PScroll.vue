@@ -1,4 +1,3 @@
-<!-- src/components/PScroll.vue -->
 <script setup lang="ts">
 const { as = 'div' } = defineProps<{
   as?: string
