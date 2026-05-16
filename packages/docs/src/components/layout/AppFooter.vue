@@ -12,10 +12,10 @@ const year = new Date().getFullYear();
 
       <div class="footer-content">
         <section class="footer-note" aria-labelledby="footer-title">
-          <h2 id="footer-title">Tiny Vue components, Pico at heart.</h2>
+          <h2 id="footer-title">Use the pieces you need.</h2>
           <p>
-            Semantic wrappers for the bits Pico already makes nice. Bring your
-            own app, keep the markup kind.
+            Pear works best when it disappears into your app. Pico handles the
+            look. Vue handles state. The HTML still makes sense.
           </p>
 
           <div class="footer-actions">

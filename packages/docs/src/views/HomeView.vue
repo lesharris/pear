@@ -56,8 +56,9 @@ onMounted(() => {
         <p class="hero-eyebrow">Vue 3 · PicoCSS · TypeScript</p>
         <h1 class="hero-title brand-title">Pear</h1>
         <p class="hero-tagline">
-          Beautiful Vue 3 components built on <strong>PicoCSS</strong>.<br />
-          Semantic HTML, accessible by default, and delightfully simple.
+          Tiny Vue components for folks who already like
+          <strong>PicoCSS</strong>.<br />
+          Keep Pico's markup. Add props, slots, v-model, and a little polish.
         </p>
         <div class="hero-ctas">
           <RouterLink to="/docs" class="hero-btn-primary"
@@ -76,59 +77,57 @@ onMounted(() => {
       <section class="features">
         <div class="features-inner">
           <div class="features-heading">
-            <h2>Components without the clutter</h2>
-            <p>A thin Vue layer on top of PicoCSS</p>
+            <h2>Pico, but Vue too.</h2>
+            <p>Small wrappers for the patterns you keep rebuilding.</p>
           </div>
           <div class="feature-grid">
             <div class="feature-card">
               <span class="feature-icon" aria-hidden="true">🌿</span>
-              <h3>Semantic HTML</h3>
+              <h3>Regular HTML at the core</h3>
               <p>
-                Components render native elements — <code>&lt;input&gt;</code>,
-                <code>&lt;button&gt;</code>, <code>&lt;dialog&gt;</code> —
-                letting PicoCSS do the heavy lifting.
+                Components render native elements like <code>&lt;input&gt;</code>,
+                <code>&lt;button&gt;</code>, and <code>&lt;dialog&gt;</code>.
+                Pico styles them. Pear gives them Vue APIs.
               </p>
             </div>
             <div class="feature-card">
               <span class="feature-icon" aria-hidden="true">♿</span>
-              <h3>Accessible by default</h3>
+              <h3>Less glue code</h3>
               <p>
-                ARIA attributes, keyboard navigation, and focus management are
-                handled for you out of the box.
+                Labels, field state, modal focus, dropdowns, tooltips. The
+                fussy stuff lives with the component.
               </p>
             </div>
             <div class="feature-card">
               <span class="feature-icon" aria-hidden="true">🎨</span>
-              <h3>Light &amp; dark mode</h3>
+              <h3>Theme-friendly</h3>
               <p>
-                Full theme support via PicoCSS custom properties. Switch themes
-                at runtime with the built-in PThemeSwitcher.
+                Pear follows Pico's CSS variables. Use your own colors, then
+                let PThemeSwitcher handle the light/dark toggle.
               </p>
             </div>
             <div class="feature-card">
               <span class="feature-icon" aria-hidden="true">📐</span>
               <h3>Layout primitives</h3>
               <p>
-                PStack, PGrid, PCluster, PSidebar, PSwitcher and more —
-                composable layouts without writing CSS.
+                PStack, PGrid, PCluster, PSidebar, and PSwitcher cover the
+                layout jobs that come up again and again.
               </p>
             </div>
             <div class="feature-card">
               <span class="feature-icon" aria-hidden="true">🔷</span>
-              <h3>TypeScript first</h3>
+              <h3>Typed for Vue projects</h3>
               <p>
-                Strict mode, <code>noUncheckedIndexedAccess</code>, and fully
-                typed props and emits across every component.
+                Props, emits, and composables come typed. Nice when your Vue app
+                does too.
               </p>
             </div>
             <div class="feature-card">
               <span class="feature-icon" aria-hidden="true">⚡</span>
-              <h3>Vue 3 modern APIs</h3>
+              <h3>Feels like Vue</h3>
               <p>
-                <code>defineModel()</code>, <code>provide</code>/<code
-                  >inject</code
-                >
-                contexts, and composables — built for Vue 3.5+.
+                Use <code>v-model</code>, slots, providers, and composables
+                with the Pico patterns you already know.
               </p>
             </div>
           </div>
