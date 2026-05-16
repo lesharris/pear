@@ -16,23 +16,17 @@ export const docsMeta = {
 </script>
 
 <script setup lang="ts">
-import { h, ref } from "vue";
+import { h, inject, ref } from "vue";
 import AppStack from "@/components/layout/AppStack.vue";
 import DocsApiTable, { type DocsApiItem } from "@/components/DocsApiTable.vue";
 import DocsExample from "@/components/DocsExample.vue";
 import DocsIntroCard from "@/components/DocsIntroCard.vue";
-import { PButton, PCard, PModal, useModal } from "@ontic/pear";
+import { PButton, PCard, PModal, PModalKey } from "@ontic/pear";
 
 const localModalOpen = ref(false);
 const pinnedModalOpen = ref(false);
 const programmaticResult = ref("No result yet");
-let modal: ReturnType<typeof useModal> | undefined;
-
-try {
-  modal = useModal();
-} catch {
-  // The search prerender can visit this page outside the live app provider.
-}
+const modal = inject(PModalKey, undefined);
 
 async function openProgrammaticModal() {
   if (!modal) {

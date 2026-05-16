@@ -7,6 +7,7 @@ export const docsMeta = {
   tocItems: [
     { id: "overview", label: "Overview" },
     { id: "wrapper", label: "Wrapper" },
+    { id: "text", label: "Text" },
     { id: "component-props", label: "Component Props" },
     { id: "api", label: "API" },
   ],
@@ -29,6 +30,16 @@ const wrapperCode = String.raw`
 <p-tooltip content="Shown on the right" placement="right">
   <a href="#" @click.prevent>Hover link</a>
 </p-tooltip>
+`;
+
+const textCode = String.raw`
+<p>
+  Tooltips also work on
+  <p-tooltip content="Pico adds the dotted underline for us.">
+    inline text
+  </p-tooltip>
+  when a short aside would help.
+</p>
 `;
 
 const propCode = String.raw`
@@ -81,6 +92,22 @@ const tooltipSlots: DocsApiItem[] = [
             <a href="#" @click.prevent>Hover link</a>
           </p-tooltip>
         </AppCluster>
+      </DocsExample>
+    </p-card>
+  </section>
+
+  <section id="text" data-section class="docs-section">
+    <p-card>
+      <template #header>Text</template>
+
+      <DocsExample :code="textCode">
+        <p>
+          Tooltips also work on
+          <p-tooltip content="Pico adds the dotted underline for us.">
+            inline text
+          </p-tooltip>
+          when a short aside would help.
+        </p>
       </DocsExample>
     </p-card>
   </section>
