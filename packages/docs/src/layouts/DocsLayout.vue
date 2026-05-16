@@ -232,6 +232,7 @@ onBeforeUnmount(() => headerObserver?.disconnect());
   display: flex;
   align-items: center;
   gap: 1.25rem;
+  min-width: 0;
 }
 
 main.docs-main {
@@ -269,6 +270,12 @@ main.docs-main {
 @media (max-width: 768px) {
   .docs-header {
     padding: 0 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .docs-nav-right {
+    gap: 0.75rem;
   }
 }
 </style>

@@ -91,6 +91,10 @@ body {
 
 .docs-example-preview {
   min-width: 0;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  contain: paint;
 }
 
 .docs-code {
@@ -136,6 +140,7 @@ body {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
   overflow: auto;
+  contain: paint;
 }
 
 .docs-code-lines {

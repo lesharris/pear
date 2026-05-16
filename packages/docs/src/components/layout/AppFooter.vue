@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { RouterLink } from "vue-router";
-import { ExternalLink, ArrowUpRight } from "lucide-vue-next";
+import { ArrowUpRight } from "lucide-vue-next";
 
 const year = new Date().getFullYear();
 </script>
@@ -8,22 +8,62 @@ const year = new Date().getFullYear();
 <template>
   <footer class="site-footer">
     <div class="footer-inner">
-      <div class="footer-main">
-        <div class="footer-brand">
-          <p class="footer-wordmark" aria-hidden="true">Pear</p>
-        </div>
+      <p class="footer-wordmark" aria-hidden="true">Pear</p>
 
-        <div class="footer-columns">
+      <div class="footer-content">
+        <section class="footer-note" aria-labelledby="footer-title">
+          <h2 id="footer-title">Tiny Vue components, Pico at heart.</h2>
+          <p>
+            Semantic wrappers for the bits Pico already makes nice. Bring your
+            own app, keep the markup kind.
+          </p>
+
+          <div class="footer-actions">
+            <RouterLink to="/docs" class="footer-primary-link">
+              Read the docs
+            </RouterLink>
+            <a
+              href="https://github.com/onticcloud/pear"
+              target="_blank"
+              rel="noreferrer"
+            >
+              GitHub <ArrowUpRight :size="13" class="link-icon" />
+            </a>
+          </div>
+        </section>
+
+        <nav class="footer-link-grid" aria-label="Footer">
+          <div class="footer-col">
+            <p class="footer-col-label">Start</p>
+            <ul>
+              <li><RouterLink to="/docs">Getting Started</RouterLink></li>
+              <li><RouterLink to="/docs/buttons">Buttons</RouterLink></li>
+              <li><RouterLink to="/docs/fields">Fields</RouterLink></li>
+              <li><RouterLink to="/docs/theme-switcher">Theme Switcher</RouterLink></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <p class="footer-col-label">Patterns</p>
+            <ul>
+              <li><RouterLink to="/docs/layout">Layout Primitives</RouterLink></li>
+              <li><RouterLink to="/docs/dropdowns">Dropdowns</RouterLink></li>
+              <li><RouterLink to="/docs/modals">Modals</RouterLink></li>
+              <li><RouterLink to="/docs/tooltips">Tooltips</RouterLink></li>
+            </ul>
+          </div>
+
           <div class="footer-col">
             <p class="footer-col-label">Project</p>
             <ul>
               <li>
-                <a
-                  href="https://github.com/onticcloud/pear"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  GitHub <ArrowUpRight :size="12" class="link-icon" />
+                <a href="https://picocss.com" target="_blank" rel="noreferrer">
+                  Pico CSS <ArrowUpRight :size="12" class="link-icon" />
+                </a>
+              </li>
+              <li>
+                <a href="https://vuejs.org" target="_blank" rel="noreferrer">
+                  Vue 3 <ArrowUpRight :size="12" class="link-icon" />
                 </a>
               </li>
               <li>
@@ -37,45 +77,13 @@ const year = new Date().getFullYear();
               </li>
             </ul>
           </div>
+        </nav>
 
-          <div class="footer-col">
-            <p class="footer-col-label">Components</p>
-            <ul>
-              <li><RouterLink to="/docs/buttons">Buttons</RouterLink></li>
-              <li><RouterLink to="/docs/text-inputs">Inputs</RouterLink></li>
-              <li><RouterLink to="/docs/selects">Selects</RouterLink></li>
-              <li><RouterLink to="/docs/layout">Layout</RouterLink></li>
-              <li><RouterLink to="/docs/modals">Modals</RouterLink></li>
-            </ul>
-          </div>
-
-          <div class="footer-col">
-            <p class="footer-col-label">Built with</p>
-            <ul>
-              <li>
-                <a href="https://picocss.com" target="_blank" rel="noreferrer">
-                  Pico CSS <ArrowUpRight :size="12" class="link-icon" />
-                </a>
-              </li>
-              <li>
-                <a href="https://vuejs.org" target="_blank" rel="noreferrer">
-                  Vue 3 <ArrowUpRight :size="12" class="link-icon" />
-                </a>
-              </li>
-              <li>
-                <a href="https://lucide.dev" target="_blank" rel="noreferrer">
-                  Lucide Icons <ArrowUpRight :size="12" class="link-icon" />
-                </a>
-              </li>
-            </ul>
-          </div>
+        <div class="footer-bottom">
+          <p class="footer-copy">
+            &copy; {{ year }} Les Harris. Made with Vue and Pico CSS.
+          </p>
         </div>
-      </div>
-
-      <div class="footer-bottom">
-        <p class="footer-copy">
-          &copy; {{ year }} Les Harris &mdash; MIT License
-        </p>
       </div>
     </div>
 
@@ -98,22 +106,16 @@ const year = new Date().getFullYear();
 }
 
 .footer-inner {
+  position: relative;
   max-width: 72rem;
   margin: 0 auto;
-  padding: 3.5rem 2rem 1.75rem;
+  padding: 3.25rem 2rem 1.75rem;
 }
 
-/* ── Main zone: brand + columns ── */
-.footer-main {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 3rem;
-  align-items: start;
-  margin-bottom: 3rem;
-}
-
-/* ── Wordmark ── */
 .footer-wordmark {
+  position: absolute;
+  top: 3.35rem;
+  left: 2rem;
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 700;
@@ -125,6 +127,53 @@ const year = new Date().getFullYear();
   opacity: 0.12;
   user-select: none;
   pointer-events: none;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: minmax(16rem, 1fr) minmax(26rem, 1.35fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: start;
+  margin-left: min(15rem, 22vw);
+}
+
+.footer-note {
+  max-width: 26rem;
+}
+
+.footer-note h2 {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  line-height: 1.05;
+  margin: 0;
+}
+
+.footer-note p {
+  margin: 0.8rem 0 0;
+  color: var(--pico-muted-color);
+  line-height: 1.6;
+}
+
+.footer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+  align-items: center;
+  margin-top: 1.25rem;
+}
+
+.footer-actions a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.footer-primary-link {
+  color: var(--pico-primary);
 }
 
 /* ── Peeking mascot ── */
@@ -152,11 +201,11 @@ const year = new Date().getFullYear();
   mix-blend-mode: multiply;
 }
 
-/* ── Link columns ── */
-.footer-columns {
+.footer-link-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
+  gap: 1.5rem;
+  padding-top: 0.25rem;
 }
 
 .footer-col-label {
@@ -175,23 +224,28 @@ const year = new Date().getFullYear();
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
+  align-items: flex-start;
 }
 
-.footer-col li {
+.site-footer .footer-link-grid .footer-col li {
   margin: 0;
+  padding: 0;
 }
 
-.footer-col a {
+.site-footer .footer-link-grid .footer-col a {
   font-size: 0.875rem;
   color: var(--pico-muted-color);
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   gap: 0.2rem;
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
   transition: color 0.15s;
 }
 
-.footer-col a:hover {
+.site-footer .footer-link-grid .footer-col a:hover {
   color: var(--pico-primary);
   text-decoration: none;
 }
@@ -211,10 +265,13 @@ const year = new Date().getFullYear();
 
 /* ── Bottom bar ── */
 .footer-bottom {
+  grid-column: 1 / -1;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   padding-top: 1.25rem;
+  margin-top: 2rem;
+  border-top: 1px solid color-mix(in srgb, var(--pico-muted-border-color) 70%, transparent);
   gap: 1rem;
   flex-wrap: wrap;
 }
@@ -241,17 +298,22 @@ const year = new Date().getFullYear();
 }
 
 /* ── Responsive ── */
-@media (max-width: 760px) {
-  .footer-main {
+@media (max-width: 900px) {
+  .footer-content {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    margin-left: 0;
+    padding-top: 5.5rem;
+  }
+
+  .footer-note {
+    max-width: 34rem;
   }
 
   .footer-wordmark {
     font-size: 5rem;
   }
 
-  .footer-columns {
+  .footer-link-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
   }
@@ -262,7 +324,11 @@ const year = new Date().getFullYear();
     padding: 2.5rem 1.25rem 1.25rem;
   }
 
-  .footer-columns {
+  .footer-content {
+    padding-top: 4.5rem;
+  }
+
+  .footer-link-grid {
     grid-template-columns: 1fr 1fr;
   }
 
@@ -272,7 +338,7 @@ const year = new Date().getFullYear();
 }
 
 @media (max-width: 380px) {
-  .footer-columns {
+  .footer-link-grid {
     grid-template-columns: 1fr;
   }
 }
