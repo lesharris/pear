@@ -9,7 +9,7 @@ export const docsMeta = {
     { id: "intro", label: "Getting Started" },
     { id: "install", label: "Installation" },
     { id: "pico", label: "Pico CSS" },
-    { id: "theming", label: "Accent Color" },
+    { id: "theming", label: "Theming" },
   ],
 } satisfies DocsMeta;
 </script>
@@ -53,20 +53,20 @@ const themingCode = String.raw`
 /* Light mode */
 [data-theme="light"],
 :root:not([data-theme="dark"]) {
-  --pico-primary:                  #0172ad; /* link / text accent            */
-  --pico-primary-background:       #0172ad; /* button / switch / progress bg */
+  --pico-primary:                  #0172ad;
+  --pico-primary-background:       #0172ad;
   --pico-primary-border:           var(--pico-primary-background);
   --pico-primary-underline:        rgba(1, 114, 173, 0.5);
-  --pico-primary-hover:            #015887; /* hover text / link             */
-  --pico-primary-hover-background: #02659a; /* hover button bg               */
+  --pico-primary-hover:            #015887;
+  --pico-primary-hover-background: #02659a;
   --pico-primary-hover-border:     var(--pico-primary-hover-background);
   --pico-primary-hover-underline:  var(--pico-primary-hover);
-  --pico-primary-focus:            rgba(2, 154, 232, 0.5);  /* focus ring    */
-  --pico-primary-inverse:          #fff;    /* text color on filled buttons   */
-  --pico-text-selection-color:     rgba(2, 154, 232, 0.25); /* ::selection   */
+  --pico-primary-focus:            rgba(2, 154, 232, 0.5);
+  --pico-primary-inverse:          #fff;
+  --pico-text-selection-color:     rgba(2, 154, 232, 0.25);
 }
 
-/* Dark mode — explicit (useTheme sets data-theme="dark") */
+/* Dark mode */
 [data-theme="dark"] {
   --pico-primary:                  #01aaff;
   --pico-primary-background:       #0172ad;
@@ -80,23 +80,15 @@ const themingCode = String.raw`
   --pico-primary-inverse:          #fff;
   --pico-text-selection-color:     rgba(1, 170, 255, 0.1875);
 }
+`;
 
-/* Dark mode — system (useTheme removes data-theme, OS preference applies) */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) {
-    --pico-primary:                  #01aaff;
-    --pico-primary-background:       #0172ad;
-    --pico-primary-border:           var(--pico-primary-background);
-    --pico-primary-underline:        rgba(1, 170, 255, 0.5);
-    --pico-primary-hover:            #79c0ff;
-    --pico-primary-hover-background: #017fc0;
-    --pico-primary-hover-border:     var(--pico-primary-hover-background);
-    --pico-primary-hover-underline:  var(--pico-primary-hover);
-    --pico-primary-focus:            rgba(1, 170, 255, 0.375);
-    --pico-primary-inverse:          #fff;
-    --pico-text-selection-color:     rgba(1, 170, 255, 0.1875);
-  }
-}
+const themeToggleCode = String.raw`
+import { useTheme } from "@ontic/pear";
+
+const { theme, toggleTheme } = useTheme();
+
+theme.value = "dark"; // "light" | "dark"
+toggleTheme();
 `;
 </script>
 
@@ -165,24 +157,27 @@ const themingCode = String.raw`
 
   <section id="theming" data-section class="docs-section">
     <p-card>
-      <template #header>Defining Your Own Themes</template>
+      <template #header>Theming</template>
 
       <AppStack>
         <p>
-          Pear ships with Pico's azure accent. The colors are just CSS custom
-          properties, so you can swap them in your own stylesheet. Load your
-          theme after <code>@ontic/pear/style.css</code>.
+          Pear follows Pico here: theme colors are CSS custom properties. Load
+          your theme after <code>@ontic/pear/style.css</code>, then override the
+          Pico variables you care about.
         </p>
         <p>
-          If you use <code>useTheme</code>, cover all three cases: explicit
-          light, explicit dark, and system mode. System mode removes the
-          <code>data-theme</code> attribute so Pico can follow the OS setting.
+          <code>PThemeSwitcher</code> and <code>useTheme</code> only deal in
+          <code>light</code> and <code>dark</code>. If the user has not picked
+          one yet, Pear starts with their OS preference and then stores whatever
+          they choose.
         </p>
         <p>
-          Keep an eye on <code>--pico-primary-inverse</code>. That is the text
-          color on filled primary buttons. Most accents want <code>#fff</code>;
-          very bright accents usually want <code>#000</code>.
+          The main knob is usually <code>--pico-primary</code>. If you change
+          filled button colors, check <code>--pico-primary-inverse</code> too.
+          Most accents want <code>#fff</code>; very bright accents usually want
+          <code>#000</code>.
         </p>
+        <DocsExample :code="themeToggleCode" language="ts" title="Theme state" />
         <DocsExample :code="themingCode" language="css" title="your-theme.css" />
       </AppStack>
     </p-card>
