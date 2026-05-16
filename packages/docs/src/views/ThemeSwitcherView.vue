@@ -27,24 +27,26 @@ const switcherCode = String.raw`
 const composableCode = String.raw`
 import { useTheme } from "@ontic/pear";
 
-const { theme } = useTheme();
+const { theme, toggleTheme } = useTheme();
 
 theme.value = "dark";
+toggleTheme();
 `;
 
 const themeApi: DocsApiItem[] = [
-  { name: "PThemeSwitcher", type: "component", description: "Renders system, light, and dark icon buttons in a group." },
-  { name: "useTheme", type: "() => { theme: Ref<'system' | 'light' | 'dark'> }", description: "Reads and writes the current theme." },
+  { name: "PThemeSwitcher", type: "component", description: "Renders a light/dark theme toggle button." },
+  { name: "useTheme", type: "() => { theme: Ref<'light' | 'dark'>, toggleTheme: () => void }", description: "Reads, writes, and toggles the current theme." },
   { name: "storage", type: "'pear-theme'", description: "Theme preference is persisted to localStorage when available." },
-  { name: "document attribute", type: "data-theme", description: "Light and dark set documentElement data-theme. System removes it." },
+  { name: "document attribute", type: "data-theme", description: "The current theme is written to documentElement." },
+  { name: "default", type: "prefers-color-scheme", description: "When storage is empty, Pear starts with the user's OS preference." },
 ];
 </script>
 
 <template>
   <section id="overview" data-section class="docs-section">
     <DocsIntroCard name="PThemeSwitcher">
-      <code>PThemeSwitcher</code> gives users system, light, and dark buttons.
-      Use <code>useTheme</code> when you want to set the same value yourself.
+      <code>PThemeSwitcher</code> gives users a light/dark toggle. Use
+      <code>useTheme</code> when you want to read or set the same value yourself.
     </DocsIntroCard>
   </section>
 

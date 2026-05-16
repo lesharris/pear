@@ -22,30 +22,10 @@
   --docs-toc-rail: #8891a4;
 }
 
-/* ── Dark (explicit) ────────────────────────────────────────────────────── */
+/* ── Dark ───────────────────────────────────────────────────────────────── */
 [data-theme="dark"] {
   --pico-muted-color: #8891a4;
 
   /* TOC inactive rail border — --pico-muted-border-color is 1.19:1 (fails 3:1 UI) */
   --docs-toc-rail: #5d6b89;
-}
-
-/* ── Dark (system preference) ───────────────────────────────────────────── */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) {
-    --pico-muted-color: #8891a4;
-    --pico-h6-color: #8891a4;
-    --pico-primary:                  #01aaff;
-    --pico-primary-background:       #0172ad;
-    --pico-primary-border:           var(--pico-primary-background);
-    --pico-primary-underline:        rgba(1, 170, 255, 0.5);
-    --pico-primary-hover:            #79c0ff;
-    --pico-primary-hover-background: #017fc0;
-    --pico-primary-hover-border:     var(--pico-primary-hover-background);
-    --pico-primary-hover-underline:  var(--pico-primary-hover);
-    --pico-primary-focus:            rgba(1, 170, 255, 0.375);
-    --pico-primary-inverse:          #fff;
-    --pico-text-selection-color:     rgba(1, 170, 255, 0.1875);
-    --docs-toc-rail: #5d6b89;
-  }
 }

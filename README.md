@@ -93,9 +93,10 @@ const email = ref('')
 ```ts
 import { useTheme } from '@ontic/pear'
 
-const { theme } = useTheme()
+const { theme, toggleTheme } = useTheme()
 
-theme.value = 'dark'   // 'light' | 'dark' | 'system'
+theme.value = 'dark'   // 'light' | 'dark'
+toggleTheme()
 ```
 
 ### Imperative modals

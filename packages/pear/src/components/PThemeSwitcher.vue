@@ -1,75 +1,104 @@
 <script setup lang="ts">
-import { Monitor, Sun, Moon } from 'lucide-vue-next'
-import { useTheme, type Theme } from '@/lib/useTheme'
+import { computed } from 'vue'
+import { Sun, Moon } from 'lucide-vue-next'
+import { useTheme } from '@/lib/useTheme'
 
-const { theme } = useTheme()
+const { theme, toggleTheme } = useTheme()
 
-const options: { value: Theme; icon: typeof Monitor; label: string }[] = [
-  { value: 'system', icon: Monitor, label: 'System theme' },
-  { value: 'light',  icon: Sun,     label: 'Light theme'  },
-  { value: 'dark',   icon: Moon,    label: 'Dark theme'   },
-]
+const nextTheme = computed(() => theme.value === 'dark' ? 'light' : 'dark')
+const label = computed(() => `Switch to ${nextTheme.value} theme`)
+const icon = computed(() => theme.value === 'dark' ? Moon : Sun)
 </script>
 
 <template>
-  <div class="theme-switcher" role="group" aria-label="Color scheme">
-    <button
-      v-for="opt in options"
-      :key="opt.value"
-      type="button"
-      class="theme-btn"
-      :class="{ active: theme === opt.value }"
-      :aria-pressed="theme === opt.value"
-      :aria-label="opt.label"
-      :data-tooltip="opt.label"
-      data-placement="bottom"
-      @click="theme = opt.value"
-    >
-      <component :is="opt.icon" :size="16" :stroke-width="2" aria-hidden="true" />
-    </button>
-  </div>
+  <button
+    type="button"
+    class="theme-switcher"
+    :class="`theme-switcher--${theme}`"
+    :aria-label="label"
+    :aria-pressed="theme === 'dark'"
+    :data-tooltip="label"
+    data-placement="bottom"
+    @click="toggleTheme"
+  >
+    <span class="theme-switcher__track" aria-hidden="true">
+      <span class="theme-switcher__thumb">
+        <component :is="icon" :size="15" :stroke-width="2.25" />
+      </span>
+    </span>
+  </button>
 </template>
 
 <style scoped>
 .theme-switcher {
-  display: flex;
-  align-items: center;
-  margin-block: auto;
-  gap: 0.125rem;
-  background: var(--pico-card-sectionning-background-color);
-  border: 1px solid var(--pico-muted-border-color);
-  border-radius: var(--pico-border-radius);
-  padding: 0.2rem;
-}
-
-.theme-switcher .theme-btn {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2rem;
-  height: 2rem;
+  flex: 0 0 auto;
+  margin-block: auto;
+  width: 3.25rem;
+  height: 1.75rem;
+  min-width: 3.25rem;
   padding: 0;
   margin-bottom: 0;
-  border: 1px solid transparent;
-  border-radius: calc(var(--pico-border-radius) - 2px);
   background: transparent;
+  border: 0;
+  border-radius: 999px;
   color: var(--pico-muted-color);
   cursor: pointer;
-  transition: color 0.15s, background-color 0.15s, border-color 0.15s;
+  line-height: 1;
+  vertical-align: middle;
+  transition: color 0.15s;
 }
 
-.theme-switcher .theme-btn:hover {
+.theme-switcher :deep(svg) {
+  display: block;
+  flex: 0 0 auto;
+}
+
+.theme-switcher__track {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--pico-muted-border-color);
+  border-radius: inherit;
+  background: var(--pico-card-sectionning-background-color);
+  transition: background-color 0.15s, border-color 0.15s;
+}
+
+.theme-switcher__thumb {
+  position: absolute;
+  top: 50%;
+  left: 0.2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.35rem;
+  height: 1.35rem;
+  border-radius: 50%;
+  background: #fff7d1;
+  color: #8a4b00;
+  box-shadow: 0 1px 4px color-mix(in srgb, var(--pico-color) 18%, transparent);
+  transform: translate(0, -50%);
+  transition: transform 0.18s ease, color 0.15s, background-color 0.15s;
+}
+
+.theme-switcher--dark .theme-switcher__track {
+  background: color-mix(in srgb, var(--pico-primary) 16%, var(--pico-card-sectionning-background-color));
+}
+
+.theme-switcher--dark .theme-switcher__thumb {
+  background: #263244;
+  color: #dbe7ff;
+  transform: translate(1.5rem, -50%);
+}
+
+.theme-switcher:hover {
   color: var(--pico-color);
-  background: var(--pico-background-color);
 }
 
-.theme-switcher .theme-btn.active {
-  background: var(--pico-primary);
+.theme-switcher:hover .theme-switcher__track {
   border-color: var(--pico-primary);
-  color: var(--pico-primary-inverse);
-}
-
-.theme-switcher .theme-btn.active:hover {
-  color: var(--pico-primary-inverse);
 }
 </style>
