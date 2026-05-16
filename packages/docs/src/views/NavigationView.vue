@@ -64,7 +64,7 @@ const navSlots: DocsApiItem[] = [
     <p-card>
       <template #header>Balanced Nav</template>
 
-      <DocsExample :code="balancedNavCode">
+      <DocsExample :code="balancedNavCode" preview-overflow="visible">
         <p-nav>
           <template #left>
             <p-nav-item><strong>Pear</strong></p-nav-item>
@@ -85,7 +85,7 @@ const navSlots: DocsApiItem[] = [
     <p-card>
       <template #header>Simple List</template>
 
-      <DocsExample :code="simpleListCode">
+      <DocsExample :code="simpleListCode" preview-overflow="visible">
         <p-nav>
           <p-nav-item><a href="#" @click.prevent>Overview</a></p-nav-item>
           <p-nav-item><a href="#" @click.prevent>Guides</a></p-nav-item>

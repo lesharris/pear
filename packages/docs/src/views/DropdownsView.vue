@@ -126,7 +126,7 @@ function runAction(action: string) {
     <p-card>
       <template #header>Action Menu</template>
 
-      <DocsExample :code="actionMenuCode">
+      <DocsExample :code="actionMenuCode" preview-overflow="visible">
         <AppStack gap="0.75rem">
           <p-dropdown v-model:open="actionMenuOpen" summary="Project actions">
             <li>
@@ -156,7 +156,7 @@ function runAction(action: string) {
     <p-card>
       <template #header>Navigation Menu</template>
 
-      <DocsExample :code="navigationMenuCode">
+      <DocsExample :code="navigationMenuCode" preview-overflow="visible">
         <p-dropdown summary="Documentation">
           <li><a href="/docs/buttons" @click.prevent>Buttons</a></li>
           <li><a href="/docs/fields" @click.prevent>Forms</a></li>
@@ -170,7 +170,7 @@ function runAction(action: string) {
     <p-card>
       <template #header>Button Variants</template>
 
-      <DocsExample :code="buttonVariantsCode">
+      <DocsExample :code="buttonVariantsCode" preview-overflow="visible">
         <AppCluster>
           <p-dropdown summary="Primary" button>
             <li><a href="#" @click.prevent>Edit</a></li>
@@ -196,7 +196,7 @@ function runAction(action: string) {
       <template #header>State & Alignment</template>
 
       <AppStack>
-        <DocsExample :code="stateAlignmentCode">
+        <DocsExample :code="stateAlignmentCode" preview-overflow="visible">
           <AppCluster>
             <p-dropdown v-model:open="menuOpen" summary="Controlled menu">
               <li><a href="#" @click.prevent>First action</a></li>
