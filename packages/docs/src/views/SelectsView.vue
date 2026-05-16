@@ -92,8 +92,9 @@ const selectEvents: DocsApiItem[] = [
 <template>
   <section id="overview" data-section class="docs-section">
     <DocsIntroCard name="PSelect">
-      <code>PSelect</code> wraps native select controls with option arrays,
-      object option mapping, multiple selection, and field-context support.
+      <code>PSelect</code> is the Pear wrapper for native selects. It handles
+      simple option arrays, object options, multiple selection, and field
+      context. If you want a tiny action menu, use <code>PDropdown</code>.
     </DocsIntroCard>
   </section>
 

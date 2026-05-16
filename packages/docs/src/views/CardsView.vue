@@ -3,7 +3,7 @@ import type { DocsMeta } from "@/types/docs";
 
 export const docsMeta = {
   title: "Cards | Pear",
-  description: "Card structure examples for Pear's Pico-compatible article wrapper.",
+  description: "Card examples for Pear's small wrapper around Pico article markup.",
   tocItems: [
     { id: "overview", label: "Overview" },
     { id: "basic-card", label: "Basic Card" },
@@ -55,14 +55,14 @@ const cardSlots: DocsApiItem[] = [
 <template>
   <section id="overview" data-section class="docs-section">
     <DocsIntroCard name="PCard">
-      <code>PCard</code> renders Pico-compatible article markup with optional
-      header and footer slots for sectioned content.
+      <code>PCard</code> is a small wrapper around Pico's article pattern. Add
+      header and footer slots when the card needs clear sections.
     </DocsIntroCard>
   </section>
 
   <section id="basic-card" data-section class="docs-section">
-    <p-card>
-      <template #header>Basic Card</template>
+    <AppStack>
+      <h2>Basic Card</h2>
 
       <DocsExample :code="basicCardCode">
         <p-card>
@@ -72,12 +72,12 @@ const cardSlots: DocsApiItem[] = [
           </p>
         </p-card>
       </DocsExample>
-    </p-card>
+    </AppStack>
   </section>
 
   <section id="sections" data-section class="docs-section">
-    <p-card>
-      <template #header>Header & Footer</template>
+    <AppStack>
+      <h2>Header & Footer</h2>
 
       <DocsExample :code="cardSectionsCode">
         <p-card>
@@ -95,7 +95,7 @@ const cardSlots: DocsApiItem[] = [
           </template>
         </p-card>
       </DocsExample>
-    </p-card>
+    </AppStack>
   </section>
 
   <section id="api" data-section class="docs-section">

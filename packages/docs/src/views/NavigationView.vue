@@ -54,9 +54,9 @@ const navSlots: DocsApiItem[] = [
 <template>
   <section id="overview" data-section class="docs-section">
     <DocsIntroCard name="PNav & PNavItem">
-      <code>PNav</code> renders Pico-compatible navigation lists, while
-      <code>PNavItem</code> provides the native list item wrapper for links,
-      brand content, and actions.
+      <code>PNav</code> gives you Pico-style nav lists. Use
+      <code>PNavItem</code> for the list items around links, brand bits, and
+      small actions.
     </DocsIntroCard>
   </section>
 

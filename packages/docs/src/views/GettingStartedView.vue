@@ -110,12 +110,12 @@ const themingCode = String.raw`
           Pear is a Vue 3 component library wrapping
           <a href="https://picocss.com" target="_blank" rel="noreferrer"
             >Pico CSS</a
-          >. It provides semantic HTML wrapper components that leverage Pico's
-          class-light styling approach.
+          >. It gives the Pico patterns you already use a little Vue wiring:
+          models, ids, labels, slots, and a few small layout helpers.
         </p>
         <p>
-          Use Pear components where they remove repetitive Vue wiring, and keep
-          using Pico classes directly for ordinary semantic layout and prose.
+          Reach for Pear when it saves you from repeating glue code. Keep using
+          regular HTML and Pico classes for everything else.
         </p>
       </AppStack>
     </p-card>
@@ -144,8 +144,8 @@ const themingCode = String.raw`
 
       <AppStack>
         <p>
-          Pear imports Pico with <code>#app</code> as the semantic root, so Pico
-          styles apply inside the Vue app without requiring a class on every
+          Pear imports Pico with <code>#app</code> as the semantic root. Pico
+          styles apply inside the Vue app, so you do not need a class on every
           element.
         </p>
 
@@ -170,22 +170,19 @@ const themingCode = String.raw`
 
       <AppStack>
         <p>
-          Pear ships with azure as the default accent. All primary colors are
-          CSS custom properties, so you can swap the accent by overriding them
-          in your own stylesheet. All PicoCSS CSS variables are supported since that is what is doing the actual styling. It should be loaded after
-          <code>@ontic/pear/style.css</code> wherever you load that.
+          Pear ships with Pico's azure accent. The colors are just CSS custom
+          properties, so you can swap them in your own stylesheet. Load your
+          theme after <code>@ontic/pear/style.css</code>.
         </p>
         <p>
-          Three selector blocks are needed because <code>useTheme</code> sets
-          <code>data-theme="light"</code> or <code>data-theme="dark"</code> for
-          explicit choices, and removes the attribute entirely when following the
-          system preference.
+          If you use <code>useTheme</code>, cover all three cases: explicit
+          light, explicit dark, and system mode. System mode removes the
+          <code>data-theme</code> attribute so Pico can follow the OS setting.
         </p>
         <p>
-          One variable worth noting: <code>--pico-primary-inverse</code> is the
-          text color rendered on top of filled primary buttons. Use
-          <code>#fff</code> for most colors; use <code>#000</code> for bright
-          accents like amber, lime, yellow, and pumpkin.
+          Keep an eye on <code>--pico-primary-inverse</code>. That is the text
+          color on filled primary buttons. Most accents want <code>#fff</code>;
+          very bright accents usually want <code>#000</code>.
         </p>
         <DocsExample :code="themingCode" language="css" title="your-theme.css" />
       </AppStack>

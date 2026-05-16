@@ -80,9 +80,9 @@ const buttonEvents: DocsApiItem[] = [
 <template>
   <section id="overview" data-section class="docs-section">
     <DocsIntroCard name="PButton">
-      <code>PButton</code> renders Pico-compatible button markup with small Vue
-      conveniences for variants, loading state, submit/reset modes, and
-      tooltips.
+      <code>PButton</code> is the everyday button wrapper. It keeps Pico's
+      button styles and adds a few Vue niceties: variants, loading state,
+      submit/reset modes, and tooltips.
     </DocsIntroCard>
   </section>
 

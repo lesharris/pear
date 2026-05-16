@@ -28,9 +28,10 @@ const modal = useModal();
 function openProgrammaticModal() {
   modal.open({
     title: "Programmatic modal",
+    description: "This modal was opened through the modal provider instead of local v-model state.",
     component: {
       render() {
-        return h("p", "This modal was opened through the modal provider instead of local v-model state.");
+        return h("p", "Provider modals can also render custom Vue components.");
       },
     },
     actions: [
@@ -72,6 +73,7 @@ const modal = useModal();
 
 modal.open({
   title: "Programmatic modal",
+  description: "Optional body copy rendered before custom component content.",
   component: MyModalBody,
   actions: [
     { label: "Cancel", variant: "secondary" },
@@ -98,7 +100,7 @@ const modalEvents: DocsApiItem[] = [
 
 const modalProviderApi: DocsApiItem[] = [
   { name: "PModalProvider", type: "component", description: "Provides programmatic modal context to child components." },
-  { name: "useModal().open", type: "(options: PModalOptions) => void", description: "Opens a provider-managed modal." },
+  { name: "useModal().open", type: "(options: PModalOptions) => void", description: "Opens a provider-managed modal with an optional title, description, component, props, actions, and backdrop behavior." },
   { name: "useModal().close", type: "() => void", description: "Closes the provider-managed modal." },
 ];
 </script>

@@ -18,7 +18,6 @@ export const docsMeta = {
 
 <script setup lang="ts">
 import { computed, ref } from "vue";
-import AppBox from "@/components/layout/AppBox.vue";
 import AppGrid from "@/components/layout/AppGrid.vue";
 import AppStack from "@/components/layout/AppStack.vue";
 import DocsApiTable, { type DocsApiItem } from "@/components/DocsApiTable.vue";
@@ -58,31 +57,43 @@ const selectAllFeatures = computed({
 });
 
 const checkboxCode = String.raw`
-<p-checkbox v-model="acceptedTerms" name="accepted-terms">
-  I agree to the terms
-</p-checkbox>
+<fieldset>
+  <legend>Agreement</legend>
+  <p-checkbox v-model="acceptedTerms" name="accepted-terms">
+    I agree to the terms
+  </p-checkbox>
+</fieldset>
 
-<p-checkbox v-model="notificationSwitch" name="notifications" switch>
-  Enable notifications
-</p-checkbox>
+<fieldset>
+  <legend>Notifications</legend>
+  <p-checkbox v-model="notificationSwitch" name="notifications" switch>
+    Enable notifications
+  </p-checkbox>
+</fieldset>
 `;
 
 const checkboxGroupCode = String.raw`
-<p-checkbox v-model="selectedFeatures" name="features" value="api">
-  API access
-</p-checkbox>
-<p-checkbox v-model="selectedFeatures" name="features" value="reports">
-  Reports
-</p-checkbox>
+<fieldset>
+  <legend>Features</legend>
+  <p-checkbox v-model="selectedFeatures" name="features" value="api">
+    API access
+  </p-checkbox>
+  <p-checkbox v-model="selectedFeatures" name="features" value="reports">
+    Reports
+  </p-checkbox>
+</fieldset>
 `;
 
 const radioCode = String.raw`
-<p-radio v-model="contactPreference" name="contact-preference" value="email">
-  Email
-</p-radio>
-<p-radio v-model="contactPreference" name="contact-preference" value="phone">
-  Phone
-</p-radio>
+<fieldset>
+  <legend>Contact preference</legend>
+  <p-radio v-model="contactPreference" name="contact-preference" value="email">
+    Email
+  </p-radio>
+  <p-radio v-model="contactPreference" name="contact-preference" value="phone">
+    Phone
+  </p-radio>
+</fieldset>
 `;
 
 const checkboxProps: DocsApiItem[] = [
@@ -126,34 +137,31 @@ const choiceEvents: DocsApiItem[] = [
 
           <DocsExample :code="checkboxCode">
             <AppGrid min="18rem">
-              <AppBox padding="0">
+              <fieldset>
+                <legend>Agreement</legend>
                 <AppStack>
-                  <h5>Checkbox</h5>
-
                   <p-checkbox v-model="acceptedTerms" name="accepted-terms">
                     I agree to the terms
                   </p-checkbox>
                 </AppStack>
-              </AppBox>
+              </fieldset>
 
-              <AppBox padding="0">
+              <fieldset>
+                <legend>Notifications</legend>
                 <AppStack>
-                  <h5>Switch</h5>
-
                   <p-checkbox v-model="notificationSwitch" name="notifications" switch>
                     Enable notifications
                   </p-checkbox>
                 </AppStack>
-              </AppBox>
+              </fieldset>
 
-              <AppBox padding="0">
+              <fieldset disabled>
+                <legend>Disabled states</legend>
                 <AppStack>
-                  <h5>Disabled states</h5>
-
                   <p-checkbox disabled>Disabled checkbox</p-checkbox>
                   <p-checkbox switch disabled>Disabled switch</p-checkbox>
                 </AppStack>
-              </AppBox>
+              </fieldset>
             </AppGrid>
           </DocsExample>
         </p-card>
@@ -165,10 +173,9 @@ const choiceEvents: DocsApiItem[] = [
 
           <DocsExample :code="checkboxGroupCode">
             <AppGrid min="18rem">
-            <AppBox padding="0">
+            <fieldset>
+              <legend>Features</legend>
               <AppStack>
-                <h5>Basic group</h5>
-
                 <p-checkbox v-model="selectedFeatures" name="features" value="api">
                   API access
                 </p-checkbox>
@@ -179,12 +186,11 @@ const choiceEvents: DocsApiItem[] = [
                   Exports
                 </p-checkbox>
               </AppStack>
-            </AppBox>
+            </fieldset>
 
-            <AppBox padding="0">
+            <fieldset>
+              <legend>Select all</legend>
               <AppStack>
-                <h5>Select all / indeterminate</h5>
-
                 <p-checkbox
                   v-model="selectAllFeatures"
                   name="select-all-features"
@@ -203,7 +209,7 @@ const choiceEvents: DocsApiItem[] = [
                   {{ feature.label }}
                 </p-checkbox>
               </AppStack>
-            </AppBox>
+            </fieldset>
             </AppGrid>
           </DocsExample>
         </p-card>
@@ -222,10 +228,9 @@ const choiceEvents: DocsApiItem[] = [
 
           <DocsExample :code="radioCode">
             <AppGrid min="18rem">
-            <AppBox padding="0">
+            <fieldset>
+              <legend>Contact preference</legend>
               <AppStack>
-                <h5>Basic radio group</h5>
-
                 <p-radio v-model="contactPreference" name="contact-preference" value="email">
                   Email
                 </p-radio>
@@ -236,17 +241,16 @@ const choiceEvents: DocsApiItem[] = [
                   Mail
                 </p-radio>
               </AppStack>
-            </AppBox>
+            </fieldset>
 
-            <AppBox padding="0">
+            <fieldset disabled>
+              <legend>Disabled</legend>
               <AppStack>
-                <h5>Disabled</h5>
-
                 <p-radio v-model="disabledChoice" name="disabled-choice" value="disabled" disabled>
                   Disabled radio
                 </p-radio>
               </AppStack>
-            </AppBox>
+            </fieldset>
             </AppGrid>
           </DocsExample>
         </p-card>

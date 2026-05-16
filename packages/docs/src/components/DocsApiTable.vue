@@ -39,3 +39,51 @@ defineProps<{
     </table>
   </div>
 </template>
+
+<style scoped>
+.docs-api-table {
+  overflow-x: auto;
+}
+
+.docs-api-table table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.docs-api-table th,
+.docs-api-table td {
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+
+.docs-api-table th:nth-child(1),
+.docs-api-table td:nth-child(1) {
+  width: 22%;
+}
+
+.docs-api-table th:nth-child(2),
+.docs-api-table td:nth-child(2) {
+  width: 28%;
+}
+
+.docs-api-table th:nth-child(3),
+.docs-api-table td:nth-child(3) {
+  width: 14%;
+}
+
+.docs-api-table th:nth-child(4),
+.docs-api-table td:nth-child(4) {
+  width: 36%;
+}
+
+.docs-api-table code {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 700px) {
+  .docs-api-table table {
+    min-width: 38rem;
+  }
+}
+</style>

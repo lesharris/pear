@@ -51,8 +51,8 @@ const progressProps: DocsApiItem[] = [
 <template>
   <section id="overview" data-section class="docs-section">
     <DocsIntroCard name="PProgress">
-      <code>PProgress</code> renders Pico-compatible native progress elements
-      for determinate and indeterminate loading states.
+      <code>PProgress</code> wraps the native progress element for regular
+      progress bars and indeterminate loading states.
     </DocsIntroCard>
   </section>
 

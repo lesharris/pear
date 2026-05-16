@@ -37,14 +37,30 @@ const buttonGroupCode = String.raw`
 
 const fieldGroupCode = String.raw`
 <p-group as="fieldset">
-  <p-input v-model="firstName" name="first-name" placeholder="First name" />
-  <p-input v-model="lastName" name="last-name" placeholder="Last name" />
+  <p-input
+    v-model="firstName"
+    name="first-name"
+    placeholder="First name"
+    aria-label="First name"
+  />
+  <p-input
+    v-model="lastName"
+    name="last-name"
+    placeholder="Last name"
+    aria-label="Last name"
+  />
 </p-group>
 `;
 
 const searchGroupCode = String.raw`
 <p-group as="form" role="search" @submit.prevent>
-  <p-input v-model="siteSearch" type="search" name="q" placeholder="Search" />
+  <p-input
+    v-model="siteSearch"
+    type="search"
+    name="q"
+    placeholder="Search"
+    aria-label="Search"
+  />
   <p-button type="submit" value="Search" />
 </p-group>
 `;
@@ -66,8 +82,9 @@ const groupEvents: DocsApiItem[] = [
 <template>
   <section id="overview" data-section class="docs-section">
     <DocsIntroCard name="PGroup">
-      <code>PGroup</code> renders Pico-compatible grouped controls as a div,
-      fieldset, or form with the appropriate group or search role.
+      <code>PGroup</code> keeps related controls snug together. It can render
+      as a div, fieldset, or form, which makes it handy for button groups and
+      compact search fields.
     </DocsIntroCard>
   </section>
 

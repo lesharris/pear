@@ -4,7 +4,7 @@ import type { DocsMeta } from "@/types/docs";
 export const docsMeta = {
   title: "Fields | Pear",
   description:
-    "Field labels, helper text, validation messages, and disabled field context in Pear.",
+    "Single-control field labels, helper text, validation messages, and disabled field context in Pear.",
   tocItems: [
     { id: "overview", label: "Overview" },
     { id: "basic-field", label: "Basic Field" },
@@ -70,15 +70,16 @@ const fieldProps: DocsApiItem[] = [
 ];
 
 const fieldSlots: DocsApiItem[] = [
-  { name: "default", type: "slot", description: "A form control such as PInput, PSelect, PRange, PCheckbox, or PRadio." },
+  { name: "default", type: "slot", description: "A single field-aware form control such as PInput, PSelect, or PRange." },
 ];
 </script>
 
 <template>
   <section id="overview" data-section class="docs-section">
     <DocsIntroCard name="PField">
-      <code>PField</code> connects labels, helper text, validation messages,
-      invalid state, and disabled state to nested Pear form controls.
+      <code>PField</code> is the wrapper for one labeled control. It wires up
+      the label, helper text, error text, invalid state, and disabled state.
+      Checkboxes and radios bring their own labels.
     </DocsIntroCard>
   </section>
 

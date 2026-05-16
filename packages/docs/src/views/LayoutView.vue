@@ -1,17 +1,16 @@
-<!-- src/views/LayoutView.vue -->
 <script lang="ts">
 import type { DocsMeta } from "@/types/docs";
 
 export const docsMeta = {
   title: "Layout Primitives | Pear",
   description:
-    "Stack, cluster, inline, grid, sidebar, switcher, and scroll layout primitives in Pear.",
+    "Small Vue layout primitives for common composition patterns that sit comfortably beside Pico CSS.",
   tocItems: [
+    { id: "overview", label: "Overview" },
     { id: "stack", label: "PStack" },
     { id: "cluster", label: "PCluster" },
     { id: "inline", label: "PInline" },
     { id: "grid", label: "PGrid" },
-    { id: "grid-min", label: "PGrid (min width)" },
     { id: "sidebar", label: "PSidebar" },
     { id: "switcher", label: "PSwitcher" },
     { id: "scroll", label: "PScroll" },
@@ -26,7 +25,19 @@ import AppStack from "@/components/layout/AppStack.vue";
 import DocsApiTable, { type DocsApiItem } from "@/components/DocsApiTable.vue";
 import DocsExample from "@/components/DocsExample.vue";
 import DocsIntroCard from "@/components/DocsIntroCard.vue";
-import { PButton, PCard, PField, PInput, PStack, PCluster, PInline, PGrid, PSidebar, PSwitcher, PScroll } from "@ontic/pear";
+import {
+  PButton,
+  PCard,
+  PCluster,
+  PField,
+  PGrid,
+  PInline,
+  PInput,
+  PScroll,
+  PSidebar,
+  PStack,
+  PSwitcher,
+} from "@ontic/pear";
 
 const stackName = ref("");
 const stackEmail = ref("");
@@ -35,89 +46,53 @@ const clusterSearch = ref("");
 const stackCode = String.raw`
 <p-stack gap="1rem">
   <p-field label="Name">
-    <p-input v-model="stackName" placeholder="Jane Smith" />
+    <p-input v-model="stackName" name="name" />
   </p-field>
   <p-field label="Email">
-    <p-input v-model="stackEmail" type="email" placeholder="jane@example.com" />
+    <p-input v-model="stackEmail" type="email" name="email" />
   </p-field>
-  <p-button>Submit</p-button>
+  <p-button>Save profile</p-button>
 </p-stack>
 `;
 
 const clusterCode = String.raw`
 <p-cluster gap="0.5rem">
   <p-button>Save</p-button>
-  <p-button variant="secondary">Discard</p-button>
+  <p-button variant="secondary">Preview</p-button>
   <p-button variant="contrast" outline>Delete</p-button>
 </p-cluster>
 `;
 
-const clusterTagsCode = String.raw`
-<p-cluster gap="0.375rem">
-  <small><kbd>vue</kbd></small>
-  <small><kbd>typescript</kbd></small>
-  <small><kbd>picocss</kbd></small>
-</p-cluster>
-`;
-
-const clusterSearchCode = String.raw`
-<p-cluster gap="0.5rem">
-  <p-input v-model="clusterSearch" placeholder="Search..." aria-label="Search" />
-  <p-button>Go</p-button>
-</p-cluster>
-`;
-
-const inlinePairsCode = String.raw`
-<p-inline gap="1.5rem">
-  <p-inline gap="0.375rem">
-    <span aria-hidden="true">File</span>
-    <span>Documents</span>
-  </p-inline>
-  <p-inline gap="0.375rem">
-    <span aria-hidden="true">Image</span>
-    <span>Images</span>
-  </p-inline>
-</p-inline>
-`;
-
-const inlineBreadcrumbCode = String.raw`
-<p-inline gap="0.5rem">
-  <a href="#">Home</a>
+const inlineCode = String.raw`
+<p-inline gap="0.5rem" as="nav" aria-label="Breadcrumb">
+  <a href="#">Docs</a>
   <span aria-hidden="true">/</span>
-  <a href="#">Components</a>
+  <a href="#">Layout</a>
   <span aria-hidden="true">/</span>
-  <span>Layout</span>
+  <span>PInline</span>
 </p-inline>
-`;
-
-const gridDefaultCode = String.raw`
-<p-grid>
-  <p-card>Alpha</p-card>
-  <p-card>Beta</p-card>
-  <p-card>Gamma</p-card>
-</p-grid>
 `;
 
 const gridCode = String.raw`
 <p-grid min="12rem" gap="1rem">
-  <p-card>One</p-card>
-  <p-card>Two</p-card>
-  <p-card>Three</p-card>
+  <div class="tile">Forms</div>
+  <div class="tile">Overlays</div>
+  <div class="tile">Navigation</div>
 </p-grid>
 `;
 
 const sidebarCode = String.raw`
-<p-sidebar side-width="10rem" content-min="60%" gap="1.5rem">
-  <nav>...</nav>
-  <div>Main content</div>
+<p-sidebar side-width="11rem" content-min="60%" gap="1.5rem">
+  <nav aria-label="Settings sections">...</nav>
+  <section>Account settings</section>
 </p-sidebar>
 `;
 
 const switcherCode = String.raw`
 <p-switcher threshold="28rem" gap="1rem">
-  <p-card>Step 1</p-card>
-  <p-card>Step 2</p-card>
-  <p-card>Step 3</p-card>
+  <section>Plan</section>
+  <section>Billing</section>
+  <section>Confirm</section>
 </p-switcher>
 `;
 
@@ -135,7 +110,8 @@ const layoutProps: DocsApiItem[] = [
   { name: "PCluster/PInline gap", type: "string", default: "'var(--pico-spacing)'", description: "Horizontal spacing between children." },
   { name: "PCluster/PInline align", type: "string", default: "'center'", description: "CSS align-items value." },
   { name: "PCluster/PInline justify", type: "string", default: "'flex-start'", description: "CSS justify-content value." },
-  { name: "PGrid min", type: "string", default: "'0%'", description: "Minimum column width before wrapping." },
+  { name: "PCluster/PInline as", type: "string", default: "'div'", description: "Rendered element." },
+  { name: "PGrid min", type: "string", default: "'0%'", description: "Minimum column width before wrapping. The default matches Pico's grid behavior." },
   { name: "PGrid gap", type: "string", default: "'var(--pico-grid-column-gap, var(--pico-spacing))'", description: "Grid gap." },
   { name: "PSidebar side", type: "'left' | 'right'", default: "'left'", description: "Which side the sidebar appears on." },
   { name: "PSidebar sideWidth", type: "string", default: "'15rem'", description: "Preferred sidebar width." },
@@ -150,264 +126,333 @@ const layoutSlots: DocsApiItem[] = [
 </script>
 
 <template>
-      <!-- PStack -->
-      <section id="stack" data-section class="docs-section">
-        <DocsIntroCard name="PStack">
-          <code>PStack</code> lays children out vertically with a single
-          configurable gap and resets child margins so Pico spacing does not
-          double up.
-        </DocsIntroCard>
+  <section id="overview" data-section class="docs-section">
+    <DocsIntroCard name="Layout Primitives">
+      These are tiny layout helpers for the boring-but-constant stuff: stacks,
+      rows that wrap, rows that do not wrap, grids, sidebars, responsive groups,
+      and wide content. Use them when plain markup starts collecting the same
+      flex and grid styles over and over.
+    </DocsIntroCard>
+  </section>
 
-        <p-card>
-          <template #header>PStack</template>
-          <p>Vertical flex stack. Gap defaults to <code>--pico-spacing</code>. Resets <code>margin-bottom</code> on children so Pico's element spacing doesn't double up with <code>gap</code>.</p>
-          <DocsExample :code="stackCode">
-            <PStack gap="1rem">
-              <PField label="Name">
-                <PInput v-model="stackName" placeholder="Jane Smith" />
-              </PField>
-              <PField label="Email">
-                <PInput v-model="stackEmail" type="email" placeholder="jane@example.com" />
-              </PField>
-              <PButton>Submit</PButton>
-            </PStack>
-          </DocsExample>
-        </p-card>
-      </section>
+  <section id="stack" data-section class="docs-section">
+    <p-card>
+      <template #header>PStack</template>
 
-      <!-- PCluster -->
-      <section id="cluster" data-section class="docs-section">
-        <DocsIntroCard name="PCluster">
-          <code>PCluster</code> lays children out horizontally with wrapping,
-          useful for actions, tags, and compact inline form controls.
-        </DocsIntroCard>
+      <AppStack>
+        <p>
+          <code>PStack</code> puts things in a column with one clear gap. It
+          also clears Pico's child margins, so the spacing stays predictable.
+        </p>
 
-        <p-card>
-          <template #header>PCluster</template>
-          <p>Horizontal wrapping flex. Items size to their content — Pico's <code>width: 100%</code> on form elements is reset so inputs and buttons don't fill the row.</p>
-          <PStack gap="1.5rem">
-            <div>
-              <h4>Button group</h4>
-              <DocsExample :code="clusterCode">
-                <PCluster gap="0.5rem">
-                  <PButton>Save</PButton>
-                  <PButton variant="secondary">Discard</PButton>
-                  <PButton variant="contrast" outline>Delete</PButton>
-                </PCluster>
-              </DocsExample>
-            </div>
-            <div>
-              <h4>Tags</h4>
-              <DocsExample :code="clusterTagsCode">
-                <PCluster gap="0.375rem">
-                  <small><kbd>vue</kbd></small>
-                  <small><kbd>typescript</kbd></small>
-                  <small><kbd>picocss</kbd></small>
-                  <small><kbd>layout</kbd></small>
-                  <small><kbd>cloudflare</kbd></small>
-                </PCluster>
-              </DocsExample>
-            </div>
-            <div>
-              <h4>Inline search (input inside cluster)</h4>
-              <DocsExample :code="clusterSearchCode">
-                <PCluster gap="0.5rem">
-                  <PInput v-model="clusterSearch" placeholder="Search..." aria-label="Search" />
-                  <PButton>Go</PButton>
-                </PCluster>
-              </DocsExample>
-            </div>
+        <DocsExample :code="stackCode">
+          <PStack gap="1rem" class="layout-preview-narrow">
+            <PField label="Name">
+              <PInput v-model="stackName" name="name" placeholder="Jane Smith" />
+            </PField>
+            <PField label="Email">
+              <PInput v-model="stackEmail" type="email" name="email" placeholder="jane@example.com" />
+            </PField>
+            <PButton>Save profile</PButton>
           </PStack>
-        </p-card>
-      </section>
+        </DocsExample>
+      </AppStack>
+    </p-card>
+  </section>
 
-      <!-- PInline -->
-      <section id="inline" data-section class="docs-section">
-        <DocsIntroCard name="PInline">
-          <code>PInline</code> lays children out horizontally without wrapping
-          when a row must stay together.
-        </DocsIntroCard>
+  <section id="cluster" data-section class="docs-section">
+    <p-card>
+      <template #header>PCluster</template>
 
-        <p-card>
-          <template #header>PInline</template>
-          <p>Horizontal non-wrapping flex. Same API as <code>PCluster</code>. Use inside nav slots or anywhere items must stay on one line regardless of container width.</p>
-          <PStack gap="1.5rem">
-            <div>
-              <h4>Icon + label pairs</h4>
-              <DocsExample :code="inlinePairsCode">
-                <PInline gap="1.5rem">
-                  <PInline gap="0.375rem">
-                    <span aria-hidden="true">File</span>
-                    <span>Documents</span>
-                  </PInline>
-                  <PInline gap="0.375rem">
-                    <span aria-hidden="true">Image</span>
-                    <span>Images</span>
-                  </PInline>
-                  <PInline gap="0.375rem">
-                    <span aria-hidden="true">Audio</span>
-                    <span>Audio</span>
-                  </PInline>
-                </PInline>
-              </DocsExample>
-            </div>
-            <div>
-              <h4>Breadcrumb-style row</h4>
-              <DocsExample :code="inlineBreadcrumbCode">
-                <PInline gap="0.5rem">
-                  <a href="#">Home</a>
-                  <span aria-hidden="true">/</span>
-                  <a href="#">Components</a>
-                  <span aria-hidden="true">/</span>
-                  <span>Layout</span>
-                </PInline>
-              </DocsExample>
-            </div>
-          </PStack>
-        </p-card>
-      </section>
+      <AppStack>
+        <p>
+          <code>PCluster</code> is for rows that can wrap. It works well for
+          action bars, tags, filters, and compact controls.
+        </p>
 
-      <!-- PGrid (default) -->
-      <section id="grid" data-section class="docs-section">
-        <DocsIntroCard name="PGrid">
-          <code>PGrid</code> provides a responsive auto-fit grid that can match
-          Pico's grid defaults or wrap based on a minimum column width.
-        </DocsIntroCard>
+        <DocsExample :code="clusterCode">
+          <AppStack>
+            <PCluster gap="0.5rem">
+              <PButton>Save</PButton>
+              <PButton variant="secondary">Preview</PButton>
+              <PButton variant="contrast" outline>Delete</PButton>
+            </PCluster>
 
-        <p-card>
-          <template #header>PGrid</template>
-          <p>Responsive auto-fit grid. Default (<code>min="0%"</code>) is identical to Pico's <code>.grid</code>: single column below 768 px, equal columns above. Uses Pico's <code>--pico-grid-column-gap</code> token.</p>
-          <DocsExample :code="gridDefaultCode">
-            <PGrid>
-              <p-card>Alpha</p-card>
-              <p-card>Beta</p-card>
-              <p-card>Gamma</p-card>
-            </PGrid>
-          </DocsExample>
-        </p-card>
-      </section>
+            <PCluster gap="0.375rem">
+              <small><kbd>vue</kbd></small>
+              <small><kbd>typescript</kbd></small>
+              <small><kbd>picocss</kbd></small>
+              <small><kbd>layout</kbd></small>
+            </PCluster>
+          </AppStack>
+        </DocsExample>
+      </AppStack>
+    </p-card>
+  </section>
 
-      <!-- PGrid with min -->
-      <section id="grid-min" data-section class="docs-section">
-        <p-card>
-          <template #header>PGrid — min column width</template>
-          <p>Setting <code>min="12rem"</code> makes columns collapse naturally when they'd be narrower than 12 rem — no fixed breakpoint needed.</p>
-          <DocsExample :code="gridCode">
-            <PGrid min="12rem" gap="1rem">
-              <p-card>One</p-card>
-              <p-card>Two</p-card>
-              <p-card>Three</p-card>
-              <p-card>Four</p-card>
-              <p-card>Five</p-card>
-            </PGrid>
-          </DocsExample>
-        </p-card>
-      </section>
+  <section id="inline" data-section class="docs-section">
+    <p-card>
+      <template #header>PInline</template>
 
-      <!-- PSidebar -->
-      <section id="sidebar" data-section class="docs-section">
-        <DocsIntroCard name="PSidebar">
-          <code>PSidebar</code> creates a two-column sidebar/content layout that
-          stacks naturally when the content area would get too narrow.
-        </DocsIntroCard>
+      <AppStack>
+        <p>
+          <code>PInline</code> keeps a small run together on one line. Handy
+          for breadcrumbs, metadata, and icon-label pairs.
+        </p>
 
-        <p-card>
-          <template #header>PSidebar</template>
-          <p>Two-column layout. The first slot child is the sidebar; the second is the main content. When the content would be narrower than <code>contentMin</code>, both children stack.</p>
-          <DocsExample :code="sidebarCode">
-            <PSidebar side-width="10rem" content-min="60%" gap="1.5rem">
-              <nav>
-                <PStack gap="0.25rem">
-                  <a href="#">Overview</a>
-                  <a href="#">Settings</a>
-                  <a href="#">Billing</a>
-                </PStack>
-              </nav>
-              <div>
-                <h4>Main content</h4>
-                <p>Resize the browser window to see the sidebar collapse below the content when the viewport is narrow.</p>
+        <DocsExample :code="inlineCode">
+          <PInline gap="0.5rem" as="nav" aria-label="Breadcrumb">
+            <a href="#" @click.prevent>Docs</a>
+            <span aria-hidden="true">/</span>
+            <a href="#" @click.prevent>Layout</a>
+            <span aria-hidden="true">/</span>
+            <span>PInline</span>
+          </PInline>
+        </DocsExample>
+      </AppStack>
+    </p-card>
+  </section>
+
+  <section id="grid" data-section class="docs-section">
+    <p-card>
+      <template #header>PGrid</template>
+
+      <AppStack>
+        <p>
+          <code>PGrid</code> can behave like Pico's grid, or you can give it a
+          minimum column width and let the cards wrap naturally.
+        </p>
+
+        <DocsExample :code="gridCode">
+          <PGrid min="12rem" gap="1rem">
+            <div class="layout-tile">
+              <strong>Forms</strong>
+              <div class="layout-bars" aria-hidden="true">
+                <span />
+                <span />
+                <span />
               </div>
-            </PSidebar>
-          </DocsExample>
-        </p-card>
-      </section>
+            </div>
+            <div class="layout-tile">
+              <strong>Overlays</strong>
+              <div class="layout-window" aria-hidden="true">
+                <span />
+              </div>
+            </div>
+            <div class="layout-tile">
+              <strong>Navigation</strong>
+              <div class="layout-rail" aria-hidden="true">
+                <span />
+                <span />
+                <span />
+              </div>
+            </div>
+          </PGrid>
+        </DocsExample>
+      </AppStack>
+    </p-card>
+  </section>
 
-      <!-- PSwitcher -->
-      <section id="switcher" data-section class="docs-section">
-        <DocsIntroCard name="PSwitcher">
-          <code>PSwitcher</code> switches children between stacked and
-          side-by-side layouts based on container width, without page-level
-          media queries.
-        </DocsIntroCard>
+  <section id="sidebar" data-section class="docs-section">
+    <p-card>
+      <template #header>PSidebar</template>
 
-        <p-card>
-          <template #header>PSwitcher</template>
-          <p>Items sit side-by-side when the container is wider than <code>threshold</code>, and stack when narrower — with zero media queries. Default threshold is <code>30rem</code>.</p>
-          <DocsExample :code="switcherCode">
-            <PSwitcher threshold="28rem" gap="1rem">
-              <p-card>
-                <template #header>Step 1</template>
-                Choose a plan that fits your needs.
-              </p-card>
-              <p-card>
-                <template #header>Step 2</template>
-                Set up your account details.
-              </p-card>
-              <p-card>
-                <template #header>Step 3</template>
-                You're ready to go.
-              </p-card>
-            </PSwitcher>
-          </DocsExample>
-        </p-card>
-      </section>
+      <AppStack>
+        <p>
+          <code>PSidebar</code> gives the first child a sidebar width and lets
+          the second child fill the rest. When things get tight, they stack.
+        </p>
 
-      <!-- PScroll -->
-      <section id="scroll" data-section class="docs-section">
-        <DocsIntroCard name="PScroll">
-          <code>PScroll</code> wraps wide or overflowing content in a simple
-          overflow container.
-        </DocsIntroCard>
+        <DocsExample :code="sidebarCode">
+          <PSidebar side-width="11rem" content-min="60%" gap="1.5rem">
+            <nav aria-label="Settings sections" class="layout-side-nav">
+              <PStack gap="0.25rem">
+                <a href="#" @click.prevent>Profile</a>
+                <a href="#" @click.prevent>Billing</a>
+                <a href="#" @click.prevent>Security</a>
+              </PStack>
+            </nav>
 
-        <p-card>
-          <template #header>PScroll</template>
-          <p>Wraps content in <code>overflow: auto</code>. Most useful for wide tables on narrow viewports.</p>
-          <DocsExample :code="scrollCode">
-            <PScroll>
-              <table>
+            <section class="layout-panel">
+              <strong>Account settings</strong>
+              <p>Sidebar navigation and main content stay together until the content needs room to breathe.</p>
+            </section>
+          </PSidebar>
+        </DocsExample>
+      </AppStack>
+    </p-card>
+  </section>
+
+  <section id="switcher" data-section class="docs-section">
+    <p-card>
+      <template #header>PSwitcher</template>
+
+      <AppStack>
+        <p>
+          <code>PSwitcher</code> lets a group sit side by side when there is
+          room. Below the threshold, each child gets its own row.
+        </p>
+
+        <DocsExample :code="switcherCode">
+          <PSwitcher threshold="28rem" gap="1rem">
+            <section class="layout-step">
+              <strong>Plan</strong>
+              Choose the plan.
+            </section>
+            <section class="layout-step">
+              <strong>Billing</strong>
+              Add payment details.
+            </section>
+            <section class="layout-step">
+              <strong>Confirm</strong>
+              Review and finish.
+            </section>
+          </PSwitcher>
+        </DocsExample>
+      </AppStack>
+    </p-card>
+  </section>
+
+  <section id="scroll" data-section class="docs-section">
+    <p-card>
+      <template #header>PScroll</template>
+
+      <AppStack>
+        <p>
+          <code>PScroll</code> is the little wrapper for wide stuff. Tables,
+          long rows, and other awkward content can scroll without stretching the
+          whole page.
+        </p>
+
+        <DocsExample :code="scrollCode">
+          <PScroll>
+            <table>
               <thead>
                 <tr>
-                  <th>Component</th>
-                  <th>Basis</th>
-                  <th>flex-wrap</th>
-                  <th>Resets width</th>
-                  <th>Resets margin-bottom</th>
-                  <th>Resets min-width</th>
+                  <th>Primitive</th>
+                  <th>Pattern</th>
+                  <th>Wraps</th>
+                  <th>Good for</th>
                 </tr>
               </thead>
               <tbody>
-                <tr><td>PStack</td><td>Novel</td><td>column</td><td>No</td><td>Yes</td><td>No</td></tr>
-                <tr><td>PCluster</td><td>Novel</td><td>wrap</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
-                <tr><td>PInline</td><td>Novel</td><td>nowrap</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
-                <tr><td>PGrid</td><td>Pico .grid superset</td><td>—</td><td>No</td><td>Yes</td><td>Yes</td></tr>
-                <tr><td>PSidebar</td><td>Novel</td><td>wrap</td><td>No</td><td>Yes</td><td>Yes</td></tr>
-                <tr><td>PSwitcher</td><td>Novel</td><td>wrap</td><td>No</td><td>Yes</td><td>Yes</td></tr>
-                <tr><td>PScroll</td><td>overflow-auto</td><td>—</td><td>No</td><td>No</td><td>No</td></tr>
+                <tr>
+                  <td>PStack</td>
+                  <td>Vertical rhythm</td>
+                  <td>No</td>
+                  <td>Forms and page sections</td>
+                </tr>
+                <tr>
+                  <td>PCluster</td>
+                  <td>Wrapping row</td>
+                  <td>Yes</td>
+                  <td>Actions, filters, tags</td>
+                </tr>
+                <tr>
+                  <td>PGrid</td>
+                  <td>Responsive columns</td>
+                  <td>Yes</td>
+                  <td>Card collections</td>
+                </tr>
               </tbody>
-              </table>
-            </PScroll>
-          </DocsExample>
-        </p-card>
-      </section>
+            </table>
+          </PScroll>
+        </DocsExample>
+      </AppStack>
+    </p-card>
+  </section>
 
-      <section id="api" data-section class="docs-section">
-        <p-card>
-          <template #header>API</template>
+  <section id="api" data-section class="docs-section">
+    <p-card>
+      <template #header>API</template>
 
-          <AppStack>
-            <DocsApiTable caption="Layout Props" :items="layoutProps" />
-            <DocsApiTable caption="Slots" :items="layoutSlots" />
-          </AppStack>
-        </p-card>
-      </section>
+      <AppStack>
+        <DocsApiTable caption="Layout Props" :items="layoutProps" />
+        <DocsApiTable caption="Slots" :items="layoutSlots" />
+      </AppStack>
+    </p-card>
+  </section>
 </template>
+
+<style scoped>
+.layout-preview-narrow {
+  max-width: 28rem;
+}
+
+.layout-bars,
+.layout-rail {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.layout-tile,
+.layout-step,
+.layout-bars span,
+.layout-rail span,
+.layout-window,
+.layout-panel,
+.layout-side-nav {
+  border: 1px solid var(--pico-muted-border-color);
+  background: var(--pico-card-sectionning-background-color);
+}
+
+.layout-tile,
+.layout-step {
+  display: grid;
+  gap: 0.75rem;
+  padding: 1rem;
+  border-radius: var(--pico-border-radius);
+}
+
+.layout-bars span,
+.layout-rail span {
+  display: block;
+  height: 0.75rem;
+  border-radius: var(--pico-border-radius);
+}
+
+.layout-bars span:nth-child(2) {
+  width: 78%;
+}
+
+.layout-bars span:nth-child(3) {
+  width: 58%;
+}
+
+.layout-window {
+  min-height: 4.5rem;
+  padding: 0.75rem;
+  border-radius: var(--pico-border-radius);
+}
+
+.layout-window span {
+  display: block;
+  width: 55%;
+  height: 2rem;
+  border-radius: var(--pico-border-radius);
+  background: var(--pico-primary);
+  opacity: 0.28;
+}
+
+.layout-rail {
+  grid-template-columns: 0.75rem 1fr;
+  align-items: center;
+  padding: 0.75rem;
+  border-radius: var(--pico-border-radius);
+}
+
+.layout-rail span {
+  grid-column: 2;
+}
+
+.layout-side-nav,
+.layout-panel {
+  padding: 1rem;
+  border-radius: var(--pico-border-radius);
+}
+
+.layout-panel p {
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+}
+</style>

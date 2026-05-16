@@ -18,14 +18,17 @@ export const docsMeta = {
 </script>
 
 <script setup lang="ts">
+import { ref } from "vue";
 import AppStack from "@/components/layout/AppStack.vue";
 import DocsApiTable, { type DocsApiItem } from "@/components/DocsApiTable.vue";
 import DocsExample from "@/components/DocsExample.vue";
 import DocsIntroCard from "@/components/DocsIntroCard.vue";
 import { PAccordion, PAccordionGroup, PCard } from "@ontic/pear";
 
+const isPicoOpen = ref(true);
+
 const standaloneCode = String.raw`
-<p-accordion summary="What is Pico CSS?" open>
+<p-accordion summary="What is Pico CSS?" v-model:open="isPicoOpen">
   <p>Pico provides class-light styling for semantic HTML.</p>
 </p-accordion>
 
@@ -53,7 +56,7 @@ const buttonCode = String.raw`
 
 const accordionProps: DocsApiItem[] = [
   { name: "summary", type: "string", description: "Text shown in the details summary when no summary slot is provided." },
-  { name: "open", type: "boolean", default: "false", description: "Initial native details open state." },
+  { name: "open", type: "boolean", default: "false", description: "Initial native details open state. Can be controlled with v-model:open." },
   { name: "name", type: "string", description: "Native details group name. Inherits from PAccordionGroup when present." },
   { name: "button", type: "boolean", default: "false", description: "Applies Pico's button-style summary pattern." },
   { name: "variant", type: "'secondary' | 'contrast'", description: "Button summary variant when button is true." },
@@ -70,6 +73,10 @@ const accordionSlots: DocsApiItem[] = [
   { name: "summary", type: "slot", description: "Custom summary content." },
   { name: "PAccordionGroup default", type: "slot", description: "Child accordions." },
 ];
+
+const accordionEvents: DocsApiItem[] = [
+  { name: "update:open", type: "boolean", description: "Emitted when the native details element opens or closes." },
+];
 </script>
 
 <template>
@@ -85,7 +92,7 @@ const accordionSlots: DocsApiItem[] = [
           <template #header>Standalone</template>
 
           <DocsExample :code="standaloneCode">
-            <p-accordion summary="What is Pico CSS?" open>
+            <p-accordion summary="What is Pico CSS?" v-model:open="isPicoOpen">
               <p>
                 Pico provides class-light styling for semantic HTML. This wrapper
                 library keeps that native HTML shape while smoothing out repetitive
@@ -204,6 +211,7 @@ const accordionSlots: DocsApiItem[] = [
             <DocsApiTable caption="PAccordion Props" :items="accordionProps" />
             <DocsApiTable caption="PAccordionGroup Props" :items="accordionGroupProps" />
             <DocsApiTable caption="Slots" :items="accordionSlots" />
+            <DocsApiTable caption="Events" :items="accordionEvents" />
           </AppStack>
         </p-card>
       </section>
