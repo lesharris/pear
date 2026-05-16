@@ -9,6 +9,7 @@ export const docsMeta = {
     { id: "vmodel-modal", label: "v-model" },
     { id: "backdrop", label: "Backdrop" },
     { id: "provider-overview", label: "PModalProvider" },
+    { id: "provider-setup", label: "Provider Setup" },
     { id: "programmatic-modal", label: "Programmatic" },
     { id: "api", label: "API" },
   ],
@@ -96,7 +97,23 @@ const backdropModalCode = String.raw`
 </p-modal>
 `;
 
+const providerSetupCode = [
+  "<!-- App.vue -->",
+  '<script setup lang="ts">',
+  'import { RouterView } from "vue-router";',
+  'import { PModalProvider } from "@ontic/pear";',
+  "</" + "script>",
+  "",
+  "<template>",
+  "  <p-modal-provider>",
+  "    <RouterView />",
+  "  </p-modal-provider>",
+  "</template>",
+].join("\n");
+
 const programmaticModalCode = String.raw`
+import { useModal } from "@ontic/pear";
+
 const modal = useModal();
 
 async function confirmSave() {
@@ -213,9 +230,24 @@ const modalProviderApi: DocsApiItem[] = [
 
       <section id="provider-overview" data-section class="docs-section">
         <DocsIntroCard name="PModalProvider">
-          <code>PModalProvider</code> and <code>useModal</code> are handy when
-          a view needs to open a modal without carrying local modal state around.
+          Wrap your app once with <code>PModalProvider</code>, then call
+          <code>useModal()</code> from child views or components.
         </DocsIntroCard>
+      </section>
+
+      <section id="provider-setup" data-section class="docs-section">
+        <p-card>
+          <template #header>Provider Setup</template>
+
+          <AppStack>
+            <p>
+              Put the provider near the top of the app, usually around your
+              router view or main layout.
+            </p>
+
+            <DocsExample :code="providerSetupCode" language="html" />
+          </AppStack>
+        </p-card>
       </section>
 
       <section id="programmatic-modal" data-section class="docs-section">

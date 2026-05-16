@@ -37,16 +37,21 @@ function scrollTo(id: string, event: Event) {
 </script>
 
 <template>
-  <nav class="docs-toc">
+  <nav class="docs-toc" aria-label="On this page">
     <p class="docs-toc-label">On this page</p>
-    <ul>
-      <li v-for="item in items ?? []" :key="item.id">
-        <a
-          :href="`#${item.id}`"
+    <div class="docs-toc-scroll">
+      <ul>
+        <li
+          v-for="item in items ?? []"
+          :key="item.id"
           :class="{ 'docs-toc-active': activeSection === item.id }"
-          @click="scrollTo(item.id, $event)"
-        >{{ item.label }}</a>
-      </li>
-    </ul>
+        >
+          <a
+            :href="`#${item.id}`"
+            @click="scrollTo(item.id, $event)"
+          >{{ item.label }}</a>
+        </li>
+      </ul>
+    </div>
   </nav>
 </template>

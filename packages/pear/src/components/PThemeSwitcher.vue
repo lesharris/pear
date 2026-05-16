@@ -18,7 +18,7 @@ const icon = computed(() => theme.value === 'dark' ? Moon : Sun)
     :aria-label="label"
     :aria-pressed="theme === 'dark'"
     :data-tooltip="label"
-    data-placement="bottom"
+    data-placement="left"
     @click="toggleTheme"
   >
     <span class="theme-switcher__track" aria-hidden="true">

@@ -79,12 +79,7 @@ const year = new Date().getFullYear();
       </div>
     </div>
 
-    <img
-      src="@/assets/peary.png"
-      alt=""
-      aria-hidden="true"
-      class="footer-mascot"
-    />
+    <div class="footer-mascot-frame" aria-hidden="true" />
   </footer>
 </template>
 
@@ -92,6 +87,8 @@ const year = new Date().getFullYear();
 .site-footer {
   position: relative;
   overflow: hidden;
+  overflow: clip;
+  contain: paint;
   width: 100%;
   max-width: 100%;
   margin-top: 4rem;
@@ -131,19 +128,28 @@ const year = new Date().getFullYear();
 }
 
 /* ── Peeking mascot ── */
-.footer-mascot {
+.footer-mascot-frame {
   position: absolute;
-  bottom: -0.5rem;
-  left: -0.5rem;
+  inset: 0;
+  overflow: hidden;
+  overflow: clip;
+  contain: paint;
+  pointer-events: none;
+}
+
+.footer-mascot-frame::before {
+  content: "";
+  position: absolute;
+  bottom: 1.25rem;
+  left: 0;
   height: 13rem;
-  width: auto;
+  width: 10.875rem;
+  background: url("@/assets/peary.png") 0 center / auto 13rem no-repeat;
   transform: rotate(16deg) translateY(20%);
-  transform-origin: bottom center;
+  transform-origin: bottom left;
   filter: grayscale(100%);
   opacity: 0.32;
   mix-blend-mode: multiply;
-  pointer-events: none;
-  user-select: none;
 }
 
 /* ── Link columns ── */
@@ -260,7 +266,7 @@ const year = new Date().getFullYear();
     grid-template-columns: 1fr 1fr;
   }
 
-  .footer-mascot {
+  .footer-mascot-frame {
     display: none;
   }
 }
