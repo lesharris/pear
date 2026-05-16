@@ -1,6 +1,6 @@
 {
   "name": "@ontic/pear",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "A thin Vue 3 component library built on PicoCSS",
   "type": "module",
   "main": "./dist/pear.js",
@@ -12,8 +12,12 @@
     },
     "./style.css": "./dist/pear.css"
   },
-  "files": ["dist"],
-  "sideEffects": ["dist/pear.css"],
+  "files": [
+    "dist"
+  ],
+  "sideEffects": [
+    "dist/pear.css"
+  ],
   "scripts": {
     "build": "vite build",
     "build:watch": "vite build --watch",
@@ -21,7 +25,15 @@
     "prepublishOnly": "cp ../../README.md ./README.md && bun run build",
     "postpublish": "rm ./README.md"
   },
-  "keywords": ["vue", "vue3", "components", "ui", "pico", "picocss", "component-library"],
+  "keywords": [
+    "vue",
+    "vue3",
+    "components",
+    "ui",
+    "pico",
+    "picocss",
+    "component-library"
+  ],
   "author": "Les Harris <les@lesharris.com>",
   "license": "MIT",
   "homepage": "https://pear.ontic.cloud",
