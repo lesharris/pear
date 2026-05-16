@@ -51,6 +51,10 @@ provide(PModalKey, {
       <h3>{{ options.title }}</h3>
     </template>
 
+    <p v-if="options?.description">
+      {{ options.description }}
+    </p>
+
     <component
       :is="options.component"
       v-if="options?.component"

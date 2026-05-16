@@ -1,7 +1,11 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useTooltip } from '@/lib/useTooltip'
 import type { PTooltipProps } from '@/types/PTooltip'
+
+const emit = defineEmits<{
+  'update:open': [open: boolean]
+}>()
 
 const {
   summary,
@@ -26,8 +30,13 @@ const {
 const details = ref<HTMLDetailsElement>()
 const isOpen = ref(open)
 
+watch(() => open, (nextOpen) => {
+  isOpen.value = nextOpen
+})
+
 function onToggle() {
   isOpen.value = details.value?.open ?? false
+  emit('update:open', isOpen.value)
 }
 
 const { tooltipId, ariaDescribedBy } = useTooltip(() => tooltip)
@@ -42,7 +51,7 @@ const listDir = computed(() =>
 </script>
 
 <template>
-  <details ref="details" class="dropdown" :open="open" @toggle="onToggle">
+  <details ref="details" class="dropdown" :open="isOpen" @toggle="onToggle">
     <summary
       :role="button ? 'button' : undefined"
       :aria-expanded="button ? isOpen : undefined"
