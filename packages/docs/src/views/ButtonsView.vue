@@ -178,7 +178,7 @@ const buttonEvents: DocsApiItem[] = [
         <p-card>
           <template #header>Tooltips</template>
 
-          <DocsExample :code="tooltipCode">
+          <DocsExample :code="tooltipCode" preview-overflow="visible">
             <AppCluster>
               <p-button tooltip="Save changes" tooltip-placement="bottom">
                 Save

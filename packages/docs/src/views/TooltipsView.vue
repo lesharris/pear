@@ -82,7 +82,7 @@ const tooltipSlots: DocsApiItem[] = [
     <p-card>
       <template #header>Wrapper</template>
 
-      <DocsExample :code="wrapperCode">
+      <DocsExample :code="wrapperCode" preview-overflow="visible">
         <AppCluster>
           <p-tooltip content="Shown above by default">
             <button type="button">Hover me</button>
@@ -100,7 +100,7 @@ const tooltipSlots: DocsApiItem[] = [
     <p-card>
       <template #header>Text</template>
 
-      <DocsExample :code="textCode">
+      <DocsExample :code="textCode" preview-overflow="visible">
         <p>
           Tooltips also work on
           <p-tooltip content="Pico adds the dotted underline for us.">
@@ -116,7 +116,7 @@ const tooltipSlots: DocsApiItem[] = [
     <p-card>
       <template #header>Component Props</template>
 
-      <DocsExample :code="propCode">
+      <DocsExample :code="propCode" preview-overflow="visible">
         <AppStack>
           <p-button tooltip="Save changes" tooltip-placement="bottom">
             Save

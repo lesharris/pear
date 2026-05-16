@@ -24,20 +24,31 @@ import AppStack from "@/components/layout/AppStack.vue";
 import DocsApiTable, { type DocsApiItem } from "@/components/DocsApiTable.vue";
 import DocsExample from "@/components/DocsExample.vue";
 import DocsIntroCard from "@/components/DocsIntroCard.vue";
-import { PCard, PCheckbox, PRadio } from "@ontic/pear";
+import { PCard, PCheckbox, PCheckboxGroup, PFieldset, PRadio, PRadioGroup } from "@ontic/pear";
 
 const acceptedTerms = ref(false);
 const notificationSwitch = ref(true);
 const selectedFeatures = ref<string[]>(["api"]);
+const missingFeatures = ref<string[]>([]);
 const contactPreference = ref("email");
 const disabledChoice = ref("enabled");
-const confirmDelete = ref(false);
 const supportPlan = ref("");
 
 const availableFeatureOptions = [
   { value: "api", label: "API access" },
   { value: "reports", label: "Reports" },
   { value: "exports", label: "Exports" },
+];
+
+const contactOptions = [
+  { value: "email", label: "Email" },
+  { value: "phone", label: "Phone" },
+  { value: "mail", label: "Mail" },
+];
+
+const supportOptions = [
+  { value: "standard", label: "Standard" },
+  { value: "priority", label: "Priority" },
 ];
 
 const allFeaturesSelected = computed(
@@ -60,64 +71,53 @@ const selectAllFeatures = computed({
 });
 
 const checkboxCode = String.raw`
-<fieldset>
-  <legend>Agreement</legend>
+<p-fieldset legend="Agreement">
   <p-checkbox v-model="acceptedTerms" name="accepted-terms">
     I agree to the terms
   </p-checkbox>
-</fieldset>
+</p-fieldset>
 
-<fieldset>
-  <legend>Notifications</legend>
+<p-fieldset legend="Notifications">
   <p-checkbox v-model="notificationSwitch" name="notifications" switch>
     Enable notifications
   </p-checkbox>
-</fieldset>
+</p-fieldset>
 `;
 
 const checkboxGroupCode = String.raw`
-<fieldset>
-  <legend>Features</legend>
-  <p-checkbox v-model="selectedFeatures" name="features" value="api">
-    API access
-  </p-checkbox>
-  <p-checkbox v-model="selectedFeatures" name="features" value="reports">
-    Reports
-  </p-checkbox>
-</fieldset>
+<p-checkbox-group
+  v-model="selectedFeatures"
+  legend="Features"
+  name="features"
+  :options="availableFeatureOptions"
+/>
 `;
 
 const radioCode = String.raw`
-<fieldset>
-  <legend>Contact preference</legend>
-  <p-radio v-model="contactPreference" name="contact-preference" value="email">
-    Email
-  </p-radio>
-  <p-radio v-model="contactPreference" name="contact-preference" value="phone">
-    Phone
-  </p-radio>
-</fieldset>
+<p-radio-group
+  v-model="contactPreference"
+  legend="Contact preference"
+  name="contact-preference"
+  :options="contactOptions"
+/>
 `;
 
 const choiceStatesCode = String.raw`
-<fieldset aria-describedby="delete-error">
-  <legend>Danger zone</legend>
-  <p-checkbox v-model="confirmDelete" name="confirm-delete" invalid>
-    I understand this cannot be undone
-  </p-checkbox>
-  <small id="delete-error">Check this before deleting the workspace.</small>
-</fieldset>
+<p-checkbox-group
+  v-model="missingFeatures"
+  legend="Features"
+  error="Pick at least one feature."
+  name="features"
+  :options="availableFeatureOptions"
+/>
 
-<fieldset aria-describedby="plan-error">
-  <legend>Support plan</legend>
-  <p-radio v-model="supportPlan" name="support-plan" value="standard" invalid>
-    Standard
-  </p-radio>
-  <p-radio v-model="supportPlan" name="support-plan" value="priority" invalid>
-    Priority
-  </p-radio>
-  <small id="plan-error">Choose a support plan.</small>
-</fieldset>
+<p-radio-group
+  v-model="supportPlan"
+  legend="Support plan"
+  error="Choose a support plan."
+  name="support-plan"
+  :options="supportOptions"
+/>
 `;
 
 const checkboxProps: DocsApiItem[] = [
@@ -137,8 +137,22 @@ const radioProps: DocsApiItem[] = [
   { name: "invalid", type: "boolean", default: "false", description: "Sets aria-invalid. Inherits from PField when present." },
 ];
 
+const groupProps: DocsApiItem[] = [
+  { name: "v-model", type: "PChoiceValue[] | PChoiceValue", description: "Selected checkbox values, or the selected radio value." },
+  { name: "options", type: "PChoiceOption[]", description: "Options with label, value, and optional disabled state." },
+  { name: "name", type: "string", description: "Native input name. Pear creates one when omitted." },
+  { name: "legend", type: "string", description: "Fieldset legend for the group." },
+  { name: "helper", type: "string", description: "Helper text below the options." },
+  { name: "error", type: "string", description: "Error text below the options. Also marks the group invalid." },
+  { name: "disabled", type: "boolean", default: "false", description: "Disables the whole group." },
+  { name: "invalid", type: "boolean", default: "false", description: "Marks the whole group invalid." },
+  { name: "horizontal", type: "boolean", default: "false", description: "Lays options out in a wrapping row." },
+  { name: "switch", type: "boolean", default: "false", description: "PCheckboxGroup only. Renders options as switches." },
+];
+
 const choiceSlots: DocsApiItem[] = [
   { name: "default", type: "slot", description: "Label content rendered next to the native checkbox or radio." },
+  { name: "option", type: "slot", description: "PCheckboxGroup and PRadioGroup option label slot." },
 ];
 
 const choiceEvents: DocsApiItem[] = [
@@ -161,31 +175,28 @@ const choiceEvents: DocsApiItem[] = [
 
           <DocsExample :code="checkboxCode">
             <AppGrid min="18rem">
-              <fieldset>
-                <legend>Agreement</legend>
+              <p-fieldset legend="Agreement">
                 <AppStack>
                   <p-checkbox v-model="acceptedTerms" name="accepted-terms">
                     I agree to the terms
                   </p-checkbox>
                 </AppStack>
-              </fieldset>
+              </p-fieldset>
 
-              <fieldset>
-                <legend>Notifications</legend>
+              <p-fieldset legend="Notifications">
                 <AppStack>
                   <p-checkbox v-model="notificationSwitch" name="notifications" switch>
                     Enable notifications
                   </p-checkbox>
                 </AppStack>
-              </fieldset>
+              </p-fieldset>
 
-              <fieldset disabled>
-                <legend>Disabled states</legend>
+              <p-fieldset legend="Disabled states" disabled>
                 <AppStack>
                   <p-checkbox disabled>Disabled checkbox</p-checkbox>
                   <p-checkbox switch disabled>Disabled switch</p-checkbox>
                 </AppStack>
-              </fieldset>
+              </p-fieldset>
             </AppGrid>
           </DocsExample>
         </p-card>
@@ -197,43 +208,34 @@ const choiceEvents: DocsApiItem[] = [
 
           <DocsExample :code="checkboxGroupCode">
             <AppGrid min="18rem">
-            <fieldset>
-              <legend>Features</legend>
-              <AppStack>
-                <p-checkbox v-model="selectedFeatures" name="features" value="api">
-                  API access
-                </p-checkbox>
-                <p-checkbox v-model="selectedFeatures" name="features" value="reports">
-                  Reports
-                </p-checkbox>
-                <p-checkbox v-model="selectedFeatures" name="features" value="exports">
-                  Exports
-                </p-checkbox>
-              </AppStack>
-            </fieldset>
+              <p-checkbox-group
+                v-model="selectedFeatures"
+                legend="Features"
+                name="features"
+                :options="availableFeatureOptions"
+              />
 
-            <fieldset>
-              <legend>Select all</legend>
-              <AppStack>
-                <p-checkbox
-                  v-model="selectAllFeatures"
-                  name="select-all-features"
-                  :indeterminate="someFeaturesSelected"
-                >
-                  Select all features
-                </p-checkbox>
+              <p-fieldset legend="Select all">
+                <AppStack>
+                  <p-checkbox
+                    v-model="selectAllFeatures"
+                    name="select-all-features"
+                    :indeterminate="someFeaturesSelected"
+                  >
+                    Select all features
+                  </p-checkbox>
 
-                <p-checkbox
-                  v-for="feature in availableFeatureOptions"
-                  :key="feature.value"
-                  v-model="selectedFeatures"
-                  name="select-all-feature-options"
-                  :value="feature.value"
-                >
-                  {{ feature.label }}
-                </p-checkbox>
-              </AppStack>
-            </fieldset>
+                  <p-checkbox
+                    v-for="feature in availableFeatureOptions"
+                    :key="feature.value"
+                    v-model="selectedFeatures"
+                    name="select-all-feature-options"
+                    :value="feature.value"
+                  >
+                    {{ feature.label }}
+                  </p-checkbox>
+                </AppStack>
+              </p-fieldset>
             </AppGrid>
           </DocsExample>
         </p-card>
@@ -252,28 +254,21 @@ const choiceEvents: DocsApiItem[] = [
 
           <DocsExample :code="choiceStatesCode">
             <AppGrid min="18rem">
-              <fieldset aria-describedby="delete-error">
-                <legend>Danger zone</legend>
-                <AppStack>
-                  <p-checkbox v-model="confirmDelete" name="confirm-delete" invalid>
-                    I understand this cannot be undone
-                  </p-checkbox>
-                  <small id="delete-error">Check this before deleting the workspace.</small>
-                </AppStack>
-              </fieldset>
+              <p-checkbox-group
+                v-model="missingFeatures"
+                legend="Features"
+                error="Pick at least one feature."
+                name="features"
+                :options="availableFeatureOptions"
+              />
 
-              <fieldset aria-describedby="plan-error">
-                <legend>Support plan</legend>
-                <AppStack>
-                  <p-radio v-model="supportPlan" name="support-plan" value="standard" invalid>
-                    Standard
-                  </p-radio>
-                  <p-radio v-model="supportPlan" name="support-plan" value="priority" invalid>
-                    Priority
-                  </p-radio>
-                  <small id="plan-error">Choose a support plan.</small>
-                </AppStack>
-              </fieldset>
+              <p-radio-group
+                v-model="supportPlan"
+                legend="Support plan"
+                error="Choose a support plan."
+                name="support-plan"
+                :options="supportOptions"
+              />
             </AppGrid>
           </DocsExample>
         </p-card>
@@ -285,29 +280,20 @@ const choiceEvents: DocsApiItem[] = [
 
           <DocsExample :code="radioCode">
             <AppGrid min="18rem">
-            <fieldset>
-              <legend>Contact preference</legend>
-              <AppStack>
-                <p-radio v-model="contactPreference" name="contact-preference" value="email">
-                  Email
-                </p-radio>
-                <p-radio v-model="contactPreference" name="contact-preference" value="phone">
-                  Phone
-                </p-radio>
-                <p-radio v-model="contactPreference" name="contact-preference" value="mail">
-                  Mail
-                </p-radio>
-              </AppStack>
-            </fieldset>
+              <p-radio-group
+                v-model="contactPreference"
+                legend="Contact preference"
+                name="contact-preference"
+                :options="contactOptions"
+              />
 
-            <fieldset disabled>
-              <legend>Disabled</legend>
-              <AppStack>
-                <p-radio v-model="disabledChoice" name="disabled-choice" value="disabled" disabled>
-                  Disabled radio
-                </p-radio>
-              </AppStack>
-            </fieldset>
+              <p-radio-group
+                v-model="disabledChoice"
+                legend="Disabled"
+                name="disabled-choice"
+                disabled
+                :options="[{ value: 'disabled', label: 'Disabled radio' }]"
+              />
             </AppGrid>
           </DocsExample>
         </p-card>
@@ -318,6 +304,7 @@ const choiceEvents: DocsApiItem[] = [
           <template #header>API</template>
 
           <AppStack>
+            <DocsApiTable caption="PCheckboxGroup & PRadioGroup Props" :items="groupProps" />
             <DocsApiTable caption="PCheckbox Props" :items="checkboxProps" />
             <DocsApiTable caption="PRadio Props" :items="radioProps" />
             <DocsApiTable caption="Slots" :items="choiceSlots" />

@@ -17,6 +17,7 @@
 - 🎨 Themeable
 - 📐 Layout primitives
 - 🧩 Composable forms
+- 🧾 Static tables
 - 🪟 Modal system
 - 💪 Type safe
 
@@ -87,6 +88,8 @@ const email = ref('')
 ```
 
 `PField` automatically wires up `id`, `aria-describedby`, and validation state to any child form component.
+
+Pear includes wrappers for Pico patterns like buttons, cards, inputs, textareas, fieldsets, checkbox and radio groups, tables, accordions, dropdowns, modals, nav, breadcrumbs, progress, loading states, and tooltips.
 
 ### Theme switching
 
