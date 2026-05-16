@@ -14,3 +14,19 @@
   white-space: nowrap;
   border: 0;
 }
+
+.p-tooltip-host {
+  display: block;
+  width: 100%;
+}
+
+.p-tooltip-host--inline {
+  display: inline-block;
+  width: auto;
+}
+
+#app .p-tooltip-host:has(:is(a, button, input, select, textarea, progress, [role="button"])) {
+  border-bottom: 0;
+  cursor: inherit;
+  text-decoration: none;
+}
