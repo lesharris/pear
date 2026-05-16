@@ -9,6 +9,7 @@ export type PModalAction = {
 
 export type PModalOptions = {
   title?: string
+  description?: string
   component?: Component
   props?: Record<string, unknown>
   actions?: PModalAction[]

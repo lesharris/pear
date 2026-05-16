@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, useId, watch } from 'vue'
+import { onMounted, ref, useId, watch } from 'vue'
 
 const model = defineModel<boolean>({ default: false })
 
@@ -16,7 +16,7 @@ const emit = defineEmits<{
 const dialog = ref<HTMLDialogElement>()
 const headerId = useId()
 
-watch(model, (open) => {
+function syncDialog(open: boolean) {
   const el = dialog.value
   if (!el) return
 
@@ -27,7 +27,13 @@ watch(model, (open) => {
   if (!open && el.open) {
     el.close()
   }
+}
+
+onMounted(() => {
+  syncDialog(model.value)
 })
+
+watch(model, syncDialog)
 
 function close() {
   model.value = false
