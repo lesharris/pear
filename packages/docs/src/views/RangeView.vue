@@ -7,6 +7,7 @@ export const docsMeta = {
   tocItems: [
     { id: "overview", label: "Overview" },
     { id: "range", label: "Range" },
+    { id: "states", label: "States & Tooltips" },
     { id: "api", label: "API" },
   ],
 } satisfies DocsMeta;
@@ -24,6 +25,7 @@ const brightness = ref(50);
 const contrast = ref(40);
 const volume = ref(7);
 const disabledRange = ref(25);
+const alertVolume = ref(95);
 
 const brightnessRangeCode = String.raw`
 <p-field label="Brightness" helper="Basic range with default min/max.">
@@ -56,6 +58,18 @@ const disabledRangeCode = String.raw`
 </p-field>
 `;
 
+const stateRangeCode = String.raw`
+<p-field label="Alert volume" error="That is probably too loud.">
+  <p-range
+    v-model="alertVolume"
+    name="alert-volume"
+    show-value
+    tooltip="Drag to set the alert volume"
+    tooltip-placement="bottom"
+  />
+</p-field>
+`;
+
 const rangeProps: DocsApiItem[] = [
   { name: "v-model", type: "number", description: "Current range value." },
   { name: "min", type: "number", default: "0", description: "Native minimum value." },
@@ -64,6 +78,8 @@ const rangeProps: DocsApiItem[] = [
   { name: "showValue", type: "boolean", default: "false", description: "Shows an output element with the current value." },
   { name: "disabled", type: "boolean", default: "false", description: "Disables the range. Inherits from PField when present." },
   { name: "invalid", type: "boolean", default: "false", description: "Sets aria-invalid. Inherits from PField when present." },
+  { name: "tooltip", type: "string", description: "Optional Pico tooltip content." },
+  { name: "tooltipPlacement", type: "PTooltipPlacement", description: "Optional Pico tooltip placement." },
 ];
 
 const rangeEvents: DocsApiItem[] = [
@@ -74,9 +90,8 @@ const rangeEvents: DocsApiItem[] = [
 <template>
   <section id="overview" data-section class="docs-section">
     <DocsIntroCard name="PRange">
-      <code>PRange</code> wraps native range inputs with numeric
-      <code>v-model</code> handling, field-context support, and an optional
-      value output.
+      <code>PRange</code> is a native range input with numeric
+      <code>v-model</code> values and an optional value readout.
     </DocsIntroCard>
   </section>
 
@@ -109,6 +124,24 @@ const rangeEvents: DocsApiItem[] = [
             </p-field>
           </DocsExample>
         </AppStack>
+      </p-card>
+    </section>
+
+    <section id="states" data-section class="docs-section">
+      <p-card>
+        <template #header>States & Tooltips</template>
+
+        <DocsExample :code="stateRangeCode">
+          <p-field label="Alert volume" error="That is probably too loud.">
+            <p-range
+              v-model="alertVolume"
+              name="alert-volume"
+              show-value
+              tooltip="Drag to set the alert volume"
+              tooltip-placement="bottom"
+            />
+          </p-field>
+        </DocsExample>
       </p-card>
     </section>
 

@@ -4,7 +4,7 @@ import type { DocsMeta } from "@/types/docs";
 export const docsMeta = {
   title: "Pear",
   description:
-    "Pear is a lightweight Vue 3 component library built around PicoCSS semantics.",
+    "Pear is a small Vue 3 component library built on Pico CSS.",
   tocItems: [
     { id: "intro", label: "Getting Started" },
     { id: "install", label: "Installation" },
@@ -107,11 +107,11 @@ const themingCode = String.raw`
 
       <AppStack>
         <p>
-          Pear is a Vue 3 component library wrapping
+          Pear is a small Vue 3 component library built on
           <a href="https://picocss.com" target="_blank" rel="noreferrer"
             >Pico CSS</a
-          >. It gives the Pico patterns you already use a little Vue wiring:
-          models, ids, labels, slots, and a few small layout helpers.
+          >. It gives Pico's regular HTML patterns the Vue pieces you usually
+          need: models, ids, labels, slots, and a few small layout helpers.
         </p>
         <p>
           Reach for Pear when it saves you from repeating glue code. Keep using
@@ -144,9 +144,8 @@ const themingCode = String.raw`
 
       <AppStack>
         <p>
-          Pear imports Pico with <code>#app</code> as the semantic root. Pico
-          styles apply inside the Vue app, so you do not need a class on every
-          element.
+          Pear scopes Pico to <code>#app</code>. Pico styles apply inside the
+          Vue app, so you do not need a class on every element.
         </p>
 
         <DocsExample :code="picoCode" title="Vue template">

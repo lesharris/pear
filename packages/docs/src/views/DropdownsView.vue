@@ -55,25 +55,25 @@ const navigationMenuCode = String.raw`
 
 const buttonVariantsCode = String.raw`
 <p-dropdown summary="Primary" button>
-  <li><a href="#">Edit</a></li>
-  <li><a href="#">Duplicate</a></li>
+  <li><a href="#" @click.prevent>Edit</a></li>
+  <li><a href="#" @click.prevent>Duplicate</a></li>
 </p-dropdown>
 
 <p-dropdown summary="Secondary" button variant="secondary">
-  <li><a href="#">Export</a></li>
-  <li><a href="#">Share</a></li>
+  <li><a href="#" @click.prevent>Export</a></li>
+  <li><a href="#" @click.prevent>Share</a></li>
 </p-dropdown>
 
 <p-dropdown summary="More" button variant="contrast" outline>
-  <li><a href="#">Archive</a></li>
-  <li><a href="#">Delete</a></li>
+  <li><a href="#" @click.prevent>Archive</a></li>
+  <li><a href="#" @click.prevent>Delete</a></li>
 </p-dropdown>
 `;
 
 const stateAlignmentCode = String.raw`
 <p-dropdown v-model:open="menuOpen" summary="Controlled menu">
-  <li><a href="#">First action</a></li>
-  <li><a href="#">Second action</a></li>
+  <li><a href="#" @click.prevent>First action</a></li>
+  <li><a href="#" @click.prevent>Second action</a></li>
 </p-dropdown>
 
 <p-button variant="secondary" @click="menuOpen = !menuOpen">
@@ -81,8 +81,8 @@ const stateAlignmentCode = String.raw`
 </p-button>
 
 <p-dropdown summary="Right aligned" align="end">
-  <li><a href="#">Account settings</a></li>
-  <li><a href="#">Sign out</a></li>
+  <li><a href="#" @click.prevent>Account settings</a></li>
+  <li><a href="#" @click.prevent>Sign out</a></li>
 </p-dropdown>
 `;
 
@@ -173,18 +173,18 @@ function runAction(action: string) {
       <DocsExample :code="buttonVariantsCode">
         <AppCluster>
           <p-dropdown summary="Primary" button>
-            <li><a href="#">Edit</a></li>
-            <li><a href="#">Duplicate</a></li>
+            <li><a href="#" @click.prevent>Edit</a></li>
+            <li><a href="#" @click.prevent>Duplicate</a></li>
           </p-dropdown>
 
           <p-dropdown summary="Secondary" button variant="secondary">
-            <li><a href="#">Export</a></li>
-            <li><a href="#">Share</a></li>
+            <li><a href="#" @click.prevent>Export</a></li>
+            <li><a href="#" @click.prevent>Share</a></li>
           </p-dropdown>
 
           <p-dropdown summary="More" button variant="contrast" outline>
-            <li><a href="#">Archive</a></li>
-            <li><a href="#">Delete</a></li>
+            <li><a href="#" @click.prevent>Archive</a></li>
+            <li><a href="#" @click.prevent>Delete</a></li>
           </p-dropdown>
         </AppCluster>
       </DocsExample>
@@ -199,8 +199,8 @@ function runAction(action: string) {
         <DocsExample :code="stateAlignmentCode">
           <AppCluster>
             <p-dropdown v-model:open="menuOpen" summary="Controlled menu">
-              <li><a href="#">First action</a></li>
-              <li><a href="#">Second action</a></li>
+              <li><a href="#" @click.prevent>First action</a></li>
+              <li><a href="#" @click.prevent>Second action</a></li>
             </p-dropdown>
 
             <p-button variant="secondary" @click="menuOpen = !menuOpen">
@@ -208,8 +208,8 @@ function runAction(action: string) {
             </p-button>
 
             <p-dropdown summary="Right aligned" align="end">
-              <li><a href="#">Account settings</a></li>
-              <li><a href="#">Sign out</a></li>
+              <li><a href="#" @click.prevent>Account settings</a></li>
+              <li><a href="#" @click.prevent>Sign out</a></li>
             </p-dropdown>
           </AppCluster>
         </DocsExample>

@@ -3,7 +3,7 @@ import type { DocsMeta } from "@/types/docs";
 
 export const docsMeta = {
   title: "Theme Switcher | Pear",
-  description: "Theme switcher component and useTheme composable examples for Pear.",
+  description: "Theme switcher and useTheme examples for Pear.",
   tocItems: [
     { id: "overview", label: "Overview" },
     { id: "switcher", label: "Switcher" },
@@ -43,8 +43,8 @@ const themeApi: DocsApiItem[] = [
 <template>
   <section id="overview" data-section class="docs-section">
     <DocsIntroCard name="PThemeSwitcher">
-      <code>PThemeSwitcher</code> renders system, light, and dark theme controls
-      backed by the shared <code>useTheme</code> composable.
+      <code>PThemeSwitcher</code> gives users system, light, and dark buttons.
+      Use <code>useTheme</code> when you want to set the same value yourself.
     </DocsIntroCard>
   </section>
 

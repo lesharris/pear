@@ -8,6 +8,7 @@ export const docsMeta = {
   tocItems: [
     { id: "overview", label: "Overview" },
     { id: "text-inputs", label: "Text Inputs" },
+    { id: "state-props", label: "States & Tooltips" },
     { id: "api", label: "API" },
   ],
 } satisfies DocsMeta;
@@ -27,6 +28,7 @@ const password = ref("");
 const search = ref("");
 const age = ref<number | string>("");
 const readonlyToken = ref("order-2026-05-04");
+const disabledText = ref("Locked");
 
 const emailError = computed(() => {
   if (!email.value) return undefined;
@@ -71,7 +73,7 @@ const passwordInputCode = String.raw`
 `;
 
 const searchInputCode = String.raw`
-<p-field label="Search" helper="Pico gives search inputs their own native-ish styling.">
+<p-field label="Search" helper="Pico keeps search inputs looking like search inputs.">
   <p-input
     v-model="search"
     type="search"
@@ -100,6 +102,21 @@ const readonlyInputCode = String.raw`
 </p-field>
 `;
 
+const statePropsCode = String.raw`
+<p-field label="Disabled input" disabled>
+  <p-input v-model="disabledText" />
+</p-field>
+
+<p-field label="API token">
+  <p-input
+    v-model="readonlyToken"
+    readonly
+    tooltip="Copy this from your account settings"
+    tooltip-placement="bottom"
+  />
+</p-field>
+`;
+
 const inputProps: DocsApiItem[] = [
   { name: "v-model", type: "string | number", description: "Input value. Number inputs write numbers, and empty number inputs write an empty string." },
   { name: "type", type: "'text' | 'email' | 'number' | 'password' | 'tel' | 'url' | 'search'", default: "'text'", description: "Text-like native input type rendered by PInput." },
@@ -118,9 +135,8 @@ const inputEvents: DocsApiItem[] = [
 <template>
   <section id="overview" data-section class="docs-section">
     <DocsIntroCard name="PInput">
-      <code>PInput</code> wraps native text-like inputs with Vue
-      <code>v-model</code> handling while preserving Pico's semantic input
-      styling.
+      <code>PInput</code> covers the usual text-like inputs with a plain Vue
+      <code>v-model</code>, plus Pico's normal input styling.
     </DocsIntroCard>
   </section>
 
@@ -174,7 +190,7 @@ const inputEvents: DocsApiItem[] = [
           <DocsExample :code="searchInputCode">
             <p-field
               label="Search"
-              helper="Pico gives search inputs their own native-ish styling."
+              helper="Pico keeps search inputs looking like search inputs."
             >
               <p-input
                 v-model="search"
@@ -207,6 +223,29 @@ const inputEvents: DocsApiItem[] = [
             </p-field>
           </DocsExample>
         </AppStack>
+      </p-card>
+    </section>
+
+    <section id="state-props" data-section class="docs-section">
+      <p-card>
+        <template #header>States & Tooltips</template>
+
+        <DocsExample :code="statePropsCode">
+          <AppStack>
+            <p-field label="Disabled input" disabled>
+              <p-input v-model="disabledText" />
+            </p-field>
+
+            <p-field label="API token">
+              <p-input
+                v-model="readonlyToken"
+                readonly
+                tooltip="Copy this from your account settings"
+                tooltip-placement="bottom"
+              />
+            </p-field>
+          </AppStack>
+        </DocsExample>
       </p-card>
     </section>
 

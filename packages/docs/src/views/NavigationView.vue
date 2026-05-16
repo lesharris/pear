@@ -26,8 +26,8 @@ const balancedNavCode = String.raw`
     <p-nav-item><strong>Pear</strong></p-nav-item>
   </template>
 
-  <p-nav-item><a href="#">Docs</a></p-nav-item>
-  <p-nav-item><a href="#">Components</a></p-nav-item>
+  <p-nav-item><a href="#" @click.prevent>Docs</a></p-nav-item>
+  <p-nav-item><a href="#" @click.prevent>Components</a></p-nav-item>
 
   <template #right>
     <p-nav-item><p-button>Sign in</p-button></p-nav-item>
@@ -37,9 +37,9 @@ const balancedNavCode = String.raw`
 
 const simpleListCode = String.raw`
 <p-nav>
-  <p-nav-item><a href="#">Overview</a></p-nav-item>
-  <p-nav-item><a href="#">Guides</a></p-nav-item>
-  <p-nav-item><a href="#">Reference</a></p-nav-item>
+  <p-nav-item><a href="#" @click.prevent>Overview</a></p-nav-item>
+  <p-nav-item><a href="#" @click.prevent>Guides</a></p-nav-item>
+  <p-nav-item><a href="#" @click.prevent>Reference</a></p-nav-item>
 </p-nav>
 `;
 
@@ -70,8 +70,8 @@ const navSlots: DocsApiItem[] = [
             <p-nav-item><strong>Pear</strong></p-nav-item>
           </template>
 
-          <p-nav-item><a href="#">Docs</a></p-nav-item>
-          <p-nav-item><a href="#">Components</a></p-nav-item>
+          <p-nav-item><a href="#" @click.prevent>Docs</a></p-nav-item>
+          <p-nav-item><a href="#" @click.prevent>Components</a></p-nav-item>
 
           <template #right>
             <p-nav-item><p-button>Sign in</p-button></p-nav-item>
@@ -87,9 +87,9 @@ const navSlots: DocsApiItem[] = [
 
       <DocsExample :code="simpleListCode">
         <p-nav>
-          <p-nav-item><a href="#">Overview</a></p-nav-item>
-          <p-nav-item><a href="#">Guides</a></p-nav-item>
-          <p-nav-item><a href="#">Reference</a></p-nav-item>
+          <p-nav-item><a href="#" @click.prevent>Overview</a></p-nav-item>
+          <p-nav-item><a href="#" @click.prevent>Guides</a></p-nav-item>
+          <p-nav-item><a href="#" @click.prevent>Reference</a></p-nav-item>
         </p-nav>
       </DocsExample>
     </p-card>

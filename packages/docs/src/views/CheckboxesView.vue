@@ -10,6 +10,7 @@ export const docsMeta = {
     { id: "checkboxes", label: "Checkboxes & Switches" },
     { id: "checkbox-groups", label: "Checkbox Groups" },
     { id: "radio-overview", label: "PRadio" },
+    { id: "choice-states", label: "States" },
     { id: "radios", label: "Radio Group" },
     { id: "api", label: "API" },
   ],
@@ -30,6 +31,8 @@ const notificationSwitch = ref(true);
 const selectedFeatures = ref<string[]>(["api"]);
 const contactPreference = ref("email");
 const disabledChoice = ref("enabled");
+const confirmDelete = ref(false);
+const supportPlan = ref("");
 
 const availableFeatureOptions = [
   { value: "api", label: "API access" },
@@ -96,6 +99,27 @@ const radioCode = String.raw`
 </fieldset>
 `;
 
+const choiceStatesCode = String.raw`
+<fieldset aria-describedby="delete-error">
+  <legend>Danger zone</legend>
+  <p-checkbox v-model="confirmDelete" name="confirm-delete" invalid>
+    I understand this cannot be undone
+  </p-checkbox>
+  <small id="delete-error">Check this before deleting the workspace.</small>
+</fieldset>
+
+<fieldset aria-describedby="plan-error">
+  <legend>Support plan</legend>
+  <p-radio v-model="supportPlan" name="support-plan" value="standard" invalid>
+    Standard
+  </p-radio>
+  <p-radio v-model="supportPlan" name="support-plan" value="priority" invalid>
+    Priority
+  </p-radio>
+  <small id="plan-error">Choose a support plan.</small>
+</fieldset>
+`;
+
 const checkboxProps: DocsApiItem[] = [
   { name: "v-model", type: "string | number | boolean | Array<string | number | boolean>", description: "Checked value or selected values array." },
   { name: "value", type: "string | number | boolean", default: "true", description: "Value written when checked, or array item used in group mode." },
@@ -125,9 +149,9 @@ const choiceEvents: DocsApiItem[] = [
 <template>
   <section id="checkbox-overview" data-section class="docs-section">
     <DocsIntroCard name="PCheckbox">
-      <code>PCheckbox</code> wraps native checkbox inputs with boolean and array
-      <code>v-model</code> handling, switch styling, indeterminate state, and
-      field-context support.
+      <code>PCheckbox</code> keeps native checkbox behavior and adds the bits
+      you usually want in Vue: boolean models, array models, switches, and
+      indeterminate state.
     </DocsIntroCard>
   </section>
 
@@ -217,9 +241,42 @@ const choiceEvents: DocsApiItem[] = [
 
       <section id="radio-overview" data-section class="docs-section">
         <DocsIntroCard name="PRadio">
-          <code>PRadio</code> wraps native radio inputs with scalar
-          <code>v-model</code> handling and field-context support.
+          <code>PRadio</code> is the same idea for radio buttons: native inputs
+          with a tidy scalar <code>v-model</code>.
         </DocsIntroCard>
+      </section>
+
+      <section id="choice-states" data-section class="docs-section">
+        <p-card>
+          <template #header>States</template>
+
+          <DocsExample :code="choiceStatesCode">
+            <AppGrid min="18rem">
+              <fieldset aria-describedby="delete-error">
+                <legend>Danger zone</legend>
+                <AppStack>
+                  <p-checkbox v-model="confirmDelete" name="confirm-delete" invalid>
+                    I understand this cannot be undone
+                  </p-checkbox>
+                  <small id="delete-error">Check this before deleting the workspace.</small>
+                </AppStack>
+              </fieldset>
+
+              <fieldset aria-describedby="plan-error">
+                <legend>Support plan</legend>
+                <AppStack>
+                  <p-radio v-model="supportPlan" name="support-plan" value="standard" invalid>
+                    Standard
+                  </p-radio>
+                  <p-radio v-model="supportPlan" name="support-plan" value="priority" invalid>
+                    Priority
+                  </p-radio>
+                  <small id="plan-error">Choose a support plan.</small>
+                </AppStack>
+              </fieldset>
+            </AppGrid>
+          </DocsExample>
+        </p-card>
       </section>
 
       <section id="radios" data-section class="docs-section">

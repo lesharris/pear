@@ -29,7 +29,7 @@ const isPicoOpen = ref(true);
 
 const standaloneCode = String.raw`
 <p-accordion summary="What is Pico CSS?" v-model:open="isPicoOpen">
-  <p>Pico provides class-light styling for semantic HTML.</p>
+  <p>Pico styles semantic HTML with very few classes.</p>
 </p-accordion>
 
 <p-accordion>
@@ -45,6 +45,14 @@ const groupCode = String.raw`
   <p-accordion summary="Profile" open>...</p-accordion>
   <p-accordion summary="Billing">...</p-accordion>
   <p-accordion summary="Security">...</p-accordion>
+</p-accordion-group>
+`;
+
+const namedGroupCode = String.raw`
+<p-accordion-group exclusive name="example-settings">
+  <p-accordion summary="General">...</p-accordion>
+  <p-accordion summary="Notifications">...</p-accordion>
+  <p-accordion summary="Danger zone">...</p-accordion>
 </p-accordion-group>
 `;
 
@@ -82,8 +90,8 @@ const accordionEvents: DocsApiItem[] = [
 <template>
   <section id="accordion-overview" data-section class="docs-section">
     <DocsIntroCard name="PAccordion">
-      <code>PAccordion</code> renders native details and summary markup with
-      optional button-style summaries and custom summary content.
+      <code>PAccordion</code> uses native details and summary markup, with a
+      couple of Pear extras for button-style summaries and custom headings.
     </DocsIntroCard>
   </section>
 
@@ -94,9 +102,8 @@ const accordionEvents: DocsApiItem[] = [
           <DocsExample :code="standaloneCode">
             <p-accordion summary="What is Pico CSS?" v-model:open="isPicoOpen">
               <p>
-                Pico provides class-light styling for semantic HTML. This wrapper
-                library keeps that native HTML shape while smoothing out repetitive
-                Vue ergonomics.
+                Pico gives semantic HTML a clean default look. Pear keeps that
+                HTML shape and makes the Vue bits a little easier.
               </p>
             </p-accordion>
 
@@ -113,7 +120,7 @@ const accordionEvents: DocsApiItem[] = [
               </template>
 
               <p>
-                This summary is rendered from slot content instead of the summary prop.
+                The summary slot is useful when the heading needs markup.
               </p>
             </p-accordion>
           </DocsExample>
@@ -122,8 +129,8 @@ const accordionEvents: DocsApiItem[] = [
 
       <section id="group-overview" data-section class="docs-section">
         <DocsIntroCard name="PAccordionGroup">
-          <code>PAccordionGroup</code> provides a shared native details name for
-          child accordions when only one panel should be open at a time.
+          <code>PAccordionGroup</code> links child accordions together when
+          only one panel should stay open.
         </DocsIntroCard>
       </section>
 
@@ -162,23 +169,25 @@ const accordionEvents: DocsApiItem[] = [
 
           <AppStack>
             <p>
-              You can also provide a stable group name when you want explicit native
-              details grouping.
+              Give the group a name when you want the native details grouping to
+              stay stable across renders.
             </p>
 
-            <p-accordion-group exclusive name="example-settings">
-              <p-accordion summary="General">
-                <p>General settings for the current workspace.</p>
-              </p-accordion>
+            <DocsExample :code="namedGroupCode">
+              <p-accordion-group exclusive name="example-settings">
+                <p-accordion summary="General">
+                  <p>General settings for the current workspace.</p>
+                </p-accordion>
 
-              <p-accordion summary="Notifications">
-                <p>Notification preferences and delivery settings.</p>
-              </p-accordion>
+                <p-accordion summary="Notifications">
+                  <p>Notification preferences and delivery settings.</p>
+                </p-accordion>
 
-              <p-accordion summary="Danger zone">
-                <p>Destructive actions and irreversible account controls live here.</p>
-              </p-accordion>
-            </p-accordion-group>
+                <p-accordion summary="Danger zone">
+                  <p>Destructive actions and irreversible account controls live here.</p>
+                </p-accordion>
+              </p-accordion-group>
+            </DocsExample>
           </AppStack>
         </p-card>
       </section>

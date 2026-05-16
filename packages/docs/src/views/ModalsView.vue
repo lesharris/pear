@@ -7,6 +7,7 @@ export const docsMeta = {
   tocItems: [
     { id: "modal-overview", label: "PModal" },
     { id: "vmodel-modal", label: "v-model" },
+    { id: "backdrop", label: "Backdrop" },
     { id: "provider-overview", label: "PModalProvider" },
     { id: "programmatic-modal", label: "Programmatic" },
     { id: "api", label: "API" },
@@ -23,12 +24,25 @@ import DocsIntroCard from "@/components/DocsIntroCard.vue";
 import { PButton, PCard, PModal, useModal } from "@ontic/pear";
 
 const localModalOpen = ref(false);
-const modal = useModal();
+const pinnedModalOpen = ref(false);
+const programmaticResult = ref("No result yet");
+let modal: ReturnType<typeof useModal> | undefined;
 
-function openProgrammaticModal() {
-  modal.open({
+try {
+  modal = useModal();
+} catch {
+  // The search prerender can visit this page outside the live app provider.
+}
+
+async function openProgrammaticModal() {
+  if (!modal) {
+    programmaticResult.value = "Modal provider is not available here.";
+    return;
+  }
+
+  const result = await modal.open({
     title: "Programmatic modal",
-    description: "This modal was opened through the modal provider instead of local v-model state.",
+    description: "Choose an action and the promise resolves with its result.",
     component: {
       render() {
         return h("p", "Provider modals can also render custom Vue components.");
@@ -38,15 +52,17 @@ function openProgrammaticModal() {
       {
         label: "Cancel",
         variant: "secondary",
+        action: () => "cancel",
       },
       {
         label: "Confirm",
-        action: () => {
-          console.log("Confirmed from programmatic modal");
-        },
+        action: () => "confirm",
       },
     ],
   });
+
+  programmaticResult.value =
+    typeof result === "string" ? `Result: ${result}` : "Closed without a result";
 }
 
 const vmodelModalCode = String.raw`
@@ -68,18 +84,42 @@ const vmodelModalCode = String.raw`
 </p-modal>
 `;
 
+const backdropModalCode = String.raw`
+<p-button variant="secondary" @click="pinnedModalOpen = true">
+  Open pinned modal
+</p-button>
+
+<p-modal v-model="pinnedModalOpen" :close-on-backdrop="false">
+  <template #header>
+    <h3>Check the details</h3>
+  </template>
+
+  <p>Backdrop clicks stay put, so the user needs to choose an action.</p>
+
+  <template #footer="{ close }">
+    <p-button @click="close">Done</p-button>
+  </template>
+</p-modal>
+`;
+
 const programmaticModalCode = String.raw`
 const modal = useModal();
 
-modal.open({
-  title: "Programmatic modal",
-  description: "Optional body copy rendered before custom component content.",
-  component: MyModalBody,
-  actions: [
-    { label: "Cancel", variant: "secondary" },
-    { label: "Confirm", action: save },
-  ],
-});
+async function confirmSave() {
+  const result = await modal.open({
+    title: "Programmatic modal",
+    description: "Choose an action and the promise resolves with its result.",
+    component: MyModalBody,
+    actions: [
+      { label: "Cancel", variant: "secondary", action: () => "cancel" },
+      { label: "Confirm", action: () => "confirm" },
+    ],
+  });
+
+  if (result === "confirm") {
+    await save();
+  }
+}
 `;
 
 const modalProps: DocsApiItem[] = [
@@ -100,17 +140,16 @@ const modalEvents: DocsApiItem[] = [
 
 const modalProviderApi: DocsApiItem[] = [
   { name: "PModalProvider", type: "component", description: "Provides programmatic modal context to child components." },
-  { name: "useModal().open", type: "(options: PModalOptions) => void", description: "Opens a provider-managed modal with an optional title, description, component, props, actions, and backdrop behavior." },
-  { name: "useModal().close", type: "() => void", description: "Closes the provider-managed modal." },
+  { name: "useModal().open", type: "(options: PModalOptions) => Promise<unknown>", description: "Opens a provider modal and resolves with the clicked action's return value." },
+  { name: "useModal().close", type: "(result?: unknown) => void", description: "Closes the provider modal and optionally resolves it with a value." },
 ];
 </script>
 
 <template>
   <section id="modal-overview" data-section class="docs-section">
     <DocsIntroCard name="PModal">
-      <code>PModal</code> wraps the native dialog element with
-      <code>v-model</code> control, backdrop closing, close slot props, and an
-      after-close event.
+      <code>PModal</code> uses the native dialog element with
+      <code>v-model</code>, footer close helpers, and an after-close event.
     </DocsIntroCard>
   </section>
 
@@ -152,11 +191,36 @@ const modalProviderApi: DocsApiItem[] = [
         </p-card>
       </section>
 
+      <section id="backdrop" data-section class="docs-section">
+        <p-card>
+          <template #header>Backdrop</template>
+
+          <DocsExample :code="backdropModalCode">
+            <p-button variant="secondary" @click="pinnedModalOpen = true">
+              Open pinned modal
+            </p-button>
+
+            <p-modal v-model="pinnedModalOpen" :close-on-backdrop="false">
+              <template #header>
+                <h3>Check the details</h3>
+              </template>
+
+              <p>
+                Backdrop clicks stay put, so the user needs to choose an action.
+              </p>
+
+              <template #footer="{ close }">
+                <p-button @click="close">Done</p-button>
+              </template>
+            </p-modal>
+          </DocsExample>
+        </p-card>
+      </section>
+
       <section id="provider-overview" data-section class="docs-section">
         <DocsIntroCard name="PModalProvider">
-          <code>PModalProvider</code> and <code>useModal</code> provide an
-          app-level programmatic modal API for opening modal content without
-          passing local state through the view.
+          <code>PModalProvider</code> and <code>useModal</code> are handy when
+          a view needs to open a modal without carrying local modal state around.
         </DocsIntroCard>
       </section>
 
@@ -166,14 +230,19 @@ const modalProviderApi: DocsApiItem[] = [
 
           <AppStack>
             <p>
-              This modal is opened through the app-level modal provider without
-              passing v-model state through this view.
+              This one comes from the app-level provider. Since
+              <code>modal.open()</code> returns a promise, you can await the
+              user's choice.
             </p>
 
             <DocsExample :code="programmaticModalCode" language="ts">
-              <p-button @click="openProgrammaticModal">
-                Open programmatic modal
-              </p-button>
+              <AppStack gap="0.75rem">
+                <p-button @click="openProgrammaticModal">
+                  Open programmatic modal
+                </p-button>
+
+                <small>{{ programmaticResult }}</small>
+              </AppStack>
             </DocsExample>
           </AppStack>
         </p-card>

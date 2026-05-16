@@ -8,6 +8,8 @@ export const docsMeta = {
     { id: "overview", label: "Overview" },
     { id: "basic-select", label: "Basic Options" },
     { id: "multiple-select", label: "Multiple Select" },
+    { id: "custom-options", label: "Custom Options" },
+    { id: "states", label: "States & Tooltips" },
     { id: "api", label: "API" },
   ],
 } satisfies DocsMeta;
@@ -24,6 +26,9 @@ import { PCard, PField, PSelect } from "@ontic/pear";
 const cuisine = ref("");
 const mealType = ref("");
 const selectedCuisines = ref<string[]>([]);
+const customCuisine = ref("thai");
+const invalidCuisine = ref("");
+const disabledCuisine = ref("Japanese");
 
 const cuisines = ["Italian", "Japanese", "Indian", "Thai"];
 const mealTypes = [
@@ -68,6 +73,40 @@ const multipleSelectCode = String.raw`
 </p-field>
 `;
 
+const customOptionsCode = String.raw`
+<p-field label="Custom option markup">
+  <p-select v-model="customCuisine" name="custom-cuisine">
+    <option value="thai">Thai - spicy and bright</option>
+    <option value="japanese">Japanese - clean and cozy</option>
+    <option value="indian">Indian - warm and layered</option>
+  </p-select>
+</p-field>
+`;
+
+const stateSelectCode = String.raw`
+<p-field label="Disabled select" disabled>
+  <p-select
+    v-model="disabledCuisine"
+    name="disabled-cuisine"
+    :options="cuisines"
+  />
+</p-field>
+
+<p-field
+  label="Required select"
+  error="Pick one before saving."
+>
+  <p-select
+    v-model="invalidCuisine"
+    name="invalid-cuisine"
+    placeholder="Choose one..."
+    :options="cuisines"
+    tooltip="This menu uses native select behavior"
+    tooltip-placement="bottom"
+  />
+</p-field>
+`;
+
 const selectProps: DocsApiItem[] = [
   { name: "v-model", type: "string | number | Array<string | number>", description: "Selected value, or selected values when multiple is true." },
   { name: "options", type: "Array<string | number | object>", default: "[]", description: "Options rendered when no default slot is provided." },
@@ -78,6 +117,8 @@ const selectProps: DocsApiItem[] = [
   { name: "size", type: "number", description: "Native visible row count." },
   { name: "disabled", type: "boolean", default: "false", description: "Disables the select. Inherits from PField when present." },
   { name: "invalid", type: "boolean", default: "false", description: "Sets aria-invalid. Inherits from PField when present." },
+  { name: "tooltip", type: "string", description: "Optional Pico tooltip content." },
+  { name: "tooltipPlacement", type: "PTooltipPlacement", description: "Optional Pico tooltip placement." },
 ];
 
 const selectSlots: DocsApiItem[] = [
@@ -92,9 +133,9 @@ const selectEvents: DocsApiItem[] = [
 <template>
   <section id="overview" data-section class="docs-section">
     <DocsIntroCard name="PSelect">
-      <code>PSelect</code> is the Pear wrapper for native selects. It handles
-      simple option arrays, object options, multiple selection, and field
-      context. If you want a tiny action menu, use <code>PDropdown</code>.
+      <code>PSelect</code> is for native select fields: simple lists, object
+      options, multiple selection, and normal form states. For a little action
+      menu, reach for <code>PDropdown</code>.
     </DocsIntroCard>
   </section>
 
@@ -126,6 +167,51 @@ const selectEvents: DocsApiItem[] = [
             <p-field label="Multiple select">
               <p-select v-model="selectedCuisines" name="selected-cuisines" :options="cuisines" multiple :size="4" />
             </p-field>
+          </DocsExample>
+        </p-card>
+      </section>
+
+      <section id="custom-options" data-section class="docs-section">
+        <p-card>
+          <template #header>Custom Options</template>
+
+          <DocsExample :code="customOptionsCode">
+            <p-field label="Custom option markup">
+              <p-select v-model="customCuisine" name="custom-cuisine">
+                <option value="thai">Thai - spicy and bright</option>
+                <option value="japanese">Japanese - clean and cozy</option>
+                <option value="indian">Indian - warm and layered</option>
+              </p-select>
+            </p-field>
+          </DocsExample>
+        </p-card>
+      </section>
+
+      <section id="states" data-section class="docs-section">
+        <p-card>
+          <template #header>States & Tooltips</template>
+
+          <DocsExample :code="stateSelectCode">
+            <AppStack>
+              <p-field label="Disabled select" disabled>
+                <p-select
+                  v-model="disabledCuisine"
+                  name="disabled-cuisine"
+                  :options="cuisines"
+                />
+              </p-field>
+
+              <p-field label="Required select" error="Pick one before saving.">
+                <p-select
+                  v-model="invalidCuisine"
+                  name="invalid-cuisine"
+                  placeholder="Choose one..."
+                  :options="cuisines"
+                  tooltip="This menu uses native select behavior"
+                  tooltip-placement="bottom"
+                />
+              </p-field>
+            </AppStack>
           </DocsExample>
         </p-card>
       </section>

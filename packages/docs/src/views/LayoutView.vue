@@ -65,9 +65,9 @@ const clusterCode = String.raw`
 
 const inlineCode = String.raw`
 <p-inline gap="0.5rem" as="nav" aria-label="Breadcrumb">
-  <a href="#">Docs</a>
+  <a href="#" @click.prevent>Docs</a>
   <span aria-hidden="true">/</span>
-  <a href="#">Layout</a>
+  <a href="#" @click.prevent>Layout</a>
   <span aria-hidden="true">/</span>
   <span>PInline</span>
 </p-inline>

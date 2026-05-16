@@ -10,6 +10,7 @@ export const docsMeta = {
     { id: "variants", label: "Variants" },
     { id: "groups", label: "Groups" },
     { id: "states", label: "States" },
+    { id: "tooltips", label: "Tooltips" },
     { id: "api", label: "API" },
   ],
 } satisfies DocsMeta;
@@ -55,6 +56,16 @@ const loadingCode = String.raw`
 <p-button loading>Loading</p-button>
 <p-button type="submit" value="Saving..." loading />
 <p-button variant="secondary" loading>Secondary loading</p-button>
+`;
+
+const tooltipCode = String.raw`
+<p-button tooltip="Save changes" tooltip-placement="bottom">
+  Save
+</p-button>
+
+<p-button variant="secondary" tooltip="Nothing to undo yet" disabled>
+  Undo
+</p-button>
 `;
 
 const buttonProps: DocsApiItem[] = [
@@ -160,6 +171,24 @@ const buttonEvents: DocsApiItem[] = [
             </div>
           </DocsExample>
           </AppStack>
+        </p-card>
+      </section>
+
+      <section id="tooltips" data-section class="docs-section">
+        <p-card>
+          <template #header>Tooltips</template>
+
+          <DocsExample :code="tooltipCode">
+            <AppCluster>
+              <p-button tooltip="Save changes" tooltip-placement="bottom">
+                Save
+              </p-button>
+
+              <p-button variant="secondary" tooltip="Nothing to undo yet" disabled>
+                Undo
+              </p-button>
+            </AppCluster>
+          </DocsExample>
         </p-card>
       </section>
 
