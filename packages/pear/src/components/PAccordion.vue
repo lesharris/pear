@@ -1,6 +1,10 @@
 <script setup lang="ts">
-import { inject, ref } from 'vue'
+import { inject, ref, watch } from 'vue'
 import { PAccordionGroupKey } from '@/types/PAccordion'
+
+const emit = defineEmits<{
+  'update:open': [open: boolean]
+}>()
 
 const {
   summary,
@@ -23,15 +27,20 @@ const group = inject(PAccordionGroupKey, undefined)
 const details = ref<HTMLDetailsElement>()
 const isOpen = ref(open)
 
+watch(() => open, (nextOpen) => {
+  isOpen.value = nextOpen
+})
+
 function onToggle() {
   isOpen.value = details.value?.open ?? false
+  emit('update:open', isOpen.value)
 }
 </script>
 
 <template>
   <details
     ref="details"
-    :open="open"
+    :open="isOpen"
     :name="name ?? group?.name"
     @toggle="onToggle"
   >

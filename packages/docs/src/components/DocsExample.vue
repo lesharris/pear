@@ -9,10 +9,12 @@ const {
   code,
   language = "html",
   title,
+  previewOverflow = "auto",
 } = defineProps<{
   code: string;
   language?: string;
   title?: string;
+  previewOverflow?: "auto" | "visible";
 }>();
 
 const copied = ref(false);
@@ -55,7 +57,11 @@ watch([normalizedCode, () => language], () => {
 
 <template>
   <div class="docs-example">
-    <div v-if="$slots.default" class="docs-example-preview">
+    <div
+      v-if="$slots.default"
+      class="docs-example-preview"
+      :class="`docs-example-preview--${previewOverflow}`"
+    >
       <slot />
     </div>
 
@@ -85,5 +91,4 @@ watch([normalizedCode, () => language], () => {
     </div>
   </div>
 </template>
-
 

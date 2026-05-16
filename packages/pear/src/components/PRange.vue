@@ -55,7 +55,30 @@ function updateValue(event: Event) {
 
 <template>
   <div class="p-range">
+    <span
+      v-if="tooltip"
+      class="p-tooltip-host p-range__control"
+      :data-tooltip="tooltip"
+      :data-placement="tooltipPlacement"
+    >
+      <input
+        :id="field?.id"
+        type="range"
+        :value="value"
+        :min="min"
+        :max="max"
+        :step="step"
+        :disabled="isDisabled"
+        :aria-invalid="ariaInvalid"
+        :aria-describedby="ariaDescribedBy"
+        @input="updateValue"
+      >
+
+      <span :id="tooltipId" role="tooltip" class="p-sr-only">{{ tooltip }}</span>
+    </span>
+
     <input
+      v-else
       :id="field?.id"
       type="range"
       :value="value"
@@ -65,8 +88,6 @@ function updateValue(event: Event) {
       :disabled="isDisabled"
       :aria-invalid="ariaInvalid"
       :aria-describedby="ariaDescribedBy"
-      :data-tooltip="tooltip"
-      :data-placement="tooltipPlacement"
       @input="updateValue"
     >
 
@@ -77,8 +98,6 @@ function updateValue(event: Event) {
     >
       {{ value }}
     </output>
-
-    <span v-if="tooltip" :id="tooltipId" role="tooltip" class="p-sr-only">{{ tooltip }}</span>
   </div>
 </template>
 
@@ -89,8 +108,13 @@ function updateValue(event: Event) {
   gap: 0.75rem;
 }
 
-.p-range input {
+.p-range input,
+.p-range__control {
   flex: 1;
+}
+
+.p-range__control input {
+  width: 100%;
 }
 
 .p-range__value {

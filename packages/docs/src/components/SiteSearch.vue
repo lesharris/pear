@@ -257,7 +257,7 @@ function close() {
 }
 
 .search-input {
-  width: 14rem;
+  width: clamp(9rem, 22vw, 14rem);
   height: 2rem;
   padding: 0 0.625rem;
   margin: 0;
@@ -280,5 +280,11 @@ function close() {
 
 .search-input::-webkit-search-cancel-button {
   -webkit-appearance: none;
+}
+
+@media (max-width: 480px) {
+  .search-input {
+    width: 9rem;
+  }
 }
 </style>

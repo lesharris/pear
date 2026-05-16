@@ -74,33 +74,62 @@ function updateFiles(event: Event) {
 </script>
 
 <template>
-  <input
-    v-if="type === 'file'"
-    v-bind="$attrs"
-    :id="field?.id"
-    type="file"
-    :disabled="isDisabled"
-    :aria-invalid="ariaInvalid"
-    :aria-describedby="ariaDescribedBy"
+  <span
+    v-if="tooltip"
+    class="p-tooltip-host"
     :data-tooltip="tooltip"
     :data-placement="tooltipPlacement"
-    @change="updateFiles"
   >
+    <input
+      v-if="type === 'file'"
+      v-bind="$attrs"
+      :id="field?.id"
+      type="file"
+      :disabled="isDisabled"
+      :aria-invalid="ariaInvalid"
+      :aria-describedby="ariaDescribedBy"
+      @change="updateFiles"
+    >
 
-  <input
-    v-else
-    v-bind="$attrs"
-    :id="field?.id"
-    :type="type"
-    :value="model"
-    :disabled="isDisabled"
-    :readonly="readonly"
-    :aria-invalid="ariaInvalid"
-    :aria-describedby="ariaDescribedBy"
-    :data-tooltip="tooltip"
-    :data-placement="tooltipPlacement"
-    @input="updateValue"
-  >
+    <input
+      v-else
+      v-bind="$attrs"
+      :id="field?.id"
+      :type="type"
+      :value="model"
+      :disabled="isDisabled"
+      :readonly="readonly"
+      :aria-invalid="ariaInvalid"
+      :aria-describedby="ariaDescribedBy"
+      @input="updateValue"
+    >
 
-  <span v-if="tooltip" :id="tooltipId" role="tooltip" class="p-sr-only">{{ tooltip }}</span>
+    <span :id="tooltipId" role="tooltip" class="p-sr-only">{{ tooltip }}</span>
+  </span>
+
+  <template v-else>
+    <input
+      v-if="type === 'file'"
+      v-bind="$attrs"
+      :id="field?.id"
+      type="file"
+      :disabled="isDisabled"
+      :aria-invalid="ariaInvalid"
+      :aria-describedby="ariaDescribedBy"
+      @change="updateFiles"
+    >
+
+    <input
+      v-else
+      v-bind="$attrs"
+      :id="field?.id"
+      :type="type"
+      :value="model"
+      :disabled="isDisabled"
+      :readonly="readonly"
+      :aria-invalid="ariaInvalid"
+      :aria-describedby="ariaDescribedBy"
+      @input="updateValue"
+    >
+  </template>
 </template>

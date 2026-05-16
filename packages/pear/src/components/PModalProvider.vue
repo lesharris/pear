@@ -11,23 +11,35 @@ defineOptions({
 const open = ref(false)
 const options = shallowRef<PModalOptions | null>(null)
 const mounted = ref(false)
+let resolveModal: ((result: unknown) => void) | null = null
 
 onMounted(() => {
   mounted.value = true
 })
 
-function showModal(nextOptions: PModalOptions) {
-  options.value = nextOptions
-  open.value = true
+function settleModal(result?: unknown) {
+  resolveModal?.(result)
+  resolveModal = null
 }
 
-function closeModal() {
+function showModal(nextOptions: PModalOptions) {
+  settleModal()
+  options.value = nextOptions
+  open.value = true
+
+  return new Promise<unknown>((resolve) => {
+    resolveModal = resolve
+  })
+}
+
+function closeModal(result?: unknown) {
+  settleModal(result)
   open.value = false
 }
 
-async function runAction(action?: () => void | Promise<void>) {
-  await action?.()
-  closeModal()
+async function runAction(action?: () => unknown | Promise<unknown>) {
+  const result = await action?.()
+  closeModal(result)
 }
 
 const actions = computed(() => options.value?.actions ?? [])
@@ -45,11 +57,15 @@ provide(PModalKey, {
     v-if="mounted"
     v-model="open"
     :close-on-backdrop="options?.closeOnBackdrop ?? true"
-    @after-close="options = null"
+    @after-close="settleModal(); options = null"
   >
     <template v-if="options?.title" #header>
       <h3>{{ options.title }}</h3>
     </template>
+
+    <p v-if="options?.description">
+      {{ options.description }}
+    </p>
 
     <component
       :is="options.component"

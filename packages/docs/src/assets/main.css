@@ -21,6 +21,12 @@ body {
 .docs-nav {
   position: sticky;
   top: calc(var(--header-height) + 1rem);
+  max-block-size: calc(100dvh - var(--header-height) - 2rem);
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  padding-right: 0.25rem;
   padding-bottom: 2rem;
 }
 
@@ -85,6 +91,15 @@ body {
 
 .docs-example-preview {
   min-width: 0;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  contain: paint;
+}
+
+.docs-example-preview--visible {
+  overflow: visible;
+  contain: none;
 }
 
 .docs-code {
@@ -130,6 +145,7 @@ body {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
   overflow: auto;
+  contain: paint;
 }
 
 .docs-code-lines {
@@ -177,17 +193,6 @@ body {
   text-decoration: var(--shiki-dark-text-decoration) !important;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) .docs-code-highlight .shiki,
-  :root:not([data-theme]) .docs-code-highlight .shiki span {
-    color: var(--shiki-dark) !important;
-    background-color: var(--shiki-dark-bg) !important;
-    font-style: var(--shiki-dark-font-style) !important;
-    font-weight: var(--shiki-dark-font-weight) !important;
-    text-decoration: var(--shiki-dark-text-decoration) !important;
-  }
-}
-
 .docs-api-table {
   overflow-x: auto;
 }
@@ -219,7 +224,7 @@ body {
   flex-shrink: 0;
   position: sticky;
   top: calc(var(--header-height) + 1rem);
-  padding-bottom: 2rem;
+  min-width: 0;
 }
 
 .docs-toc-label {
@@ -233,8 +238,18 @@ body {
   margin: 0;
 }
 
+.docs-toc-scroll {
+  max-block-size: calc(100dvh - var(--header-height) - 4rem);
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  padding-top: 0.125rem;
+  padding-right: 0.25rem;
+  padding-bottom: 2rem;
+}
+
 /* Override Pico's nav ul { display: flex; flex-direction: row; align-items: center } */
-.docs-toc ul {
+.docs-toc .docs-toc-scroll > ul {
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -243,54 +258,59 @@ body {
   margin: 0;
 }
 
-.docs-toc li {
+.docs-toc .docs-toc-scroll > ul > li {
   display: block;
   margin: 0;
   padding: 0;
+  border-left: 2px solid var(--docs-toc-rail, var(--pico-muted-border-color));
+  transition: border-color 0.15s;
 }
 
-.docs-toc a {
+.docs-toc .docs-toc-scroll > ul > li.docs-toc-active {
+  border-left-color: var(--pico-primary);
+}
+
+.docs-toc .docs-toc-scroll > ul > li > a {
   display: block;
+  margin: 0;
   padding: 0.2rem 0.75rem;
   font-size: 0.875rem;
   line-height: 1.4;
   text-decoration: none;
   color: var(--pico-muted-color);
-  border-left: 2px solid var(--docs-toc-rail, var(--pico-muted-border-color));
   border-radius: 0 var(--pico-border-radius, 0.25rem) var(--pico-border-radius, 0.25rem) 0;
-  transition: color 0.15s, background-color 0.15s, border-color 0.15s;
+  transition: color 0.15s, background-color 0.15s;
 }
 
-.docs-toc a:hover {
+.docs-toc .docs-toc-scroll > ul > li > a:hover {
   color: var(--pico-color);
   background-color: var(--pico-card-sectionning-background-color, rgba(128, 128, 128, 0.07));
   text-decoration: none;
 }
 
-.docs-toc a.docs-toc-active {
+.docs-toc .docs-toc-scroll > ul > li.docs-toc-active > a {
   color: var(--pico-primary);
-  border-left-color: var(--pico-primary);
   font-weight: 500;
 }
 
 /* Footer mascot: multiply makes white pixels transparent on light bg */
-.footer-mascot {
+.footer-mascot-frame::before {
   mix-blend-mode: multiply;
 }
 
 @media (prefers-color-scheme: dark) {
-  .footer-mascot {
+  .footer-mascot-frame::before {
     mix-blend-mode: normal;
     opacity: 0.13;
   }
 }
 
-[data-theme="dark"] .footer-mascot {
+[data-theme="dark"] .footer-mascot-frame::before {
   mix-blend-mode: normal;
   opacity: 0.13;
 }
 
-[data-theme="light"] .footer-mascot {
+[data-theme="light"] .footer-mascot-frame::before {
   mix-blend-mode: multiply;
   opacity: 0.32;
 }
@@ -299,6 +319,10 @@ body {
 @media (max-width: 720px) {
   .docs-nav {
     position: static;
+    max-block-size: none;
+    overflow-y: visible;
+    overscroll-behavior: auto;
+    padding-right: 0;
     padding-bottom: 1rem;
     border-bottom: 1px solid var(--pico-muted-border-color);
   }

@@ -1,35 +1,35 @@
 import { effectScope, onMounted, ref, watch } from 'vue'
 
-export type Theme = 'system' | 'light' | 'dark'
+export type Theme = 'light' | 'dark'
 
 const STORAGE_KEY = 'pear-theme'
 
 function isTheme(value: string | null): value is Theme {
-  return value === 'light' || value === 'dark' || value === 'system'
+  return value === 'light' || value === 'dark'
+}
+
+function readSystemTheme(): Theme {
+  if (typeof window === 'undefined') return 'light'
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 }
 
 function readStored(): Theme {
-  if (typeof localStorage === 'undefined') return 'system'
+  if (typeof localStorage === 'undefined') return readSystemTheme()
 
   try {
     const stored = localStorage.getItem(STORAGE_KEY)
     if (isTheme(stored)) return stored
   } catch {}
 
-  return 'system'
+  return readSystemTheme()
 }
 
 function apply(theme: Theme) {
   if (typeof document === 'undefined') return
-
-  if (theme === 'system') {
-    document.documentElement.removeAttribute('data-theme')
-  } else {
-    document.documentElement.setAttribute('data-theme', theme)
-  }
+  document.documentElement.setAttribute('data-theme', theme)
 }
 
-const theme = ref<Theme>('system')
+const theme = ref<Theme>('light')
 let initialized = false
 
 function initTheme() {
@@ -57,5 +57,9 @@ function initTheme() {
 export function useTheme() {
   initTheme()
 
-  return { theme }
+  function toggleTheme() {
+    theme.value = theme.value === 'dark' ? 'light' : 'dark'
+  }
+
+  return { theme, toggleTheme }
 }

@@ -10,6 +10,7 @@ export const docsMeta = {
     { id: "variants", label: "Variants" },
     { id: "groups", label: "Groups" },
     { id: "states", label: "States" },
+    { id: "tooltips", label: "Tooltips" },
     { id: "api", label: "API" },
   ],
 } satisfies DocsMeta;
@@ -57,6 +58,16 @@ const loadingCode = String.raw`
 <p-button variant="secondary" loading>Secondary loading</p-button>
 `;
 
+const tooltipCode = String.raw`
+<p-button tooltip="Save changes" tooltip-placement="bottom">
+  Save
+</p-button>
+
+<p-button variant="secondary" tooltip="Nothing to undo yet" disabled>
+  Undo
+</p-button>
+`;
+
 const buttonProps: DocsApiItem[] = [
   { name: "type", type: "'button' | 'submit' | 'reset'", default: "'button'", description: "Renders a native button, submit input, or reset input." },
   { name: "variant", type: "'secondary' | 'contrast'", description: "Applies Pico's secondary or contrast button variant." },
@@ -80,9 +91,9 @@ const buttonEvents: DocsApiItem[] = [
 <template>
   <section id="overview" data-section class="docs-section">
     <DocsIntroCard name="PButton">
-      <code>PButton</code> renders Pico-compatible button markup with small Vue
-      conveniences for variants, loading state, submit/reset modes, and
-      tooltips.
+      <code>PButton</code> is the everyday button wrapper. It keeps Pico's
+      button styles and adds a few Vue niceties: variants, loading state,
+      submit/reset modes, and tooltips.
     </DocsIntroCard>
   </section>
 
@@ -160,6 +171,24 @@ const buttonEvents: DocsApiItem[] = [
             </div>
           </DocsExample>
           </AppStack>
+        </p-card>
+      </section>
+
+      <section id="tooltips" data-section class="docs-section">
+        <p-card>
+          <template #header>Tooltips</template>
+
+          <DocsExample :code="tooltipCode" preview-overflow="visible">
+            <AppCluster>
+              <p-button tooltip="Save changes" tooltip-placement="bottom">
+                Save
+              </p-button>
+
+              <p-button variant="secondary" tooltip="Nothing to undo yet" disabled>
+                Undo
+              </p-button>
+            </AppCluster>
+          </DocsExample>
         </p-card>
       </section>
 

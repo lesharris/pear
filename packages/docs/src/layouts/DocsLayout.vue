@@ -27,16 +27,34 @@ const navItems = [
     path: "/docs/cards",
   },
   {
+    id: "tables",
+    label: "Tables",
+    group: "Content",
+    path: "/docs/tables",
+  },
+  {
     id: "fields",
     label: "Fields",
     group: "Form Controls",
     path: "/docs/fields",
   },
   {
+    id: "fieldsets",
+    label: "Fieldsets",
+    group: "Form Controls",
+    path: "/docs/fieldsets",
+  },
+  {
     id: "text-inputs",
     label: "Text Inputs",
     group: "Form Controls",
     path: "/docs/text-inputs",
+  },
+  {
+    id: "textareas",
+    label: "Textareas",
+    group: "Form Controls",
+    path: "/docs/textareas",
   },
   {
     id: "date-inputs",
@@ -65,6 +83,12 @@ const navItems = [
     path: "/docs/progress",
   },
   {
+    id: "busy",
+    label: "Busy",
+    group: "Feedback",
+    path: "/docs/busy",
+  },
+  {
     id: "tooltips",
     label: "Tooltips",
     group: "Feedback",
@@ -87,6 +111,12 @@ const navItems = [
     label: "Navigation",
     group: "Layout",
     path: "/docs/navigation",
+  },
+  {
+    id: "breadcrumbs",
+    label: "Breadcrumbs",
+    group: "Layout",
+    path: "/docs/breadcrumbs",
   },
   {
     id: "accordions",
@@ -232,6 +262,7 @@ onBeforeUnmount(() => headerObserver?.disconnect());
   display: flex;
   align-items: center;
   gap: 1.25rem;
+  min-width: 0;
 }
 
 main.docs-main {
@@ -269,6 +300,12 @@ main.docs-main {
 @media (max-width: 768px) {
   .docs-header {
     padding: 0 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .docs-nav-right {
+    gap: 0.75rem;
   }
 }
 </style>

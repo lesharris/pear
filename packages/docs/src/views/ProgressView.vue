@@ -9,6 +9,7 @@ export const docsMeta = {
     { id: "overview", label: "Overview" },
     { id: "determinate", label: "Determinate" },
     { id: "indeterminate", label: "Indeterminate" },
+    { id: "tooltips", label: "Tooltips" },
     { id: "api", label: "API" },
   ],
 } satisfies DocsMeta;
@@ -39,6 +40,14 @@ const indeterminateCode = String.raw`
 <p-progress indeterminate />
 `;
 
+const tooltipCode = String.raw`
+<p-progress
+  :value="uploadProgress"
+  tooltip="Upload is 65% complete"
+  tooltip-placement="top"
+/>
+`;
+
 const progressProps: DocsApiItem[] = [
   { name: "value", type: "number", description: "Current progress value. Omitted when indeterminate is true." },
   { name: "max", type: "number", default: "100", description: "Maximum progress value." },
@@ -51,8 +60,8 @@ const progressProps: DocsApiItem[] = [
 <template>
   <section id="overview" data-section class="docs-section">
     <DocsIntroCard name="PProgress">
-      <code>PProgress</code> renders Pico-compatible native progress elements
-      for determinate and indeterminate loading states.
+      <code>PProgress</code> is a small native progress helper for known
+      progress and "still working" loading states.
     </DocsIntroCard>
   </section>
 
@@ -86,6 +95,20 @@ const progressProps: DocsApiItem[] = [
           <DocsExample :code="indeterminateCode">
             <p-progress indeterminate />
             <small>Waiting for a response...</small>
+          </DocsExample>
+        </p-card>
+      </section>
+
+      <section id="tooltips" data-section class="docs-section">
+        <p-card>
+          <template #header>Tooltips</template>
+
+          <DocsExample :code="tooltipCode">
+            <p-progress
+              :value="uploadProgress"
+              tooltip="Upload is 65% complete"
+              tooltip-placement="top"
+            />
           </DocsExample>
         </p-card>
       </section>

@@ -8,6 +8,7 @@ export const docsMeta = {
     { id: "overview", label: "Overview" },
     { id: "color-picker", label: "Color Picker" },
     { id: "file-upload", label: "File Upload" },
+    { id: "multiple-files", label: "Multiple Files" },
     { id: "api", label: "API" },
   ],
 } satisfies DocsMeta;
@@ -23,10 +24,16 @@ import { PCard, PField, PInput } from "@ontic/pear";
 
 const favoriteColor = ref("#00dfa2");
 const receipt = ref<FileList | null>(null);
+const attachments = ref<FileList | null>(null);
 
 const selectedFileName = computed(() => {
   const file = receipt.value?.item(0);
   return file?.name ?? "No file selected";
+});
+
+const selectedAttachmentNames = computed(() => {
+  if (!attachments.value?.length) return "No files selected";
+  return Array.from(attachments.value).map((file) => file.name).join(", ");
 });
 
 const colorPickerCode = String.raw`
@@ -41,11 +48,25 @@ const fileUploadCode = String.raw`
 </p-field>
 `;
 
+const multipleFilesCode = String.raw`
+<p-field label="Attachments" :helper="selectedAttachmentNames">
+  <p-input
+    v-model="attachments"
+    type="file"
+    name="attachments"
+    accept=".pdf,image/*"
+    multiple
+  />
+</p-field>
+`;
+
 const colorInputProps: DocsApiItem[] = [
   { name: "v-model", type: "string", description: "Selected color as a native color input string, usually a hex value such as #00dfa2." },
   { name: "type", type: "'color'", description: "Renders a native color picker input." },
   { name: "disabled", type: "boolean", default: "false", description: "Disables the color picker. Inherits from PField when present." },
   { name: "invalid", type: "boolean", default: "false", description: "Sets aria-invalid. Inherits from PField when present." },
+  { name: "tooltip", type: "string", description: "Optional Pico tooltip content." },
+  { name: "tooltipPlacement", type: "PTooltipPlacement", description: "Optional Pico tooltip placement." },
 ];
 
 const fileInputProps: DocsApiItem[] = [
@@ -55,6 +76,8 @@ const fileInputProps: DocsApiItem[] = [
   { name: "multiple", type: "boolean", default: "false", description: "Native multiple file selection passed through as an attribute." },
   { name: "disabled", type: "boolean", default: "false", description: "Disables the file input. Inherits from PField when present." },
   { name: "invalid", type: "boolean", default: "false", description: "Sets aria-invalid. Inherits from PField when present." },
+  { name: "tooltip", type: "string", description: "Optional Pico tooltip content." },
+  { name: "tooltipPlacement", type: "PTooltipPlacement", description: "Optional Pico tooltip placement." },
 ];
 
 const colorInputEvents: DocsApiItem[] = [
@@ -69,9 +92,9 @@ const fileInputEvents: DocsApiItem[] = [
 <template>
   <section id="overview" data-section class="docs-section">
     <DocsIntroCard name="PInput">
-      <code>PInput</code> supports special native input types such as color
-      pickers and file uploads, while keeping the same field-context and
-      <code>v-model</code> conventions.
+      <code>PInput</code> handles the native odds and ends too: color pickers
+      and file inputs, with the same field and <code>v-model</code> shape as
+      the text inputs.
     </DocsIntroCard>
   </section>
 
@@ -95,6 +118,24 @@ const fileInputEvents: DocsApiItem[] = [
               <p-field label="Receipt" :helper="selectedFileName">
                 <p-input v-model="receipt" type="file" name="receipt" accept=".pdf,image/*" />
               </p-field>
+          </DocsExample>
+        </p-card>
+      </section>
+
+      <section id="multiple-files" data-section class="docs-section">
+        <p-card>
+          <template #header>Multiple Files</template>
+
+          <DocsExample :code="multipleFilesCode">
+            <p-field label="Attachments" :helper="selectedAttachmentNames">
+              <p-input
+                v-model="attachments"
+                type="file"
+                name="attachments"
+                accept=".pdf,image/*"
+                multiple
+              />
+            </p-field>
           </DocsExample>
         </p-card>
       </section>

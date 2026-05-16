@@ -7,6 +7,7 @@ export const docsMeta = {
   tocItems: [
     { id: "overview", label: "Overview" },
     { id: "wrapper", label: "Wrapper" },
+    { id: "text", label: "Text" },
     { id: "component-props", label: "Component Props" },
     { id: "api", label: "API" },
   ],
@@ -19,7 +20,7 @@ import AppStack from "@/components/layout/AppStack.vue";
 import DocsApiTable, { type DocsApiItem } from "@/components/DocsApiTable.vue";
 import DocsExample from "@/components/DocsExample.vue";
 import DocsIntroCard from "@/components/DocsIntroCard.vue";
-import { PButton, PCard, PTooltip } from "@ontic/pear";
+import { PButton, PCard, PField, PInput, PProgress, PTooltip } from "@ontic/pear";
 
 const wrapperCode = String.raw`
 <p-tooltip content="Shown above by default">
@@ -27,14 +28,30 @@ const wrapperCode = String.raw`
 </p-tooltip>
 
 <p-tooltip content="Shown on the right" placement="right">
-  <a href="#">Hover link</a>
+  <a href="#" @click.prevent>Hover link</a>
 </p-tooltip>
+`;
+
+const textCode = String.raw`
+<p>
+  Tooltips also work on
+  <p-tooltip content="Pico adds the dotted underline for us.">
+    inline text
+  </p-tooltip>
+  when a short aside would help.
+</p>
 `;
 
 const propCode = String.raw`
 <p-button tooltip="Save changes" tooltip-placement="bottom">
   Save
 </p-button>
+
+<p-field label="Token">
+  <p-input tooltip="Find this in account settings" tooltip-placement="right" />
+</p-field>
+
+<p-progress :value="72" tooltip="72% complete" />
 `;
 
 const tooltipProps: DocsApiItem[] = [
@@ -56,8 +73,8 @@ const tooltipSlots: DocsApiItem[] = [
 <template>
   <section id="overview" data-section class="docs-section">
     <DocsIntroCard name="PTooltip">
-      <code>PTooltip</code> applies Pico tooltip attributes to an element or
-      component, and many Pear controls expose the same tooltip props directly.
+      <code>PTooltip</code> adds Pico tooltip attributes around whatever you
+      pass in. Several Pear controls also accept tooltip props directly.
     </DocsIntroCard>
   </section>
 
@@ -65,16 +82,32 @@ const tooltipSlots: DocsApiItem[] = [
     <p-card>
       <template #header>Wrapper</template>
 
-      <DocsExample :code="wrapperCode">
+      <DocsExample :code="wrapperCode" preview-overflow="visible">
         <AppCluster>
           <p-tooltip content="Shown above by default">
             <button type="button">Hover me</button>
           </p-tooltip>
 
           <p-tooltip content="Shown on the right" placement="right">
-            <a href="#">Hover link</a>
+            <a href="#" @click.prevent>Hover link</a>
           </p-tooltip>
         </AppCluster>
+      </DocsExample>
+    </p-card>
+  </section>
+
+  <section id="text" data-section class="docs-section">
+    <p-card>
+      <template #header>Text</template>
+
+      <DocsExample :code="textCode" preview-overflow="visible">
+        <p>
+          Tooltips also work on
+          <p-tooltip content="Pico adds the dotted underline for us.">
+            inline text
+          </p-tooltip>
+          when a short aside would help.
+        </p>
       </DocsExample>
     </p-card>
   </section>
@@ -83,10 +116,18 @@ const tooltipSlots: DocsApiItem[] = [
     <p-card>
       <template #header>Component Props</template>
 
-      <DocsExample :code="propCode">
-        <p-button tooltip="Save changes" tooltip-placement="bottom">
-          Save
-        </p-button>
+      <DocsExample :code="propCode" preview-overflow="visible">
+        <AppStack>
+          <p-button tooltip="Save changes" tooltip-placement="bottom">
+            Save
+          </p-button>
+
+          <p-field label="Token">
+            <p-input tooltip="Find this in account settings" tooltip-placement="right" />
+          </p-field>
+
+          <p-progress :value="72" tooltip="72% complete" />
+        </AppStack>
       </DocsExample>
     </p-card>
   </section>

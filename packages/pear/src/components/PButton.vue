@@ -24,37 +24,72 @@ const {
 defineOptions({ inheritAttrs: false })
 
 const isDisabled = computed(() => disabled || loading)
+const needsTooltipHost = computed(() => Boolean(tooltip && isDisabled.value))
 const ariaBusy = computed(() => loading ? 'true' : undefined)
 const { tooltipId, ariaDescribedBy } = useTooltip(() => tooltip)
 </script>
 
 <template>
-  <input
-    v-if="type === 'submit' || type === 'reset'"
-    v-bind="$attrs"
-    :type="type"
-    :disabled="isDisabled"
-    :aria-busy="ariaBusy"
-    :aria-describedby="ariaDescribedBy"
-    :class="[variant, { outline }]"
-    :value="value"
+  <span
+    v-if="needsTooltipHost"
+    class="p-tooltip-host p-tooltip-host--inline"
     :data-tooltip="tooltip"
     :data-placement="tooltipPlacement"
   >
+    <input
+      v-if="type === 'submit' || type === 'reset'"
+      v-bind="$attrs"
+      :type="type"
+      :disabled="isDisabled"
+      :aria-busy="ariaBusy"
+      :aria-describedby="ariaDescribedBy"
+      :class="[variant, { outline }]"
+      :value="value"
+    >
 
-  <button
-    v-else
-    v-bind="$attrs"
-    type="button"
-    :disabled="isDisabled"
-    :aria-busy="ariaBusy"
-    :aria-describedby="ariaDescribedBy"
-    :class="[variant, { outline }]"
-    :data-tooltip="tooltip"
-    :data-placement="tooltipPlacement"
-  >
-    <slot />
-  </button>
+    <button
+      v-else
+      v-bind="$attrs"
+      type="button"
+      :disabled="isDisabled"
+      :aria-busy="ariaBusy"
+      :aria-describedby="ariaDescribedBy"
+      :class="[variant, { outline }]"
+    >
+      <slot />
+    </button>
 
-  <span v-if="tooltip" :id="tooltipId" role="tooltip" class="p-sr-only">{{ tooltip }}</span>
+    <span :id="tooltipId" role="tooltip" class="p-sr-only">{{ tooltip }}</span>
+  </span>
+
+  <template v-else>
+    <input
+      v-if="type === 'submit' || type === 'reset'"
+      v-bind="$attrs"
+      :type="type"
+      :disabled="isDisabled"
+      :aria-busy="ariaBusy"
+      :aria-describedby="ariaDescribedBy"
+      :class="[variant, { outline }]"
+      :value="value"
+      :data-tooltip="tooltip"
+      :data-placement="tooltipPlacement"
+    >
+
+    <button
+      v-else
+      v-bind="$attrs"
+      type="button"
+      :disabled="isDisabled"
+      :aria-busy="ariaBusy"
+      :aria-describedby="ariaDescribedBy"
+      :class="[variant, { outline }]"
+      :data-tooltip="tooltip"
+      :data-placement="tooltipPlacement"
+    >
+      <slot />
+    </button>
+
+    <span v-if="tooltip" :id="tooltipId" role="tooltip" class="p-sr-only">{{ tooltip }}</span>
+  </template>
 </template>

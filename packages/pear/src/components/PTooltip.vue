@@ -23,6 +23,7 @@ const tooltipId = useId()
   <component
     :is="as"
     v-bind="$attrs"
+    class="p-tooltip-host p-tooltip-host--inline"
     :data-tooltip="content"
     :data-placement="placement"
     :aria-describedby="tooltipId"

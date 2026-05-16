@@ -17,6 +17,7 @@
 - 🎨 Themeable
 - 📐 Layout primitives
 - 🧩 Composable forms
+- 🧾 Static tables
 - 🪟 Modal system
 - 💪 Type safe
 
@@ -43,7 +44,7 @@ bun add lucide-vue-next
 
 ## Usage
 
-### Register the plugin
+### Import the styles
 
 ```ts
 import { createApp } from 'vue'
@@ -62,6 +63,7 @@ No global registration, Pear components are used directly. Import what you use.
 
 ```vue
 <script setup lang="ts">
+import { ref } from 'vue'
 import { PField, PInput, PButton, PStack } from '@ontic/pear'
 
 const email = ref('')
@@ -69,8 +71,15 @@ const email = ref('')
 
 <template>
   <PStack>
-    <PField label="Email" :required="true">
-      <PInput v-model="email" type="email" placeholder="you@example.com" />
+    <PField label="Email" helper="Used for account notifications.">
+      <PInput
+        v-model="email"
+        type="email"
+        name="email"
+        placeholder="you@example.com"
+        autocomplete="email"
+        required
+      />
     </PField>
 
     <PButton type="submit">Subscribe</PButton>
@@ -80,14 +89,17 @@ const email = ref('')
 
 `PField` automatically wires up `id`, `aria-describedby`, and validation state to any child form component.
 
+Pear includes wrappers for Pico patterns like buttons, cards, inputs, textareas, fieldsets, checkbox and radio groups, tables, accordions, dropdowns, modals, nav, breadcrumbs, progress, loading states, and tooltips.
+
 ### Theme switching
 
 ```ts
 import { useTheme } from '@ontic/pear'
 
-const { theme, setTheme } = useTheme()
+const { theme, toggleTheme } = useTheme()
 
-setTheme('dark')   // 'light' | 'dark' | 'system'
+theme.value = 'dark'   // 'light' | 'dark'
+toggleTheme()
 ```
 
 ### Imperative modals
@@ -104,7 +116,7 @@ modal.open({
   description: 'Are you sure you want to continue?',
   actions: [
     { label: 'Cancel', variant: 'secondary' },
-    { label: 'Confirm', variant: 'primary' },
+    { label: 'Confirm' },
   ],
 })
 ```
