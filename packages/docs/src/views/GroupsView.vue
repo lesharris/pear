@@ -36,7 +36,7 @@ const buttonGroupCode = String.raw`
 `;
 
 const fieldGroupCode = String.raw`
-<p-group as="fieldset">
+<p-group>
   <p-input
     v-model="firstName"
     name="first-name"
@@ -83,8 +83,9 @@ const groupEvents: DocsApiItem[] = [
   <section id="overview" data-section class="docs-section">
     <DocsIntroCard name="PGroup">
       <code>PGroup</code> keeps related controls snug together. It can render
-      as a div, fieldset, or form, which makes it handy for button groups and
-      compact search fields.
+      as a div or form, which makes it handy for button groups and compact
+      search fields. Use <code>PFieldset</code> when the whole set needs a
+      legend, validation message, or disabled state.
     </DocsIntroCard>
   </section>
 
@@ -107,7 +108,7 @@ const groupEvents: DocsApiItem[] = [
           <template #header>Field Group</template>
 
           <DocsExample :code="fieldGroupCode">
-            <p-group as="fieldset">
+            <p-group>
               <p-input v-model="firstName" name="first-name" placeholder="First name" aria-label="First name" />
               <p-input v-model="lastName" name="last-name" placeholder="Last name" aria-label="Last name" />
             </p-group>
