@@ -120,46 +120,7 @@ const domModel = computed<string | string[]>({
 </script>
 
 <template>
-  <span
-    v-if="tooltip"
-    class="p-tooltip-host"
-    :data-tooltip="tooltip"
-    :data-placement="tooltipPlacement"
-  >
-    <select
-      v-bind="$attrs"
-      :id="field?.id"
-      v-model="domModel"
-      :disabled="isDisabled"
-      :aria-invalid="ariaInvalid"
-      :aria-describedby="ariaDescribedBy"
-      :multiple="multiple"
-      :size="size"
-    >
-      <option
-        v-if="placeholder && !multiple"
-        disabled
-        value=""
-      >
-        {{ placeholder }}
-      </option>
-
-      <slot>
-        <option
-          v-for="option in options"
-          :key="getOptionDomValue(option)"
-          :value="getOptionDomValue(option)"
-        >
-          {{ getOptionLabel(option) }}
-        </option>
-      </slot>
-    </select>
-
-    <span :id="tooltipId" role="tooltip" class="p-sr-only">{{ tooltip }}</span>
-  </span>
-
   <select
-    v-else
     v-bind="$attrs"
     :id="field?.id"
     v-model="domModel"
@@ -168,6 +129,8 @@ const domModel = computed<string | string[]>({
     :aria-describedby="ariaDescribedBy"
     :multiple="multiple"
     :size="size"
+    :data-tooltip="tooltip"
+    :data-placement="tooltipPlacement"
   >
     <option
       v-if="placeholder && !multiple"
@@ -187,4 +150,6 @@ const domModel = computed<string | string[]>({
       </option>
     </slot>
   </select>
+
+  <span v-if="tooltip" :id="tooltipId" role="tooltip" class="p-sr-only">{{ tooltip }}</span>
 </template>

@@ -22,29 +22,15 @@ const { tooltipId, ariaDescribedBy } = useTooltip(() => tooltip)
 </script>
 
 <template>
-  <span
-    v-if="tooltip"
-    class="p-tooltip-host"
-    :data-tooltip="tooltip"
-    :data-placement="tooltipPlacement"
-  >
-    <progress
-      v-bind="$attrs"
-      :aria-label="label"
-      :aria-describedby="ariaDescribedBy"
-      :value="indeterminate ? undefined : value"
-      :max="max"
-    />
-
-    <span :id="tooltipId" role="tooltip" class="p-sr-only">{{ tooltip }}</span>
-  </span>
-
   <progress
-    v-else
     v-bind="$attrs"
     :aria-label="label"
     :aria-describedby="ariaDescribedBy"
     :value="indeterminate ? undefined : value"
     :max="max"
+    :data-tooltip="tooltip"
+    :data-placement="tooltipPlacement"
   />
+
+  <span v-if="tooltip" :id="tooltipId" role="tooltip" class="p-sr-only">{{ tooltip }}</span>
 </template>
