@@ -191,7 +191,7 @@ const selectEvents: DocsApiItem[] = [
         <p-card>
           <template #header>States & Tooltips</template>
 
-          <DocsExample :code="stateSelectCode">
+          <DocsExample :code="stateSelectCode" preview-overflow="visible">
             <AppStack>
               <p-field label="Disabled select" disabled>
                 <p-select

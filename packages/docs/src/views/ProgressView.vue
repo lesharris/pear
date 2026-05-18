@@ -103,7 +103,7 @@ const progressProps: DocsApiItem[] = [
         <p-card>
           <template #header>Tooltips</template>
 
-          <DocsExample :code="tooltipCode">
+          <DocsExample :code="tooltipCode" preview-overflow="visible">
             <p-progress
               :value="uploadProgress"
               tooltip="Upload is 65% complete"
