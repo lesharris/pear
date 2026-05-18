@@ -1,6 +1,6 @@
 {
   "name": "@ontic/pear",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "A thin Vue 3 component library built on PicoCSS",
   "type": "module",
   "main": "./dist/pear.js",
