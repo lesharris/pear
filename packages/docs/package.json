@@ -3,16 +3,16 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "[ -f public/search-index.json ] || bun run build:search && vite",
+    "dev": "[ -f public/search-index.json ] || pnpm run build:search && vite",
     "build": "run-p type-check \"build-only {@}\" --",
-    "build-only": "vite build && bun scripts/prerender.ts",
-    "build:search": "bun scripts/prerender.ts --public",
+    "build-only": "vite build && tsx scripts/prerender.ts",
+    "build:search": "tsx scripts/prerender.ts --public",
     "type-check": "vue-tsc --build",
-    "preview": "bun run build && wrangler dev",
-    "deploy": "bun run build && wrangler deploy",
+    "preview": "pnpm run build && wrangler dev",
+    "deploy": "pnpm run build && wrangler deploy",
     "cf:deploy": "wrangler deploy",
     "cf:upload": "wrangler versions upload",
-    "cf:typegen": "bun run wrangler types"
+    "cf:typegen": "wrangler types"
   },
   "dependencies": {
     "@ontic/pear": "workspace:*",
@@ -33,6 +33,7 @@
     "@vue/tsconfig": "^0.9.1",
     "npm-run-all2": "^8.0.4",
     "playwright": "^1.60.0",
+    "tsx": "^4.21.0",
     "typescript": "~6.0.3",
     "vite": "^8.0.13",
     "vite-plugin-vue-devtools": "^8.1.2",

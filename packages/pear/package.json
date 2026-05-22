@@ -22,7 +22,7 @@
     "build": "vite build",
     "build:watch": "vite build --watch",
     "type-check": "vue-tsc --build",
-    "prepublishOnly": "cp ../../README.md ./README.md && bun run build",
+    "prepublishOnly": "cp ../../README.md ./README.md && pnpm run build",
     "postpublish": "rm ./README.md"
   },
   "keywords": [

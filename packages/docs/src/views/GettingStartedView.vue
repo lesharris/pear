@@ -20,11 +20,11 @@ import DocsExample from "@/components/DocsExample.vue";
 import { PCard } from "@ontic/pear";
 
 const installCode = String.raw`
-bun add @ontic/pear
+pnpm add @ontic/pear
 `;
 
 const installLucideCode = String.raw`
-bun add lucide-vue-next
+pnpm add lucide-vue-next
 `;
 
 const setupCode = [

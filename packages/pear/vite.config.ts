@@ -13,7 +13,7 @@ export default defineConfig({
     vue(),
     dts({
       include: ['src'],
-      outDir: 'dist',
+      outDirs: ['dist'],
       tsconfigPath: './tsconfig.app.json',
     }),
   ],

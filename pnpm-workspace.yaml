@@ -1,0 +1,18 @@
+packages:
+  - "packages/*"
+
+onlyBuiltDependencies:
+  - "@parcel/watcher"
+  - "esbuild"
+  - "sharp"
+  - "workerd"
+allowBuilds:
+  '@parcel/watcher': true
+  esbuild: true
+  sharp: true
+  workerd: true
+
+peerDependencyRules:
+  allowedVersions:
+    vite-dev-rpc>vite: "^8.0.0"
+    vite-plugin-inspect>vite: "^8.0.0"
