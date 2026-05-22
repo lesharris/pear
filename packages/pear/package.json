@@ -22,7 +22,7 @@
     "build": "vite build",
     "build:watch": "vite build --watch",
     "type-check": "vue-tsc --build",
-    "prepublishOnly": "cp ../../README.md ./README.md && bun run build",
+    "prepublishOnly": "cp ../../README.md ./README.md && pnpm run build",
     "postpublish": "rm ./README.md"
   },
   "keywords": [
@@ -48,20 +48,20 @@
     "access": "public"
   },
   "peerDependencies": {
-    "lucide-vue-next": ">=1.0.0",
+    "@lucide/vue": ">=1.16.0",
     "vue": ">=3.5.34"
   },
   "devDependencies": {
+    "@lucide/vue": "^1.16.0",
     "@picocss/pico": "^2.0.6",
     "@tsconfig/node24": "^24.0.4",
     "@types/node": "^25.8.0",
     "@vitejs/plugin-vue": "^6.0.7",
     "@vue/tsconfig": "^0.9.1",
-    "lucide-vue-next": "^1.0.0",
     "sass": "^1.89.1",
     "typescript": "~6.0.3",
     "vite": "^8.0.13",
-    "vite-plugin-dts": "^5.0.0",
+    "vite-plugin-dts": "^5.0.1",
     "vue": "^3.5.34",
     "vue-tsc": "^3.2.9"
   }

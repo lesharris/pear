@@ -13,7 +13,7 @@ export default defineConfig({
     vue(),
     dts({
       include: ['src'],
-      outDir: 'dist',
+      outDirs: ['dist'],
       tsconfigPath: './tsconfig.app.json',
     }),
   ],
@@ -37,9 +37,9 @@ export default defineConfig({
       formats: ['es'],
     },
     rollupOptions: {
-      external: ['vue', 'lucide-vue-next'],
+      external: ['vue', '@lucide/vue'],
       output: {
-        globals: { vue: 'Vue', 'lucide-vue-next': 'LucideVueNext' },
+        globals: { vue: 'Vue', '@lucide/vue': 'LucideVue' },
       },
     },
     cssCodeSplit: false,

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { RouterLink } from "vue-router";
-import { ArrowUpRight } from "lucide-vue-next";
+import { ArrowUpRight } from "@lucide/vue";
 
 const year = new Date().getFullYear();
 </script>

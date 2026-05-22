@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from "vue";
-import { Check, Copy } from "lucide-vue-next";
+import { Check, Copy } from "@lucide/vue";
 import { useShiki } from "@/composables/useShiki";
 
 const { codeToHtml } = useShiki();
@@ -91,4 +91,3 @@ watch([normalizedCode, () => language], () => {
     </div>
   </div>
 </template>
-

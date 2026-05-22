@@ -26,20 +26,17 @@
 Requires **Vue 3.5+**.
 
 ```bash
-# bun
-bun add @ontic/pear
+# pnpm
+pnpm add @ontic/pear
 
 # npm
 npm install @ontic/pear
-
-# pnpm
-pnpm add @ontic/pear
 ```
 
-`lucide-vue-next` is a peer dependency required only if you use `PThemeSwitcher`:
+`@lucide/vue` is a peer dependency required only if you use `PThemeSwitcher`:
 
 ```bash
-bun add lucide-vue-next
+pnpm add @lucide/vue
 ```
 
 ## Usage
