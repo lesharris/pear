@@ -24,7 +24,7 @@ pnpm add @ontic/pear
 `;
 
 const installLucideCode = String.raw`
-pnpm add lucide-vue-next
+pnpm add @lucide/vue
 `;
 
 const setupCode = [
@@ -122,7 +122,7 @@ toggleTheme();
         <DocsExample :code="installCode" language="shell" title="Install" />
         <DocsExample :code="setupCode" language="ts" title="main.ts" />
         <p>
-          <code>lucide-vue-next</code> is a peer dependency required only if you
+          <code>@lucide/vue</code> is a peer dependency required only if you
           use <code>PThemeSwitcher</code>.
         </p>
         <DocsExample :code="installLucideCode" language="shell" title="Optional: PThemeSwitcher" />
