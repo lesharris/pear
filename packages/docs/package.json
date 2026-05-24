@@ -3,9 +3,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "[ -f public/search-index.json ] || pnpm run build:search && vite",
+    "dev": "[ -f public/search-index.json ] || pnpm run build:search && vp dev",
     "build": "run-p type-check \"build-only {@}\" --",
-    "build-only": "vite build && tsx scripts/prerender.ts",
+    "build-only": "vp build && tsx scripts/prerender.ts",
     "build:search": "tsx scripts/prerender.ts --public",
     "type-check": "vue-tsc --build",
     "preview": "pnpm run build && wrangler dev",
@@ -35,9 +35,11 @@
     "playwright": "^1.60.0",
     "tsx": "^4.21.0",
     "typescript": "~6.0.3",
-    "vite": "^8.0.13",
+    "vite": "catalog:",
     "vite-plugin-vue-devtools": "^8.1.2",
+    "vitest": "npm:@voidzero-dev/vite-plus-test@^0.1.22",
     "vue-tsc": "^3.2.9",
-    "wrangler": "^4.92.0"
+    "wrangler": "^4.92.0",
+    "vite-plus": "catalog:"
   }
 }

@@ -27,9 +27,12 @@ const group = inject(PAccordionGroupKey, undefined)
 const details = ref<HTMLDetailsElement>()
 const isOpen = ref(open)
 
-watch(() => open, (nextOpen) => {
-  isOpen.value = nextOpen
-})
+watch(
+  () => open,
+  (nextOpen) => {
+    isOpen.value = nextOpen
+  },
+)
 
 function onToggle() {
   isOpen.value = details.value?.open ?? false
@@ -38,12 +41,7 @@ function onToggle() {
 </script>
 
 <template>
-  <details
-    ref="details"
-    :open="isOpen"
-    :name="name ?? group?.name"
-    @toggle="onToggle"
-  >
+  <details ref="details" :open="isOpen" :name="name ?? group?.name" @toggle="onToggle">
     <summary
       :role="button ? 'button' : undefined"
       :aria-expanded="button ? isOpen : undefined"

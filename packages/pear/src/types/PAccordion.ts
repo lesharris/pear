@@ -4,5 +4,4 @@ export type PAccordionGroupContext = {
   name?: string
 }
 
-export const PAccordionGroupKey: InjectionKey<PAccordionGroupContext> =
-  Symbol('PAccordionGroup')
+export const PAccordionGroupKey: InjectionKey<PAccordionGroupContext> = Symbol('PAccordionGroup')

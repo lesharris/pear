@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { createServer } from 'vite'
+import { createServer } from 'vite-plus'
 import vue from '@vitejs/plugin-vue'
 import { Document } from 'flexsearch'
 
@@ -51,10 +51,10 @@ async function prerenderForSearch() {
     const searchableRoutes = allRoutes.filter((route: any) => {
       return (
         route.path &&
-        !route.path.includes("*") &&
-        route.path.startsWith("/docs") &&
+        !route.path.includes('*') &&
+        route.path.startsWith('/docs') &&
         route.name != null
-      );
+      )
     })
 
     for (const route of searchableRoutes) {
@@ -106,4 +106,4 @@ async function prerenderForSearch() {
   }
 }
 
-prerenderForSearch()
+void prerenderForSearch()

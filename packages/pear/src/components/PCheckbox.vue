@@ -22,28 +22,24 @@ const {
   indeterminate = false,
   tooltip,
   tooltipPlacement,
-} = defineProps<{
-  value?: PCheckboxValue
-  uncheckedValue?: PCheckboxValue
-  disabled?: boolean
-  invalid?: boolean
-  switch?: boolean
-  indeterminate?: boolean
-} & PTooltipProps>()
+} = defineProps<
+  {
+    value?: PCheckboxValue
+    uncheckedValue?: PCheckboxValue
+    disabled?: boolean
+    invalid?: boolean
+    switch?: boolean
+    indeterminate?: boolean
+  } & PTooltipProps
+>()
 
 const field = inject(PFieldKey, undefined)
 
-const isDisabled = computed(() =>
-  disabled || field?.disabled.value || false,
-)
+const isDisabled = computed(() => disabled || field?.disabled.value || false)
 
-const isInvalid = computed(() =>
-  invalid || field?.invalid.value || false,
-)
+const isInvalid = computed(() => invalid || field?.invalid.value || false)
 
-const ariaInvalid = computed(() =>
-  isInvalid.value ? 'true' : undefined,
-)
+const ariaInvalid = computed(() => (isInvalid.value ? 'true' : undefined))
 
 const { tooltipId, ariaDescribedBy } = useTooltip(
   () => tooltip,
@@ -64,7 +60,7 @@ function updateChecked(event: Event) {
   if (Array.isArray(model.value)) {
     model.value = input.checked
       ? [...model.value, value]
-      : model.value.filter(item => item !== value)
+      : model.value.filter((item) => item !== value)
 
     return
   }
@@ -89,7 +85,7 @@ function updateChecked(event: Event) {
       :aria-describedby="ariaDescribedBy"
       :indeterminate="indeterminate"
       @change="updateChecked"
-    >
+    />
 
     <slot />
     <span v-if="tooltip" :id="tooltipId" role="tooltip" class="p-sr-only">{{ tooltip }}</span>

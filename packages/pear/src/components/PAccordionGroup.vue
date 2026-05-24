@@ -2,10 +2,7 @@
 import { provide, useId } from 'vue'
 import { PAccordionGroupKey } from '@/types/PAccordion'
 
-const {
-  exclusive = false,
-  name,
-} = defineProps<{
+const { exclusive = false, name } = defineProps<{
   exclusive?: boolean
   name?: string
 }>()

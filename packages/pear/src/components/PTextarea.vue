@@ -10,31 +10,21 @@ defineOptions({
 
 const model = defineModel<string>()
 
-const {
-  disabled,
-  readonly,
-  invalid,
-  tooltip,
-  tooltipPlacement,
-} = defineProps<{
-  disabled?: boolean
-  readonly?: boolean
-  invalid?: boolean
-} & PTooltipProps>()
+const { disabled, readonly, invalid, tooltip, tooltipPlacement } = defineProps<
+  {
+    disabled?: boolean
+    readonly?: boolean
+    invalid?: boolean
+  } & PTooltipProps
+>()
 
 const field = inject(PFieldKey, undefined)
 
-const isDisabled = computed(() =>
-  disabled || field?.disabled.value || false,
-)
+const isDisabled = computed(() => disabled || field?.disabled.value || false)
 
-const isInvalid = computed(() =>
-  invalid || field?.invalid.value || false,
-)
+const isInvalid = computed(() => invalid || field?.invalid.value || false)
 
-const ariaInvalid = computed(() =>
-  isInvalid.value ? 'true' : undefined,
-)
+const ariaInvalid = computed(() => (isInvalid.value ? 'true' : undefined))
 
 const { tooltipId, ariaDescribedBy } = useTooltip(
   () => tooltip,
@@ -79,4 +69,3 @@ function updateValue(event: Event) {
     @input="updateValue"
   />
 </template>
-

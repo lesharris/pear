@@ -2,7 +2,7 @@
 defineProps({
   gap: { type: String, default: '0.5rem' },
   align: { type: String, default: 'center' },
-  justify: { type: String, default: 'flex-start' }
+  justify: { type: String, default: 'flex-start' },
 })
 </script>
 
@@ -12,7 +12,7 @@ defineProps({
     :style="{
       '--cluster-gap': gap,
       '--cluster-align': align,
-      '--cluster-justify': justify
+      '--cluster-justify': justify,
     }"
   >
     <slot />

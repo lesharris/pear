@@ -1,155 +1,143 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, ref, useId, watch } from "vue";
-import { Document, type EnrichedDocumentSearchResults } from "flexsearch";
-import { useRouter } from "vue-router";
+import { computed, onBeforeUnmount, onMounted, ref, useId, watch } from 'vue'
+import { Document, type EnrichedDocumentSearchResults } from 'flexsearch'
+import { useRouter } from 'vue-router'
 
-type SearchDoc = { id: string; title: string; content: string; url: string };
-type SearchResult = { title: string; url: string };
+type SearchDoc = { id: string; title: string; content: string; url: string }
+type SearchResult = { title: string; url: string }
 
-const router = useRouter();
+const router = useRouter()
 
-const id = useId();
+const id = useId()
 
-const searchInputId = `site-search-${id}`;
-const resultsId = `search-results-${id}`;
+const searchInputId = `site-search-${id}`
+const resultsId = `search-results-${id}`
 
-const query = ref("");
-const results = ref<SearchResult[]>([]);
-const activeIndex = ref(-1);
-const wrapperEl = ref<HTMLElement | null>(null);
+const query = ref('')
+const results = ref<SearchResult[]>([])
+const activeIndex = ref(-1)
+const wrapperEl = ref<HTMLElement | null>(null)
 
-const isOpen = computed(() => query.value.length > 0);
+const isOpen = computed(() => query.value.length > 0)
 
 const activeDescendant = computed(() =>
-  activeIndex.value >= 0
-    ? `${resultsId}-option-${activeIndex.value}`
-    : undefined,
-);
+  activeIndex.value >= 0 ? `${resultsId}-option-${activeIndex.value}` : undefined,
+)
 
-let index: Document<SearchDoc> | null = null;
+let index: Document<SearchDoc> | null = null
 
 function onGlobalKey(e: KeyboardEvent) {
-  if ((e.metaKey || e.ctrlKey) && e.key === "k") {
-    e.preventDefault();
-    wrapperEl.value?.querySelector("input")?.focus();
+  if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+    e.preventDefault()
+    wrapperEl.value?.querySelector('input')?.focus()
   }
 }
 
 onMounted(async () => {
   index = new Document<SearchDoc>({
     document: {
-      id: "id",
-      index: ["title", "content"],
-      store: ["title", "url"],
+      id: 'id',
+      index: ['title', 'content'],
+      store: ['title', 'url'],
     },
-    tokenize: "full",
+    tokenize: 'full',
     cache: true,
     context: true,
-  });
+  })
 
   try {
-    const res = await fetch("/search-index.json");
-    const data: Record<string, string> = await res.json();
+    const res = await fetch('/search-index.json')
+    const data: Record<string, string> = await res.json()
 
-    await Promise.all(
-      Object.entries(data).map(([key, val]) => index!.import(key, val)),
-    );
+    await Promise.all(Object.entries(data).map(([key, val]) => index!.import(key, val)))
   } catch (err) {
-    console.error("Failed to load search index:", err);
+    console.error('Failed to load search index:', err)
   }
 
-  document.addEventListener("keydown", onGlobalKey);
-});
+  document.addEventListener('keydown', onGlobalKey)
+})
 
 onBeforeUnmount(() => {
-  document.removeEventListener("keydown", onGlobalKey);
-});
+  document.removeEventListener('keydown', onGlobalKey)
+})
 
 async function search() {
   if (!index) {
-    results.value = [];
-    return;
+    results.value = []
+    return
   }
 
   const raw = (await index.searchAsync(query.value, {
     enrich: true,
-  })) as EnrichedDocumentSearchResults<SearchDoc>;
+  })) as EnrichedDocumentSearchResults<SearchDoc>
 
-  const seen = new Set<string | number>();
+  const seen = new Set<string | number>()
 
   results.value = raw
     .flatMap(({ result }) => result)
     .filter(({ id }) => {
-      if (seen.has(id)) return false;
-      seen.add(id);
-      return true;
+      if (seen.has(id)) return false
+      seen.add(id)
+      return true
     })
     .filter((r): r is { id: string | number; doc: SearchDoc } => r.doc !== null)
     .map(({ doc }) => ({ title: doc.title, url: doc.url }))
-    .slice(0, 8);
+    .slice(0, 8)
 }
 
 watch(query, () => {
-  activeIndex.value = -1;
-  search();
-});
+  activeIndex.value = -1
+  search()
+})
 
 function onKeydown(e: KeyboardEvent) {
-  if (!isOpen.value) return;
+  if (!isOpen.value) return
 
-  if (e.key === "ArrowDown") {
-    e.preventDefault();
-
-    if (results.value.length > 0) {
-      activeIndex.value = (activeIndex.value + 1) % results.value.length;
-    }
-  } else if (e.key === "ArrowUp") {
-    e.preventDefault();
+  if (e.key === 'ArrowDown') {
+    e.preventDefault()
 
     if (results.value.length > 0) {
-      activeIndex.value =
-        (activeIndex.value - 1 + results.value.length) % results.value.length;
+      activeIndex.value = (activeIndex.value + 1) % results.value.length
     }
-  } else if (e.key === "Enter") {
-    const target = results.value[activeIndex.value];
+  } else if (e.key === 'ArrowUp') {
+    e.preventDefault()
+
+    if (results.value.length > 0) {
+      activeIndex.value = (activeIndex.value - 1 + results.value.length) % results.value.length
+    }
+  } else if (e.key === 'Enter') {
+    const target = results.value[activeIndex.value]
 
     if (target) {
-      navigate(target.url);
+      navigate(target.url)
     }
-  } else if (e.key === "Escape") {
-    close();
-    wrapperEl.value?.querySelector("input")?.blur();
+  } else if (e.key === 'Escape') {
+    close()
+    wrapperEl.value?.querySelector('input')?.blur()
   }
 }
 
 function onFocusOut(e: FocusEvent) {
   if (!wrapperEl.value?.contains(e.relatedTarget as Node)) {
-    close();
+    close()
   }
 }
 
 function navigate(url: string) {
-  router.push(url);
-  close();
+  router.push(url)
+  close()
 }
 
 function close() {
-  query.value = "";
-  results.value = [];
-  activeIndex.value = -1;
+  query.value = ''
+  results.value = []
+  activeIndex.value = -1
 }
 </script>
 
 <template>
-  <div
-    ref="wrapperEl"
-    class="search-wrapper"
-    @keydown="onKeydown"
-    @focusout="onFocusOut"
-  >
-    <label :for="searchInputId" class="p-sr-only">
-      Search documentation
-    </label>
+  <div ref="wrapperEl" class="search-wrapper" @keydown="onKeydown" @focusout="onFocusOut">
+    <label :for="searchInputId" class="p-sr-only"> Search documentation </label>
 
     <input
       :id="searchInputId"
@@ -190,9 +178,7 @@ function close() {
         </a>
       </template>
 
-      <div v-else class="search-empty">
-        No results for "{{ query }}"
-      </div>
+      <div v-else class="search-empty">No results for "{{ query }}"</div>
     </div>
   </div>
 </template>
@@ -226,7 +212,9 @@ function close() {
   border-radius: 0 var(--pico-border-radius) var(--pico-border-radius) 0;
   text-decoration: none;
   cursor: pointer;
-  transition: background-color 0.1s, border-color 0.1s;
+  transition:
+    background-color 0.1s,
+    border-color 0.1s;
 }
 
 .search-result:hover,

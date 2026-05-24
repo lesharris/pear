@@ -9,12 +9,14 @@ const {
   indeterminate = false,
   tooltip,
   tooltipPlacement,
-} = defineProps<{
-  label?: string
-  value?: number
-  max?: number
-  indeterminate?: boolean
-} & PTooltipProps>()
+} = defineProps<
+  {
+    label?: string
+    value?: number
+    max?: number
+    indeterminate?: boolean
+  } & PTooltipProps
+>()
 
 defineOptions({ inheritAttrs: false })
 

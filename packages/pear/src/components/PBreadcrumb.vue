@@ -26,10 +26,7 @@ function isCurrent(item: PBreadcrumbItem, index: number) {
     <slot>
       <ul>
         <li v-for="(item, index) in items ?? []" :key="`${item.label}-${index}`">
-          <a
-            v-if="item.href && !isCurrent(item, index)"
-            :href="item.href"
-          >
+          <a v-if="item.href && !isCurrent(item, index)" :href="item.href">
             {{ item.label }}
           </a>
           <span v-else aria-current="page">{{ item.label }}</span>

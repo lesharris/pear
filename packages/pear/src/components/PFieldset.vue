@@ -22,21 +22,13 @@ const id = useId()
 
 const hasError = computed(() => !!error)
 
-const helperId = computed(() =>
-  helper && !hasError.value ? `${id}-helper` : undefined,
-)
+const helperId = computed(() => (helper && !hasError.value ? `${id}-helper` : undefined))
 
-const errorId = computed(() =>
-  hasError.value ? `${id}-error` : undefined,
-)
+const errorId = computed(() => (hasError.value ? `${id}-error` : undefined))
 
-const describedBy = computed(() =>
-  errorId.value ?? helperId.value,
-)
+const describedBy = computed(() => errorId.value ?? helperId.value)
 
-const isInvalid = computed(() =>
-  invalid || hasError.value,
-)
+const isInvalid = computed(() => invalid || hasError.value)
 
 provide(PFieldKey, {
   describedBy,
@@ -59,18 +51,11 @@ provide(PFieldKey, {
       <slot />
     </div>
 
-    <small
-      v-if="error"
-      :id="errorId"
-      aria-live="polite"
-    >
+    <small v-if="error" :id="errorId" aria-live="polite">
       {{ error }}
     </small>
 
-    <small
-      v-else-if="helper"
-      :id="helperId"
-    >
+    <small v-else-if="helper" :id="helperId">
       {{ helper }}
     </small>
   </fieldset>

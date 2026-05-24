@@ -3,7 +3,7 @@ defineProps({
   side: { type: String, default: 'left' },
   sideWidth: { type: String, default: '20rem' },
   contentMin: { type: String, default: '50%' },
-  gap: { type: String, default: '1rem' }
+  gap: { type: String, default: '1rem' },
 })
 </script>
 
@@ -14,7 +14,7 @@ defineProps({
     :style="{
       '--sidebar-width': sideWidth,
       '--content-min': contentMin,
-      '--sidebar-gap': gap
+      '--sidebar-gap': gap,
     }"
   >
     <slot />

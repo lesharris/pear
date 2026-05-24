@@ -1,6 +1,6 @@
-@use "pico" with (
-  $semantic-root-element: "#app",
-  $enable-semantic-container: true,
+@use 'pico' with (
+  $semantic-root-element: '#app',
+  $enable-semantic-container: true
 );
 
 .p-sr-only {
@@ -25,7 +25,7 @@
   width: auto;
 }
 
-#app .p-tooltip-host:has(:is(a, button, input, select, textarea, progress, [role="button"])) {
+#app .p-tooltip-host:has(:is(a, button, input, select, textarea, progress, [role='button'])) {
   border-bottom: 0;
   cursor: inherit;
   text-decoration: none;

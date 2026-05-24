@@ -1,39 +1,38 @@
 <script lang="ts">
-import type { DocsMeta } from "@/types/docs";
+import type { DocsMeta } from '@/types/docs'
 
 export const docsMeta = {
-  title: "Pear",
-  description:
-    "Pear is a small Vue 3 component library built on Pico CSS.",
+  title: 'Pear',
+  description: 'Pear is a small Vue 3 component library built on Pico CSS.',
   tocItems: [
-    { id: "intro", label: "Getting Started" },
-    { id: "install", label: "Installation" },
-    { id: "pico", label: "Pico CSS" },
-    { id: "theming", label: "Theming" },
+    { id: 'intro', label: 'Getting Started' },
+    { id: 'install', label: 'Installation' },
+    { id: 'pico', label: 'Pico CSS' },
+    { id: 'theming', label: 'Theming' },
   ],
-} satisfies DocsMeta;
+} satisfies DocsMeta
 </script>
 
 <script setup lang="ts">
-import AppStack from "@/components/layout/AppStack.vue";
-import DocsExample from "@/components/DocsExample.vue";
-import { PCard } from "@ontic/pear";
+import AppStack from '@/components/layout/AppStack.vue'
+import DocsExample from '@/components/DocsExample.vue'
+import { PCard } from '@ontic/pear'
 
 const installCode = String.raw`
 pnpm add @ontic/pear
-`;
+`
 
 const installLucideCode = String.raw`
 pnpm add @lucide/vue
-`;
+`
 
 const setupCode = [
   'import { createApp } from "vue";',
   'import "@ontic/pear/style.css";',
   'import App from "./App.vue";',
-  "",
+  '',
   'createApp(App).mount("#app");',
-].join("\n");
+].join('\n')
 
 const picoCode = String.raw`
 <template>
@@ -47,7 +46,7 @@ const picoCode = String.raw`
     </article>
   </main>
 </template>
-`;
+`
 
 const themingCode = String.raw`
 /* Light mode */
@@ -80,7 +79,7 @@ const themingCode = String.raw`
   --pico-primary-inverse:          #fff;
   --pico-text-selection-color:     rgba(1, 170, 255, 0.1875);
 }
-`;
+`
 
 const themeToggleCode = String.raw`
 import { useTheme } from "@ontic/pear";
@@ -89,7 +88,7 @@ const { theme, toggleTheme } = useTheme();
 
 theme.value = "dark"; // "light" | "dark"
 toggleTheme();
-`;
+`
 </script>
 
 <template>
@@ -100,14 +99,13 @@ toggleTheme();
       <AppStack>
         <p>
           Pear is a small Vue 3 component library built on
-          <a href="https://picocss.com" target="_blank" rel="noreferrer"
-            >Pico CSS</a
-          >. It gives Pico's regular HTML patterns the Vue pieces you usually
-          need: models, ids, labels, slots, and a few small layout helpers.
+          <a href="https://picocss.com" target="_blank" rel="noreferrer">Pico CSS</a>. It gives
+          Pico's regular HTML patterns the Vue pieces you usually need: models, ids, labels, slots,
+          and a few small layout helpers.
         </p>
         <p>
-          Reach for Pear when it saves you from repeating glue code. Keep using
-          regular HTML and Pico classes for everything else.
+          Reach for Pear when it saves you from repeating glue code. Keep using regular HTML and
+          Pico classes for everything else.
         </p>
       </AppStack>
     </p-card>
@@ -122,8 +120,8 @@ toggleTheme();
         <DocsExample :code="installCode" language="shell" title="Install" />
         <DocsExample :code="setupCode" language="ts" title="main.ts" />
         <p>
-          <code>@lucide/vue</code> is a peer dependency required only if you
-          use <code>PThemeSwitcher</code>.
+          <code>@lucide/vue</code> is a peer dependency required only if you use
+          <code>PThemeSwitcher</code>.
         </p>
         <DocsExample :code="installLucideCode" language="shell" title="Optional: PThemeSwitcher" />
       </AppStack>
@@ -136,8 +134,8 @@ toggleTheme();
 
       <AppStack>
         <p>
-          Pear scopes Pico to <code>#app</code>. Pico styles apply inside the
-          Vue app, so you do not need a class on every element.
+          Pear scopes Pico to <code>#app</code>. Pico styles apply inside the Vue app, so you do not
+          need a class on every element.
         </p>
 
         <DocsExample :code="picoCode" title="Vue template">
@@ -145,8 +143,8 @@ toggleTheme();
             <article>
               <header>Semantic Pico structure</header>
               <p>
-                Pear components render regular HTML and keep Pico classes
-                available for layout, typography, color, and small adjustments.
+                Pear components render regular HTML and keep Pico classes available for layout,
+                typography, color, and small adjustments.
               </p>
             </article>
           </main>
@@ -161,21 +159,18 @@ toggleTheme();
 
       <AppStack>
         <p>
-          Pear follows Pico here: theme colors are CSS custom properties. Load
-          your theme after <code>@ontic/pear/style.css</code>, then override the
-          Pico variables you care about.
+          Pear follows Pico here: theme colors are CSS custom properties. Load your theme after
+          <code>@ontic/pear/style.css</code>, then override the Pico variables you care about.
         </p>
         <p>
-          <code>PThemeSwitcher</code> and <code>useTheme</code> only deal in
-          <code>light</code> and <code>dark</code>. If the user has not picked
-          one yet, Pear starts with their OS preference and then stores whatever
-          they choose.
+          <code>PThemeSwitcher</code> and <code>useTheme</code> only deal in <code>light</code> and
+          <code>dark</code>. If the user has not picked one yet, Pear starts with their OS
+          preference and then stores whatever they choose.
         </p>
         <p>
-          The main knob is usually <code>--pico-primary</code>. If you change
-          filled button colors, check <code>--pico-primary-inverse</code> too.
-          Most accents want <code>#fff</code>; very bright accents usually want
-          <code>#000</code>.
+          The main knob is usually <code>--pico-primary</code>. If you change filled button colors,
+          check <code>--pico-primary-inverse</code> too. Most accents want <code>#fff</code>; very
+          bright accents usually want <code>#000</code>.
         </p>
         <DocsExample :code="themeToggleCode" language="ts" title="Theme state" />
         <DocsExample :code="themingCode" language="css" title="your-theme.css" />

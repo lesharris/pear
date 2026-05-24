@@ -8,40 +8,28 @@ type PRadioValue = string | number | boolean
 
 const model = defineModel<PRadioValue>()
 
-const {
-  value,
-  disabled,
-  invalid,
-  tooltip,
-  tooltipPlacement,
-} = defineProps<{
-  value: PRadioValue
-  disabled?: boolean
-  invalid?: boolean
-} & PTooltipProps>()
+const { value, disabled, invalid, tooltip, tooltipPlacement } = defineProps<
+  {
+    value: PRadioValue
+    disabled?: boolean
+    invalid?: boolean
+  } & PTooltipProps
+>()
 
 const field = inject(PFieldKey, undefined)
 
-const isDisabled = computed(() =>
-  disabled || field?.disabled.value || false,
-)
+const isDisabled = computed(() => disabled || field?.disabled.value || false)
 
-const isInvalid = computed(() =>
-  invalid || field?.invalid.value || false,
-)
+const isInvalid = computed(() => invalid || field?.invalid.value || false)
 
-const ariaInvalid = computed(() =>
-  isInvalid.value ? 'true' : undefined,
-)
+const ariaInvalid = computed(() => (isInvalid.value ? 'true' : undefined))
 
 const { tooltipId, ariaDescribedBy } = useTooltip(
   () => tooltip,
   () => field?.describedBy.value || undefined,
 )
 
-const isChecked = computed(() =>
-  model.value === value,
-)
+const isChecked = computed(() => model.value === value)
 
 function updateChecked(event: Event) {
   const input = event.target as HTMLInputElement
@@ -66,7 +54,7 @@ function updateChecked(event: Event) {
       :aria-invalid="ariaInvalid"
       :aria-describedby="ariaDescribedBy"
       @change="updateChecked"
-    >
+    />
 
     <slot />
     <span v-if="tooltip" :id="tooltipId" role="tooltip" class="p-sr-only">{{ tooltip }}</span>

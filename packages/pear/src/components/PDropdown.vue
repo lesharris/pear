@@ -17,22 +17,27 @@ const {
   align,
   tooltip,
   tooltipPlacement,
-} = defineProps<{
-  summary?: string
-  open?: boolean
-  button?: boolean
-  variant?: 'secondary' | 'contrast'
-  outline?: boolean
-  invalid?: boolean
-  align?: 'start' | 'end'
-} & PTooltipProps>()
+} = defineProps<
+  {
+    summary?: string
+    open?: boolean
+    button?: boolean
+    variant?: 'secondary' | 'contrast'
+    outline?: boolean
+    invalid?: boolean
+    align?: 'start' | 'end'
+  } & PTooltipProps
+>()
 
 const details = ref<HTMLDetailsElement>()
 const isOpen = ref(open)
 
-watch(() => open, (nextOpen) => {
-  isOpen.value = nextOpen
-})
+watch(
+  () => open,
+  (nextOpen) => {
+    isOpen.value = nextOpen
+  },
+)
 
 function onToggle() {
   isOpen.value = details.value?.open ?? false
@@ -41,13 +46,9 @@ function onToggle() {
 
 const { tooltipId, ariaDescribedBy } = useTooltip(() => tooltip)
 
-const ariaInvalid = computed(() =>
-  invalid ? 'true' : undefined,
-)
+const ariaInvalid = computed(() => (invalid ? 'true' : undefined))
 
-const listDir = computed(() =>
-  align === 'end' ? 'rtl' : undefined,
-)
+const listDir = computed(() => (align === 'end' ? 'rtl' : undefined))
 </script>
 
 <template>

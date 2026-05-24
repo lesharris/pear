@@ -1,9 +1,6 @@
 <!-- src/components/PGrid.vue -->
 <script setup lang="ts">
-const {
-  min = '0%',
-  gap = 'var(--pico-grid-column-gap, var(--pico-spacing))',
-} = defineProps<{
+const { min = '0%', gap = 'var(--pico-grid-column-gap, var(--pico-spacing))' } = defineProps<{
   min?: string
   gap?: string
 }>()

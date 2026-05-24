@@ -5,9 +5,9 @@ import { useTheme } from '@/lib/useTheme'
 
 const { theme, toggleTheme } = useTheme()
 
-const nextTheme = computed(() => theme.value === 'dark' ? 'light' : 'dark')
+const nextTheme = computed(() => (theme.value === 'dark' ? 'light' : 'dark'))
 const label = computed(() => `Switch to ${nextTheme.value} theme`)
-const icon = computed(() => theme.value === 'dark' ? Moon : Sun)
+const icon = computed(() => (theme.value === 'dark' ? Moon : Sun))
 </script>
 
 <template>
@@ -64,7 +64,9 @@ const icon = computed(() => theme.value === 'dark' ? Moon : Sun)
   border: 1px solid var(--pico-muted-border-color);
   border-radius: inherit;
   background: var(--pico-card-sectionning-background-color);
-  transition: background-color 0.15s, border-color 0.15s;
+  transition:
+    background-color 0.15s,
+    border-color 0.15s;
 }
 
 .theme-switcher__thumb {
@@ -81,11 +83,18 @@ const icon = computed(() => theme.value === 'dark' ? Moon : Sun)
   color: #8a4b00;
   box-shadow: 0 1px 4px color-mix(in srgb, var(--pico-color) 18%, transparent);
   transform: translate(0, -50%);
-  transition: transform 0.18s ease, color 0.15s, background-color 0.15s;
+  transition:
+    transform 0.18s ease,
+    color 0.15s,
+    background-color 0.15s;
 }
 
 .theme-switcher--dark .theme-switcher__track {
-  background: color-mix(in srgb, var(--pico-primary) 16%, var(--pico-card-sectionning-background-color));
+  background: color-mix(
+    in srgb,
+    var(--pico-primary) 16%,
+    var(--pico-card-sectionning-background-color)
+  );
 }
 
 .theme-switcher--dark .theme-switcher__thumb {

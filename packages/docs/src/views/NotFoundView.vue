@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { RouterLink } from "vue-router";
-import { PThemeSwitcher } from "@ontic/pear";
-import AppFooter from "@/components/layout/AppFooter.vue";
-import { onMounted, ref } from "vue";
+import { RouterLink } from 'vue-router'
+import { PThemeSwitcher } from '@ontic/pear'
+import AppFooter from '@/components/layout/AppFooter.vue'
+import { onMounted, ref } from 'vue'
 
-const clientMounted = ref(false);
+const clientMounted = ref(false)
 onMounted(() => {
-  clientMounted.value = true;
-});
+  clientMounted.value = true
+})
 </script>
 
 <template>
@@ -122,7 +122,7 @@ onMounted(() => {
 }
 
 .nf-main::before {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
   background: radial-gradient(
@@ -183,7 +183,9 @@ onMounted(() => {
   font-weight: 700;
   font-size: 1rem;
   text-decoration: none;
-  transition: opacity 0.15s, transform 0.15s;
+  transition:
+    opacity 0.15s,
+    transform 0.15s;
   box-shadow: 0 2px 8px color-mix(in srgb, var(--pico-primary) 35%, transparent);
 }
 
@@ -205,7 +207,10 @@ onMounted(() => {
   font-weight: 600;
   font-size: 1rem;
   text-decoration: none;
-  transition: border-color 0.15s, color 0.15s, transform 0.15s;
+  transition:
+    border-color 0.15s,
+    color 0.15s,
+    transform 0.15s;
 }
 
 .nf-btn-secondary:hover {

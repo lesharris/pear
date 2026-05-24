@@ -2,7 +2,7 @@
 defineProps({
   minHeight: { type: String, default: '100vh' },
   gap: { type: String, default: '1rem' },
-  centered: { type: String, default: '.cover-center' }
+  centered: { type: String, default: '.cover-center' },
 })
 </script>
 
@@ -11,7 +11,7 @@ defineProps({
     class="app-cover"
     :style="{
       '--cover-min-height': minHeight,
-      '--cover-gap': gap
+      '--cover-gap': gap,
     }"
   >
     <slot />

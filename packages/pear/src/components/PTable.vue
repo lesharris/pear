@@ -36,12 +36,12 @@ function getCell(row: PTableRow, column: PTableColumn) {
 
 <template>
   <div :class="{ 'p-table-scroll': scroll }">
-    <table
-      v-bind="$attrs"
-      :class="{ striped }"
-      :data-theme="theme"
-    >
-      <caption v-if="caption">{{ caption }}</caption>
+    <table v-bind="$attrs" :class="{ striped }" :data-theme="theme">
+      <caption v-if="caption">
+        {{
+          caption
+        }}
+      </caption>
       <thead>
         <tr>
           <th
@@ -92,4 +92,3 @@ function getCell(row: PTableRow, column: PTableColumn) {
   overflow-x: auto;
 }
 </style>
-

@@ -1,30 +1,30 @@
 <script lang="ts">
-import type { DocsMeta } from "@/types/docs";
+import type { DocsMeta } from '@/types/docs'
 
 export const docsMeta = {
-  title: "Layout Primitives | Pear",
+  title: 'Layout Primitives | Pear',
   description:
-    "Small Vue layout primitives for common composition patterns that sit comfortably beside Pico CSS.",
+    'Small Vue layout primitives for common composition patterns that sit comfortably beside Pico CSS.',
   tocItems: [
-    { id: "overview", label: "Overview" },
-    { id: "stack", label: "PStack" },
-    { id: "cluster", label: "PCluster" },
-    { id: "inline", label: "PInline" },
-    { id: "grid", label: "PGrid" },
-    { id: "sidebar", label: "PSidebar" },
-    { id: "switcher", label: "PSwitcher" },
-    { id: "scroll", label: "PScroll" },
-    { id: "api", label: "API" },
+    { id: 'overview', label: 'Overview' },
+    { id: 'stack', label: 'PStack' },
+    { id: 'cluster', label: 'PCluster' },
+    { id: 'inline', label: 'PInline' },
+    { id: 'grid', label: 'PGrid' },
+    { id: 'sidebar', label: 'PSidebar' },
+    { id: 'switcher', label: 'PSwitcher' },
+    { id: 'scroll', label: 'PScroll' },
+    { id: 'api', label: 'API' },
   ],
-} satisfies DocsMeta;
+} satisfies DocsMeta
 </script>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import AppStack from "@/components/layout/AppStack.vue";
-import DocsApiTable, { type DocsApiItem } from "@/components/DocsApiTable.vue";
-import DocsExample from "@/components/DocsExample.vue";
-import DocsIntroCard from "@/components/DocsIntroCard.vue";
+import { ref } from 'vue'
+import AppStack from '@/components/layout/AppStack.vue'
+import DocsApiTable, { type DocsApiItem } from '@/components/DocsApiTable.vue'
+import DocsExample from '@/components/DocsExample.vue'
+import DocsIntroCard from '@/components/DocsIntroCard.vue'
 import {
   PButton,
   PCard,
@@ -37,11 +37,11 @@ import {
   PSidebar,
   PStack,
   PSwitcher,
-} from "@ontic/pear";
+} from '@ontic/pear'
 
-const stackName = ref("");
-const stackEmail = ref("");
-const clusterSearch = ref("");
+const stackName = ref('')
+const stackEmail = ref('')
+const clusterSearch = ref('')
 
 const stackCode = String.raw`
 <p-stack gap="1rem">
@@ -53,7 +53,7 @@ const stackCode = String.raw`
   </p-field>
   <p-button>Save profile</p-button>
 </p-stack>
-`;
+`
 
 const clusterCode = String.raw`
 <p-cluster gap="0.5rem">
@@ -61,7 +61,7 @@ const clusterCode = String.raw`
   <p-button variant="secondary">Preview</p-button>
   <p-button variant="contrast" outline>Delete</p-button>
 </p-cluster>
-`;
+`
 
 const inlineCode = String.raw`
 <p-inline gap="0.5rem" as="nav" aria-label="Breadcrumb">
@@ -71,7 +71,7 @@ const inlineCode = String.raw`
   <span aria-hidden="true">/</span>
   <span>PInline</span>
 </p-inline>
-`;
+`
 
 const gridCode = String.raw`
 <p-grid min="12rem" gap="1rem">
@@ -79,14 +79,14 @@ const gridCode = String.raw`
   <div class="tile">Overlays</div>
   <div class="tile">Navigation</div>
 </p-grid>
-`;
+`
 
 const sidebarCode = String.raw`
 <p-sidebar side-width="11rem" content-min="60%" gap="1.5rem">
   <nav aria-label="Settings sections">...</nav>
   <section>Account settings</section>
 </p-sidebar>
-`;
+`
 
 const switcherCode = String.raw`
 <p-switcher threshold="28rem" gap="1rem">
@@ -94,7 +94,7 @@ const switcherCode = String.raw`
   <section>Billing</section>
   <section>Confirm</section>
 </p-switcher>
-`;
+`
 
 const scrollCode = String.raw`
 <p-scroll>
@@ -102,36 +102,95 @@ const scrollCode = String.raw`
     ...
   </table>
 </p-scroll>
-`;
+`
 
 const layoutProps: DocsApiItem[] = [
-  { name: "PStack gap", type: "string", default: "'var(--pico-spacing)'", description: "Vertical spacing between children." },
-  { name: "PStack as", type: "string", default: "'div'", description: "Rendered element." },
-  { name: "PCluster/PInline gap", type: "string", default: "'var(--pico-spacing)'", description: "Horizontal spacing between children." },
-  { name: "PCluster/PInline align", type: "string", default: "'center'", description: "CSS align-items value." },
-  { name: "PCluster/PInline justify", type: "string", default: "'flex-start'", description: "CSS justify-content value." },
-  { name: "PCluster/PInline as", type: "string", default: "'div'", description: "Rendered element." },
-  { name: "PGrid min", type: "string", default: "'0%'", description: "Minimum column width before wrapping. The default matches Pico's grid behavior." },
-  { name: "PGrid gap", type: "string", default: "'var(--pico-grid-column-gap, var(--pico-spacing))'", description: "Grid gap." },
-  { name: "PSidebar side", type: "'left' | 'right'", default: "'left'", description: "Which side the sidebar appears on." },
-  { name: "PSidebar sideWidth", type: "string", default: "'15rem'", description: "Preferred sidebar width." },
-  { name: "PSidebar contentMin", type: "string", default: "'50%'", description: "Minimum content width before the layout stacks." },
-  { name: "PSwitcher threshold", type: "string", default: "'30rem'", description: "Container width where children switch from stacked to side-by-side." },
-  { name: "PScroll as", type: "string", default: "'div'", description: "Rendered element for the overflow wrapper." },
-];
+  {
+    name: 'PStack gap',
+    type: 'string',
+    default: "'var(--pico-spacing)'",
+    description: 'Vertical spacing between children.',
+  },
+  { name: 'PStack as', type: 'string', default: "'div'", description: 'Rendered element.' },
+  {
+    name: 'PCluster/PInline gap',
+    type: 'string',
+    default: "'var(--pico-spacing)'",
+    description: 'Horizontal spacing between children.',
+  },
+  {
+    name: 'PCluster/PInline align',
+    type: 'string',
+    default: "'center'",
+    description: 'CSS align-items value.',
+  },
+  {
+    name: 'PCluster/PInline justify',
+    type: 'string',
+    default: "'flex-start'",
+    description: 'CSS justify-content value.',
+  },
+  {
+    name: 'PCluster/PInline as',
+    type: 'string',
+    default: "'div'",
+    description: 'Rendered element.',
+  },
+  {
+    name: 'PGrid min',
+    type: 'string',
+    default: "'0%'",
+    description: "Minimum column width before wrapping. The default matches Pico's grid behavior.",
+  },
+  {
+    name: 'PGrid gap',
+    type: 'string',
+    default: "'var(--pico-grid-column-gap, var(--pico-spacing))'",
+    description: 'Grid gap.',
+  },
+  {
+    name: 'PSidebar side',
+    type: "'left' | 'right'",
+    default: "'left'",
+    description: 'Which side the sidebar appears on.',
+  },
+  {
+    name: 'PSidebar sideWidth',
+    type: 'string',
+    default: "'15rem'",
+    description: 'Preferred sidebar width.',
+  },
+  {
+    name: 'PSidebar contentMin',
+    type: 'string',
+    default: "'50%'",
+    description: 'Minimum content width before the layout stacks.',
+  },
+  {
+    name: 'PSwitcher threshold',
+    type: 'string',
+    default: "'30rem'",
+    description: 'Container width where children switch from stacked to side-by-side.',
+  },
+  {
+    name: 'PScroll as',
+    type: 'string',
+    default: "'div'",
+    description: 'Rendered element for the overflow wrapper.',
+  },
+]
 
 const layoutSlots: DocsApiItem[] = [
-  { name: "default", type: "slot", description: "Layout children." },
-];
+  { name: 'default', type: 'slot', description: 'Layout children.' },
+]
 </script>
 
 <template>
   <section id="overview" data-section class="docs-section">
     <DocsIntroCard name="Layout Primitives">
-      These are tiny layout helpers for the boring-but-constant stuff: stacks,
-      rows that wrap, rows that do not wrap, grids, sidebars, responsive groups,
-      and wide content. Use them when plain markup starts collecting the same
-      flex and grid styles over and over.
+      These are tiny layout helpers for the boring-but-constant stuff: stacks, rows that wrap, rows
+      that do not wrap, grids, sidebars, responsive groups, and wide content. Use them when plain
+      markup starts collecting the same flex and grid styles over and over.
     </DocsIntroCard>
   </section>
 
@@ -141,8 +200,8 @@ const layoutSlots: DocsApiItem[] = [
 
       <AppStack>
         <p>
-          <code>PStack</code> puts things in a column with one clear gap. It
-          also clears Pico's child margins, so the spacing stays predictable.
+          <code>PStack</code> puts things in a column with one clear gap. It also clears Pico's
+          child margins, so the spacing stays predictable.
         </p>
 
         <DocsExample :code="stackCode">
@@ -151,7 +210,12 @@ const layoutSlots: DocsApiItem[] = [
               <PInput v-model="stackName" name="name" placeholder="Jane Smith" />
             </PField>
             <PField label="Email">
-              <PInput v-model="stackEmail" type="email" name="email" placeholder="jane@example.com" />
+              <PInput
+                v-model="stackEmail"
+                type="email"
+                name="email"
+                placeholder="jane@example.com"
+              />
             </PField>
             <PButton>Save profile</PButton>
           </PStack>
@@ -166,8 +230,8 @@ const layoutSlots: DocsApiItem[] = [
 
       <AppStack>
         <p>
-          <code>PCluster</code> is for rows that can wrap. It works well for
-          action bars, tags, filters, and compact controls.
+          <code>PCluster</code> is for rows that can wrap. It works well for action bars, tags,
+          filters, and compact controls.
         </p>
 
         <DocsExample :code="clusterCode">
@@ -196,8 +260,8 @@ const layoutSlots: DocsApiItem[] = [
 
       <AppStack>
         <p>
-          <code>PInline</code> keeps a small run together on one line. Handy
-          for breadcrumbs, metadata, and icon-label pairs.
+          <code>PInline</code> keeps a small run together on one line. Handy for breadcrumbs,
+          metadata, and icon-label pairs.
         </p>
 
         <DocsExample :code="inlineCode">
@@ -219,8 +283,8 @@ const layoutSlots: DocsApiItem[] = [
 
       <AppStack>
         <p>
-          <code>PGrid</code> can behave like Pico's grid, or you can give it a
-          minimum column width and let the cards wrap naturally.
+          <code>PGrid</code> can behave like Pico's grid, or you can give it a minimum column width
+          and let the cards wrap naturally.
         </p>
 
         <DocsExample :code="gridCode">
@@ -259,8 +323,8 @@ const layoutSlots: DocsApiItem[] = [
 
       <AppStack>
         <p>
-          <code>PSidebar</code> gives the first child a sidebar width and lets
-          the second child fill the rest. When things get tight, they stack.
+          <code>PSidebar</code> gives the first child a sidebar width and lets the second child fill
+          the rest. When things get tight, they stack.
         </p>
 
         <DocsExample :code="sidebarCode">
@@ -275,7 +339,10 @@ const layoutSlots: DocsApiItem[] = [
 
             <section class="layout-panel">
               <strong>Account settings</strong>
-              <p>Sidebar navigation and main content stay together until the content needs room to breathe.</p>
+              <p>
+                Sidebar navigation and main content stay together until the content needs room to
+                breathe.
+              </p>
             </section>
           </PSidebar>
         </DocsExample>
@@ -289,8 +356,8 @@ const layoutSlots: DocsApiItem[] = [
 
       <AppStack>
         <p>
-          <code>PSwitcher</code> lets a group sit side by side when there is
-          room. Below the threshold, each child gets its own row.
+          <code>PSwitcher</code> lets a group sit side by side when there is room. Below the
+          threshold, each child gets its own row.
         </p>
 
         <DocsExample :code="switcherCode">
@@ -319,9 +386,8 @@ const layoutSlots: DocsApiItem[] = [
 
       <AppStack>
         <p>
-          <code>PScroll</code> is the little wrapper for wide stuff. Tables,
-          long rows, and other awkward content can scroll without stretching the
-          whole page.
+          <code>PScroll</code> is the little wrapper for wide stuff. Tables, long rows, and other
+          awkward content can scroll without stretching the whole page.
         </p>
 
         <DocsExample :code="scrollCode">

@@ -1,25 +1,25 @@
 <script lang="ts">
-import type { DocsMeta } from "@/types/docs";
+import type { DocsMeta } from '@/types/docs'
 
 export const docsMeta = {
-  title: "Cards | Pear",
+  title: 'Cards | Pear',
   description: "Card examples for Pear's small wrapper around Pico article markup.",
   tocItems: [
-    { id: "overview", label: "Overview" },
-    { id: "basic-card", label: "Basic Card" },
-    { id: "sections", label: "Header & Footer" },
-    { id: "api", label: "API" },
+    { id: 'overview', label: 'Overview' },
+    { id: 'basic-card', label: 'Basic Card' },
+    { id: 'sections', label: 'Header & Footer' },
+    { id: 'api', label: 'API' },
   ],
-} satisfies DocsMeta;
+} satisfies DocsMeta
 </script>
 
 <script setup lang="ts">
-import AppCluster from "@/components/layout/AppCluster.vue";
-import AppStack from "@/components/layout/AppStack.vue";
-import DocsApiTable, { type DocsApiItem } from "@/components/DocsApiTable.vue";
-import DocsExample from "@/components/DocsExample.vue";
-import DocsIntroCard from "@/components/DocsIntroCard.vue";
-import { PButton, PCard } from "@ontic/pear";
+import AppCluster from '@/components/layout/AppCluster.vue'
+import AppStack from '@/components/layout/AppStack.vue'
+import DocsApiTable, { type DocsApiItem } from '@/components/DocsApiTable.vue'
+import DocsExample from '@/components/DocsExample.vue'
+import DocsIntroCard from '@/components/DocsIntroCard.vue'
+import { PButton, PCard } from '@ontic/pear'
 
 const basicCardCode = String.raw`
 <p-card>
@@ -28,7 +28,7 @@ const basicCardCode = String.raw`
     background, and typography.
   </p>
 </p-card>
-`;
+`
 
 const cardSectionsCode = String.raw`
 <p-card>
@@ -43,20 +43,20 @@ const cardSectionsCode = String.raw`
     <p-button variant="secondary">Archive</p-button>
   </template>
 </p-card>
-`;
+`
 
 const cardSlots: DocsApiItem[] = [
-  { name: "header", type: "slot", description: "Optional content rendered in the article header." },
-  { name: "default", type: "slot", description: "Main article content." },
-  { name: "footer", type: "slot", description: "Optional content rendered in the article footer." },
-];
+  { name: 'header', type: 'slot', description: 'Optional content rendered in the article header.' },
+  { name: 'default', type: 'slot', description: 'Main article content.' },
+  { name: 'footer', type: 'slot', description: 'Optional content rendered in the article footer.' },
+]
 </script>
 
 <template>
   <section id="overview" data-section class="docs-section">
     <DocsIntroCard name="PCard">
-      <code>PCard</code> is a small wrapper around Pico's article pattern. Add
-      header and footer slots when the card needs clear sections.
+      <code>PCard</code> is a small wrapper around Pico's article pattern. Add header and footer
+      slots when the card needs clear sections.
     </DocsIntroCard>
   </section>
 
@@ -67,8 +67,8 @@ const cardSlots: DocsApiItem[] = [
       <DocsExample :code="basicCardCode">
         <p-card>
           <p>
-            Cards render Pico article markup and inherit Pico spacing, border,
-            background, and typography.
+            Cards render Pico article markup and inherit Pico spacing, border, background, and
+            typography.
           </p>
         </p-card>
       </DocsExample>
@@ -81,9 +81,7 @@ const cardSlots: DocsApiItem[] = [
 
       <DocsExample :code="cardSectionsCode">
         <p-card>
-          <template #header>
-            Project status
-          </template>
+          <template #header> Project status </template>
 
           <p>Everything is ready for review.</p>
 

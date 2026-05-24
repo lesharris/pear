@@ -1,58 +1,56 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from "vue";
-import { Check, Copy } from "@lucide/vue";
-import { useShiki } from "@/composables/useShiki";
+import { computed, onMounted, ref, watch } from 'vue'
+import { Check, Copy } from '@lucide/vue'
+import { useShiki } from '@/composables/useShiki'
 
-const { codeToHtml } = useShiki();
+const { codeToHtml } = useShiki()
 
 const {
   code,
-  language = "html",
+  language = 'html',
   title,
-  previewOverflow = "auto",
+  previewOverflow = 'auto',
 } = defineProps<{
-  code: string;
-  language?: string;
-  title?: string;
-  previewOverflow?: "auto" | "visible";
-}>();
+  code: string
+  language?: string
+  title?: string
+  previewOverflow?: 'auto' | 'visible'
+}>()
 
-const copied = ref(false);
-const highlightedCode = ref("");
+const copied = ref(false)
+const highlightedCode = ref('')
 
-const normalizedCode = computed(() => code.trim());
-const lines = computed(() => normalizedCode.value.split("\n"));
-const displayLanguage = computed(() =>
-  title ?? (language === "html" ? "vue" : language),
-);
+const normalizedCode = computed(() => code.trim())
+const lines = computed(() => normalizedCode.value.split('\n'))
+const displayLanguage = computed(() => title ?? (language === 'html' ? 'vue' : language))
 
 async function highlightCode() {
   highlightedCode.value = await codeToHtml(normalizedCode.value, {
     lang: language,
     themes: {
-      light: "github-light",
-      dark: "github-dark",
+      light: 'github-light',
+      dark: 'github-dark',
     },
-  });
+  })
 }
 
 async function copyCode() {
-  await navigator.clipboard.writeText(normalizedCode.value);
-  copied.value = true;
+  await navigator.clipboard.writeText(normalizedCode.value)
+  copied.value = true
   window.setTimeout(() => {
-    copied.value = false;
-  }, 1600);
+    copied.value = false
+  }, 1600)
 }
 
 onMounted(() => {
-  void highlightCode();
-});
+  void highlightCode()
+})
 
 watch([normalizedCode, () => language], () => {
   if (highlightedCode.value) {
-    void highlightCode();
+    void highlightCode()
   }
-});
+})
 </script>
 
 <template>

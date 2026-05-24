@@ -1,9 +1,6 @@
 <!-- src/components/PSwitcher.vue -->
 <script setup lang="ts">
-const {
-  threshold = '30rem',
-  gap = 'var(--pico-spacing)',
-} = defineProps<{
+const { threshold = '30rem', gap = 'var(--pico-spacing)' } = defineProps<{
   threshold?: string
   gap?: string
 }>()

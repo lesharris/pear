@@ -37,7 +37,12 @@ function closeModal(result?: unknown) {
   open.value = false
 }
 
-async function runAction(action?: () => unknown | Promise<unknown>) {
+function afterClose() {
+  settleModal()
+  options.value = null
+}
+
+async function runAction(action?: () => unknown) {
   const result = await action?.()
   closeModal(result)
 }
@@ -57,7 +62,7 @@ provide(PModalKey, {
     v-if="mounted"
     v-model="open"
     :close-on-backdrop="options?.closeOnBackdrop ?? true"
-    @after-close="settleModal(); options = null"
+    @after-close="afterClose"
   >
     <template v-if="options?.title" #header>
       <h3>{{ options.title }}</h3>
@@ -67,11 +72,7 @@ provide(PModalKey, {
       {{ options.description }}
     </p>
 
-    <component
-      :is="options.component"
-      v-if="options?.component"
-      v-bind="options.props"
-    />
+    <component :is="options.component" v-if="options?.component" v-bind="options.props" />
 
     <template v-if="actions.length" #footer>
       <p-button

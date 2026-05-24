@@ -1,7 +1,7 @@
 <script setup>
 defineProps({
   max: { type: String, default: '60ch' },
-  padded: { type: Boolean, default: true }
+  padded: { type: Boolean, default: true },
 })
 </script>
 

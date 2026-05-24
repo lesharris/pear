@@ -3,9 +3,7 @@ import { onMounted, ref, useId, watch } from 'vue'
 
 const model = defineModel<boolean>({ default: false })
 
-const {
-  closeOnBackdrop = true,
-} = defineProps<{
+const { closeOnBackdrop = true } = defineProps<{
   closeOnBackdrop?: boolean
 }>()
 
@@ -61,11 +59,7 @@ function onClick(event: MouseEvent) {
   >
     <article>
       <header v-if="$slots.header">
-        <button
-          aria-label="Close"
-          rel="prev"
-          @click="close"
-        />
+        <button aria-label="Close" rel="prev" @click="close" />
 
         <span :id="headerId">
           <slot name="header" />
