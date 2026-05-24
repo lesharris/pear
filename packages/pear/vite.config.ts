@@ -7,6 +7,7 @@ import dts from 'vite-plugin-dts'
 
 const require = createRequire(import.meta.url)
 const picoScssPath = path.join(path.dirname(require.resolve('@picocss/pico/package.json')), 'scss')
+const root = fileURLToPath(new URL('.', import.meta.url))
 
 export default defineConfig({
   staged: {
@@ -45,6 +46,11 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
+  },
+  test: {
+    root,
+    environment: 'happy-dom',
+    setupFiles: ['./src/test/setup.ts'],
   },
   build: {
     lib: {

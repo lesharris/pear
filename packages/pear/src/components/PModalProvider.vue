@@ -65,7 +65,7 @@ provide(PModalKey, {
     @after-close="afterClose"
   >
     <template v-if="options?.title" #header>
-      <h3>{{ options.title }}</h3>
+      <h3>{{ options?.title }}</h3>
     </template>
 
     <p v-if="options?.description">
