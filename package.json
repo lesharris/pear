@@ -1,6 +1,7 @@
 {
   "name": "pear-workspace",
   "private": true,
+  "type": "module",
   "packageManager": "pnpm@11.2.2",
   "workspaces": [
     "packages/*"
