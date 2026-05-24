@@ -1,7 +1,22 @@
 import { defineConfig } from 'vite-plus'
+import { fileURLToPath, URL } from 'node:url'
+
+const rootTestProject = (name: string, extendsPath: string, rootPath: string) => ({
+  extends: extendsPath,
+  test: {
+    name,
+    root: fileURLToPath(new URL(rootPath, import.meta.url)),
+  },
+})
 
 // https://vite.dev/config/
 export default defineConfig({
+  test: {
+    projects: [
+      rootTestProject('@ontic/pear', './packages/pear/vite.config.ts', './packages/pear/'),
+      rootTestProject('@ontic/pear-docs', './packages/docs/vite.config.ts', './packages/docs/'),
+    ],
+  },
   staged: {
     '*': 'vp check --fix',
   },

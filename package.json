@@ -14,7 +14,12 @@
     "prepare": "vp config"
   },
   "devDependencies": {
+    "@types/node": "^25.9.1",
+    "@vitest/coverage-v8": "^4.1.7",
+    "happy-dom": "^20.9.0",
     "typescript": "~6.0.3",
-    "vite-plus": "catalog:"
+    "vite": "npm:@voidzero-dev/vite-plus-core@^0.1.22",
+    "vite-plus": "catalog:",
+    "vitest": "npm:@voidzero-dev/vite-plus-test@^0.1.22"
   }
 }
