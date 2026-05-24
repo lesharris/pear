@@ -9,6 +9,15 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url)
 
+    if (!isSupportedMethod(request)) {
+      return new Response(null, {
+        status: 405,
+        headers: {
+          allow: 'GET, HEAD',
+        },
+      })
+    }
+
     if (!isDocumentRequest(request, url)) {
       const assetResponse = await env.ASSETS.fetch(request)
       if (assetResponse.status !== 404) return assetResponse
@@ -43,7 +52,7 @@ export default {
       .replace('<!--ssr-outlet-->', appHtml)
     const status = route.name === 'not-found' ? 404 : 200
 
-    return new Response(html, {
+    return new Response(request.method === 'HEAD' ? null : html, {
       status,
       headers: {
         'content-type': 'text/html; charset=utf-8',
@@ -52,8 +61,11 @@ export default {
   },
 } satisfies ExportedHandler<EnvWithAssets>
 
+function isSupportedMethod(request: Request) {
+  return request.method === 'GET' || request.method === 'HEAD'
+}
+
 function isDocumentRequest(request: Request, url: URL) {
-  if (request.method !== 'GET' && request.method !== 'HEAD') return false
   if (isViteInternalRequest(url.pathname)) return false
   return !url.pathname.includes('.')
 }
