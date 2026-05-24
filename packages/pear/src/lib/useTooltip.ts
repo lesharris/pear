@@ -7,10 +7,7 @@ export function useTooltip(
   const tooltipId = useId()
 
   const ariaDescribedBy = computed(() => {
-    const parts = [
-      describedBy?.(),
-      tooltip() ? tooltipId : undefined,
-    ].filter(Boolean)
+    const parts = [describedBy?.(), tooltip() ? tooltipId : undefined].filter(Boolean)
 
     return parts.length ? parts.join(' ') : undefined
   })

@@ -1,7 +1,7 @@
 <script setup>
 defineProps({
   min: { type: String, default: '16rem' },
-  gap: { type: String, default: '1rem' }
+  gap: { type: String, default: '1rem' },
 })
 </script>
 

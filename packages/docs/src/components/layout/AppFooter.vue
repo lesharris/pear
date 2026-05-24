@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { RouterLink } from "vue-router";
-import { ArrowUpRight } from "@lucide/vue";
+import { RouterLink } from 'vue-router'
+import { ArrowUpRight } from '@lucide/vue'
 
-const year = new Date().getFullYear();
+const year = new Date().getFullYear()
 </script>
 
 <template>
@@ -14,19 +14,13 @@ const year = new Date().getFullYear();
         <section class="footer-note" aria-labelledby="footer-title">
           <h2 id="footer-title">Use the pieces you need.</h2>
           <p>
-            Pear works best when it disappears into your app. Pico handles the
-            look. Vue handles state. The HTML still makes sense.
+            Pear works best when it disappears into your app. Pico handles the look. Vue handles
+            state. The HTML still makes sense.
           </p>
 
           <div class="footer-actions">
-            <RouterLink to="/docs" class="footer-primary-link">
-              Read the docs
-            </RouterLink>
-            <a
-              href="https://github.com/onticcloud/pear"
-              target="_blank"
-              rel="noreferrer"
-            >
+            <RouterLink to="/docs" class="footer-primary-link"> Read the docs </RouterLink>
+            <a href="https://github.com/onticcloud/pear" target="_blank" rel="noreferrer">
               GitHub <ArrowUpRight :size="13" class="link-icon" />
             </a>
           </div>
@@ -80,9 +74,7 @@ const year = new Date().getFullYear();
         </nav>
 
         <div class="footer-bottom">
-          <p class="footer-copy">
-            &copy; {{ year }} Les Harris. Made with Vue and Pico CSS.
-          </p>
+          <p class="footer-copy">&copy; {{ year }} Les Harris. Made with Vue and Pico CSS.</p>
         </div>
       </div>
     </div>
@@ -187,13 +179,13 @@ const year = new Date().getFullYear();
 }
 
 .footer-mascot-frame::before {
-  content: "";
+  content: '';
   position: absolute;
   bottom: 1.25rem;
   left: 0;
   height: 13rem;
   width: 10.875rem;
-  background: url("@/assets/peary.png") 0 center / auto 13rem no-repeat;
+  background: url('@/assets/peary.png') 0 center / auto 13rem no-repeat;
   transform: rotate(16deg) translateY(20%);
   transform-origin: bottom left;
   filter: grayscale(100%);

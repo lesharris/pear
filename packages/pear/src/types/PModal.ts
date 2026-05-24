@@ -4,7 +4,7 @@ export type PModalAction = {
   label: string
   variant?: 'secondary' | 'contrast'
   outline?: boolean
-  action?: () => unknown | Promise<unknown>
+  action?: () => unknown
 }
 
 export type PModalOptions = {

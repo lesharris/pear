@@ -1,24 +1,24 @@
 <script setup lang="ts">
-import { PTable, type PTableColumn } from "@ontic/pear";
+import { PTable, type PTableColumn } from '@ontic/pear'
 
 export type DocsApiItem = {
-  name: string;
-  type: string;
-  default?: string;
-  description: string;
-};
+  name: string
+  type: string
+  default?: string
+  description: string
+}
 
 defineProps<{
-  caption: string;
-  items: DocsApiItem[];
-}>();
+  caption: string
+  items: DocsApiItem[]
+}>()
 
 const columns: PTableColumn[] = [
-  { key: "name", label: "Name", rowHeader: true },
-  { key: "type", label: "Type" },
-  { key: "default", label: "Default" },
-  { key: "description", label: "Description" },
-];
+  { key: 'name', label: 'Name', rowHeader: true },
+  { key: 'type', label: 'Type' },
+  { key: 'default', label: 'Default' },
+  { key: 'description', label: 'Description' },
+]
 </script>
 
 <template>
@@ -32,7 +32,7 @@ const columns: PTableColumn[] = [
         <code>{{ value }}</code>
       </template>
       <template #cell-default="{ value }">
-        {{ value ?? "-" }}
+        {{ value ?? '-' }}
       </template>
     </p-table>
   </div>

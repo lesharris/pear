@@ -30,26 +30,22 @@ const {
   invalid,
   tooltip,
   tooltipPlacement,
-} = defineProps<{
-  type?: PInputType
-  disabled?: boolean
-  readonly?: boolean
-  invalid?: boolean
-} & PTooltipProps>()
+} = defineProps<
+  {
+    type?: PInputType
+    disabled?: boolean
+    readonly?: boolean
+    invalid?: boolean
+  } & PTooltipProps
+>()
 
 const field = inject(PFieldKey, undefined)
 
-const isDisabled = computed(() =>
-  disabled || field?.disabled.value || false,
-)
+const isDisabled = computed(() => disabled || field?.disabled.value || false)
 
-const isInvalid = computed(() =>
-  invalid || field?.invalid.value || false,
-)
+const isInvalid = computed(() => invalid || field?.invalid.value || false)
 
-const ariaInvalid = computed(() =>
-  isInvalid.value ? 'true' : undefined,
-)
+const ariaInvalid = computed(() => (isInvalid.value ? 'true' : undefined))
 
 const { tooltipId, ariaDescribedBy } = useTooltip(
   () => tooltip,
@@ -89,7 +85,7 @@ function updateFiles(event: Event) {
       :aria-invalid="ariaInvalid"
       :aria-describedby="ariaDescribedBy"
       @change="updateFiles"
-    >
+    />
 
     <input
       v-else
@@ -102,7 +98,7 @@ function updateFiles(event: Event) {
       :aria-invalid="ariaInvalid"
       :aria-describedby="ariaDescribedBy"
       @input="updateValue"
-    >
+    />
 
     <span :id="tooltipId" role="tooltip" class="p-sr-only">{{ tooltip }}</span>
   </span>
@@ -117,7 +113,7 @@ function updateFiles(event: Event) {
       :aria-invalid="ariaInvalid"
       :aria-describedby="ariaDescribedBy"
       @change="updateFiles"
-    >
+    />
 
     <input
       v-else
@@ -130,6 +126,6 @@ function updateFiles(event: Event) {
       :aria-invalid="ariaInvalid"
       :aria-describedby="ariaDescribedBy"
       @input="updateValue"
-    >
+    />
   </template>
 </template>

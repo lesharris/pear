@@ -95,7 +95,7 @@ import { useTheme } from '@ontic/pear'
 
 const { theme, toggleTheme } = useTheme()
 
-theme.value = 'dark'   // 'light' | 'dark'
+theme.value = 'dark' // 'light' | 'dark'
 toggleTheme()
 ```
 
@@ -111,10 +111,7 @@ const modal = useModal()
 modal.open({
   title: 'Confirm',
   description: 'Are you sure you want to continue?',
-  actions: [
-    { label: 'Cancel', variant: 'secondary' },
-    { label: 'Confirm' },
-  ],
+  actions: [{ label: 'Cancel', variant: 'secondary' }, { label: 'Confirm' }],
 })
 ```
 

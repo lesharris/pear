@@ -1,31 +1,30 @@
 <script lang="ts">
-import type { DocsMeta } from "@/types/docs";
+import type { DocsMeta } from '@/types/docs'
 
 export const docsMeta = {
-  title: "Groups | Pear",
-  description:
-    "Button groups, field groups, and compact search group examples for Pear.",
+  title: 'Groups | Pear',
+  description: 'Button groups, field groups, and compact search group examples for Pear.',
   tocItems: [
-    { id: "overview", label: "Overview" },
-    { id: "button-group", label: "Button Group" },
-    { id: "field-group", label: "Field Group" },
-    { id: "search-group", label: "Search Group" },
-    { id: "api", label: "API" },
+    { id: 'overview', label: 'Overview' },
+    { id: 'button-group', label: 'Button Group' },
+    { id: 'field-group', label: 'Field Group' },
+    { id: 'search-group', label: 'Search Group' },
+    { id: 'api', label: 'API' },
   ],
-} satisfies DocsMeta;
+} satisfies DocsMeta
 </script>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import AppStack from "@/components/layout/AppStack.vue";
-import DocsApiTable, { type DocsApiItem } from "@/components/DocsApiTable.vue";
-import DocsExample from "@/components/DocsExample.vue";
-import DocsIntroCard from "@/components/DocsIntroCard.vue";
-import { PButton, PCard, PGroup, PInput } from "@ontic/pear";
+import { ref } from 'vue'
+import AppStack from '@/components/layout/AppStack.vue'
+import DocsApiTable, { type DocsApiItem } from '@/components/DocsApiTable.vue'
+import DocsExample from '@/components/DocsExample.vue'
+import DocsIntroCard from '@/components/DocsIntroCard.vue'
+import { PButton, PCard, PGroup, PInput } from '@ontic/pear'
 
-const firstName = ref("");
-const lastName = ref("");
-const siteSearch = ref("");
+const firstName = ref('')
+const lastName = ref('')
+const siteSearch = ref('')
 
 const buttonGroupCode = String.raw`
 <p-group>
@@ -33,7 +32,7 @@ const buttonGroupCode = String.raw`
   <p-button>Two</p-button>
   <p-button>Three</p-button>
 </p-group>
-`;
+`
 
 const fieldGroupCode = String.raw`
 <p-group>
@@ -50,7 +49,7 @@ const fieldGroupCode = String.raw`
     aria-label="Last name"
   />
 </p-group>
-`;
+`
 
 const searchGroupCode = String.raw`
 <p-group as="form" role="search" @submit.prevent>
@@ -63,81 +62,115 @@ const searchGroupCode = String.raw`
   />
   <p-button type="submit" value="Search" />
 </p-group>
-`;
+`
 
 const groupProps: DocsApiItem[] = [
-  { name: "as", type: "'div' | 'fieldset' | 'form'", default: "'div'", description: "Native element used for the group wrapper." },
-  { name: "role", type: "'group' | 'search'", default: "'group'", description: "ARIA role applied to the wrapper." },
-];
+  {
+    name: 'as',
+    type: "'div' | 'fieldset' | 'form'",
+    default: "'div'",
+    description: 'Native element used for the group wrapper.',
+  },
+  {
+    name: 'role',
+    type: "'group' | 'search'",
+    default: "'group'",
+    description: 'ARIA role applied to the wrapper.',
+  },
+]
 
 const groupSlots: DocsApiItem[] = [
-  { name: "default", type: "slot", description: "Grouped controls, usually buttons or compact form inputs." },
-];
+  {
+    name: 'default',
+    type: 'slot',
+    description: 'Grouped controls, usually buttons or compact form inputs.',
+  },
+]
 
 const groupEvents: DocsApiItem[] = [
-  { name: "native events", type: "SubmitEvent, ...", description: "Native events pass through to the rendered wrapper." },
-];
+  {
+    name: 'native events',
+    type: 'SubmitEvent, ...',
+    description: 'Native events pass through to the rendered wrapper.',
+  },
+]
 </script>
 
 <template>
   <section id="overview" data-section class="docs-section">
     <DocsIntroCard name="PGroup">
-      <code>PGroup</code> keeps related controls snug together. It can render
-      as a div or form, which makes it handy for button groups and compact
-      search fields. Use <code>PFieldset</code> when the whole set needs a
-      legend, validation message, or disabled state.
+      <code>PGroup</code> keeps related controls snug together. It can render as a div or form,
+      which makes it handy for button groups and compact search fields. Use
+      <code>PFieldset</code> when the whole set needs a legend, validation message, or disabled
+      state.
     </DocsIntroCard>
   </section>
 
   <section id="button-group" data-section class="docs-section">
-        <p-card>
-          <template #header>Button Group</template>
+    <p-card>
+      <template #header>Button Group</template>
 
-          <DocsExample :code="buttonGroupCode">
-            <p-group>
-              <p-button>One</p-button>
-              <p-button>Two</p-button>
-              <p-button>Three</p-button>
-            </p-group>
-          </DocsExample>
-        </p-card>
-      </section>
+      <DocsExample :code="buttonGroupCode">
+        <p-group>
+          <p-button>One</p-button>
+          <p-button>Two</p-button>
+          <p-button>Three</p-button>
+        </p-group>
+      </DocsExample>
+    </p-card>
+  </section>
 
-      <section id="field-group" data-section class="docs-section">
-        <p-card>
-          <template #header>Field Group</template>
+  <section id="field-group" data-section class="docs-section">
+    <p-card>
+      <template #header>Field Group</template>
 
-          <DocsExample :code="fieldGroupCode">
-            <p-group>
-              <p-input v-model="firstName" name="first-name" placeholder="First name" aria-label="First name" />
-              <p-input v-model="lastName" name="last-name" placeholder="Last name" aria-label="Last name" />
-            </p-group>
-          </DocsExample>
-        </p-card>
-      </section>
+      <DocsExample :code="fieldGroupCode">
+        <p-group>
+          <p-input
+            v-model="firstName"
+            name="first-name"
+            placeholder="First name"
+            aria-label="First name"
+          />
+          <p-input
+            v-model="lastName"
+            name="last-name"
+            placeholder="Last name"
+            aria-label="Last name"
+          />
+        </p-group>
+      </DocsExample>
+    </p-card>
+  </section>
 
-      <section id="search-group" data-section class="docs-section">
-        <p-card>
-          <template #header>Search Group</template>
+  <section id="search-group" data-section class="docs-section">
+    <p-card>
+      <template #header>Search Group</template>
 
-          <DocsExample :code="searchGroupCode">
-            <p-group as="form" role="search" @submit.prevent>
-              <p-input v-model="siteSearch" type="search" name="q" placeholder="Search" aria-label="Search" />
-              <p-button type="submit" value="Search" />
-            </p-group>
-          </DocsExample>
-        </p-card>
-      </section>
+      <DocsExample :code="searchGroupCode">
+        <p-group as="form" role="search" @submit.prevent>
+          <p-input
+            v-model="siteSearch"
+            type="search"
+            name="q"
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <p-button type="submit" value="Search" />
+        </p-group>
+      </DocsExample>
+    </p-card>
+  </section>
 
-      <section id="api" data-section class="docs-section">
-        <p-card>
-          <template #header>API</template>
+  <section id="api" data-section class="docs-section">
+    <p-card>
+      <template #header>API</template>
 
-          <AppStack>
-            <DocsApiTable caption="Props" :items="groupProps" />
-            <DocsApiTable caption="Slots" :items="groupSlots" />
-            <DocsApiTable caption="Events" :items="groupEvents" />
-          </AppStack>
-        </p-card>
-      </section>
+      <AppStack>
+        <DocsApiTable caption="Props" :items="groupProps" />
+        <DocsApiTable caption="Slots" :items="groupSlots" />
+        <DocsApiTable caption="Events" :items="groupEvents" />
+      </AppStack>
+    </p-card>
+  </section>
 </template>

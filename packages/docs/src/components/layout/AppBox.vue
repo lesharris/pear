@@ -5,7 +5,7 @@ defineProps({
   borderColor: { type: String, default: 'var(--p-content-border-color)' },
   borderRadius: { type: String, default: '0' },
   background: { type: String, default: 'transparent' },
-  as: { type: String, default: 'div' }
+  as: { type: String, default: 'div' },
 })
 </script>
 
@@ -18,7 +18,7 @@ defineProps({
       '--box-border-width': borderWidth,
       '--box-border-color': borderColor,
       '--box-border-radius': borderRadius,
-      '--box-background': background
+      '--box-background': background,
     }"
   >
     <slot />

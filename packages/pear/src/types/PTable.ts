@@ -9,4 +9,3 @@ export type PTableColumn = {
   align?: 'left' | 'center' | 'right'
   theme?: 'light' | 'dark'
 }
-

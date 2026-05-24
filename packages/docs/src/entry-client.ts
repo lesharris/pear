@@ -1,13 +1,13 @@
-import { createDocsApp } from "./createApp";
-import { syncDocumentHead } from "./head";
+import { createDocsApp } from './createApp'
+import { syncDocumentHead } from './head'
 
-const { app, router } = createDocsApp();
+const { app, router } = createDocsApp()
 
-router.isReady().then(() => {
-  syncDocumentHead(router.currentRoute.value);
-  app.mount("#app");
-});
+void router.isReady().then(() => {
+  syncDocumentHead(router.currentRoute.value)
+  app.mount('#app')
+})
 
 router.afterEach((to) => {
-  syncDocumentHead(to);
-});
+  syncDocumentHead(to)
+})

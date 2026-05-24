@@ -1,36 +1,36 @@
 <script lang="ts">
-import type { DocsMeta } from "@/types/docs";
+import type { DocsMeta } from '@/types/docs'
 
 export const docsMeta = {
-  title: "Textareas | Pear",
-  description: "Textarea examples with Pear field wiring and Pico styling.",
+  title: 'Textareas | Pear',
+  description: 'Textarea examples with Pear field wiring and Pico styling.',
   tocItems: [
-    { id: "overview", label: "Overview" },
-    { id: "basic", label: "Basic" },
-    { id: "states", label: "States" },
-    { id: "api", label: "API" },
+    { id: 'overview', label: 'Overview' },
+    { id: 'basic', label: 'Basic' },
+    { id: 'states', label: 'States' },
+    { id: 'api', label: 'API' },
   ],
-} satisfies DocsMeta;
+} satisfies DocsMeta
 </script>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import AppStack from "@/components/layout/AppStack.vue";
-import DocsApiTable, { type DocsApiItem } from "@/components/DocsApiTable.vue";
-import DocsExample from "@/components/DocsExample.vue";
-import DocsIntroCard from "@/components/DocsIntroCard.vue";
-import { PCard, PField, PTextarea } from "@ontic/pear";
+import { ref } from 'vue'
+import AppStack from '@/components/layout/AppStack.vue'
+import DocsApiTable, { type DocsApiItem } from '@/components/DocsApiTable.vue'
+import DocsExample from '@/components/DocsExample.vue'
+import DocsIntroCard from '@/components/DocsIntroCard.vue'
+import { PCard, PField, PTextarea } from '@ontic/pear'
 
-const notes = ref("Pico keeps the textarea looking like Pico.");
-const readonlyNotes = ref("This note is read only.");
-const blockedNotes = ref("");
-const problemNotes = ref("");
+const notes = ref('Pico keeps the textarea looking like Pico.')
+const readonlyNotes = ref('This note is read only.')
+const blockedNotes = ref('')
+const problemNotes = ref('')
 
 const basicCode = String.raw`
 <p-field label="Notes" helper="A few sentences is plenty.">
   <p-textarea v-model="notes" name="notes" rows="4" />
 </p-field>
-`;
+`
 
 const statesCode = String.raw`
 <p-field label="Readonly notes">
@@ -44,23 +44,42 @@ const statesCode = String.raw`
 <p-field label="Required notes" error="Add a short note.">
   <p-textarea v-model="problemNotes" />
 </p-field>
-`;
+`
 
 const props: DocsApiItem[] = [
-  { name: "v-model", type: "string", description: "Textarea value." },
-  { name: "disabled", type: "boolean", default: "false", description: "Disables the textarea. Inherits from PField when present." },
-  { name: "readonly", type: "boolean", default: "false", description: "Marks the textarea read only." },
-  { name: "invalid", type: "boolean", default: "false", description: "Sets aria-invalid. Inherits from PField when present." },
-  { name: "tooltip", type: "string", description: "Optional Pico tooltip content." },
-  { name: "tooltipPlacement", type: "PTooltipPlacement", description: "Optional Pico tooltip placement." },
-];
+  { name: 'v-model', type: 'string', description: 'Textarea value.' },
+  {
+    name: 'disabled',
+    type: 'boolean',
+    default: 'false',
+    description: 'Disables the textarea. Inherits from PField when present.',
+  },
+  {
+    name: 'readonly',
+    type: 'boolean',
+    default: 'false',
+    description: 'Marks the textarea read only.',
+  },
+  {
+    name: 'invalid',
+    type: 'boolean',
+    default: 'false',
+    description: 'Sets aria-invalid. Inherits from PField when present.',
+  },
+  { name: 'tooltip', type: 'string', description: 'Optional Pico tooltip content.' },
+  {
+    name: 'tooltipPlacement',
+    type: 'PTooltipPlacement',
+    description: 'Optional Pico tooltip placement.',
+  },
+]
 </script>
 
 <template>
   <section id="overview" data-section class="docs-section">
     <DocsIntroCard name="PTextarea">
-      <code>PTextarea</code> is the native textarea with Pear's field context,
-      tooltips, and <code>v-model</code>.
+      <code>PTextarea</code> is the native textarea with Pear's field context, tooltips, and
+      <code>v-model</code>.
     </DocsIntroCard>
   </section>
 
@@ -101,4 +120,3 @@ const props: DocsApiItem[] = [
     </p-card>
   </section>
 </template>
-

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 defineProps({
   threshold: { type: String, default: '30rem' },
-  gap: { type: String, default: '1rem' }
+  gap: { type: String, default: '1rem' },
 })
 </script>
 
@@ -10,7 +10,7 @@ defineProps({
     class="app-switcher"
     :style="{
       '--switcher-threshold': threshold,
-      '--switcher-gap': gap
+      '--switcher-gap': gap,
     }"
   >
     <slot />

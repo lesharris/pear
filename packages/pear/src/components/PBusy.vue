@@ -11,12 +11,7 @@ const {
 </script>
 
 <template>
-  <component
-    :is="as"
-    :aria-busy="busy ? 'true' : undefined"
-    :aria-label="label"
-  >
+  <component :is="as" :aria-busy="busy ? 'true' : undefined" :aria-label="label">
     <slot />
   </component>
 </template>
-

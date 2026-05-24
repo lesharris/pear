@@ -2,11 +2,18 @@
   "name": "pear-workspace",
   "private": true,
   "packageManager": "pnpm@11.2.2",
-  "workspaces": ["packages/*"],
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "build": "pnpm --filter @ontic/pear build && pnpm --filter @ontic/pear-docs build",
     "cf:deploy": "pnpm --filter @ontic/pear-docs cf:deploy",
     "cf:upload": "pnpm --filter @ontic/pear-docs cf:upload",
-    "preview": "pnpm --filter @ontic/pear-docs preview"
+    "preview": "pnpm --filter @ontic/pear-docs preview",
+    "prepare": "vp config"
+  },
+  "devDependencies": {
+    "typescript": "~6.0.3",
+    "vite-plus": "catalog:"
   }
 }

@@ -15,37 +15,31 @@ const {
   showValue = false,
   tooltip,
   tooltipPlacement,
-} = defineProps<{
-  min?: number
-  max?: number
-  step?: number
-  disabled?: boolean
-  invalid?: boolean
-  showValue?: boolean
-} & PTooltipProps>()
+} = defineProps<
+  {
+    min?: number
+    max?: number
+    step?: number
+    disabled?: boolean
+    invalid?: boolean
+    showValue?: boolean
+  } & PTooltipProps
+>()
 
 const field = inject(PFieldKey, undefined)
 
-const isDisabled = computed(() =>
-  disabled || field?.disabled.value || false,
-)
+const isDisabled = computed(() => disabled || field?.disabled.value || false)
 
-const isInvalid = computed(() =>
-  invalid || field?.invalid.value || false,
-)
+const isInvalid = computed(() => invalid || field?.invalid.value || false)
 
-const ariaInvalid = computed(() =>
-  isInvalid.value ? 'true' : undefined,
-)
+const ariaInvalid = computed(() => (isInvalid.value ? 'true' : undefined))
 
 const { tooltipId, ariaDescribedBy } = useTooltip(
   () => tooltip,
   () => field?.describedBy.value || undefined,
 )
 
-const value = computed(() =>
-  model.value ?? min,
-)
+const value = computed(() => model.value ?? min)
 
 function updateValue(event: Event) {
   const input = event.target as HTMLInputElement
@@ -72,7 +66,7 @@ function updateValue(event: Event) {
         :aria-invalid="ariaInvalid"
         :aria-describedby="ariaDescribedBy"
         @input="updateValue"
-      >
+      />
 
       <span :id="tooltipId" role="tooltip" class="p-sr-only">{{ tooltip }}</span>
     </span>
@@ -89,13 +83,9 @@ function updateValue(event: Event) {
       :aria-invalid="ariaInvalid"
       :aria-describedby="ariaDescribedBy"
       @input="updateValue"
-    >
+    />
 
-    <output
-      v-if="showValue"
-      :for="field?.id"
-      class="p-range__value"
-    >
+    <output v-if="showValue" :for="field?.id" class="p-range__value">
       {{ value }}
     </output>
   </div>

@@ -23,30 +23,26 @@ const {
   size,
   tooltip,
   tooltipPlacement,
-} = defineProps<{
-  options?: PSelectOption[]
-  optionLabel?: string
-  optionValue?: string
-  placeholder?: string
-  disabled?: boolean
-  invalid?: boolean
-  multiple?: boolean
-  size?: number
-} & PTooltipProps>()
+} = defineProps<
+  {
+    options?: PSelectOption[]
+    optionLabel?: string
+    optionValue?: string
+    placeholder?: string
+    disabled?: boolean
+    invalid?: boolean
+    multiple?: boolean
+    size?: number
+  } & PTooltipProps
+>()
 
 const field = inject(PFieldKey, undefined)
 
-const isDisabled = computed(() =>
-  disabled || field?.disabled.value || false,
-)
+const isDisabled = computed(() => disabled || field?.disabled.value || false)
 
-const isInvalid = computed(() =>
-  invalid || field?.invalid.value || false,
-)
+const isInvalid = computed(() => invalid || field?.invalid.value || false)
 
-const ariaInvalid = computed(() =>
-  isInvalid.value ? 'true' : undefined,
-)
+const ariaInvalid = computed(() => (isInvalid.value ? 'true' : undefined))
 
 const { tooltipId, ariaDescribedBy } = useTooltip(
   () => tooltip,
@@ -84,32 +80,21 @@ function getOptionDomValue(option: PSelectOption): string {
 }
 
 const valueByDomValue = computed(() => {
-  return new Map(
-    options.map(option => [
-      getOptionDomValue(option),
-      getOptionValue(option),
-    ]),
-  )
+  return new Map(options.map((option) => [getOptionDomValue(option), getOptionValue(option)]))
 })
 
 const domModel = computed<string | string[]>({
   get() {
     if (multiple) {
-      return Array.isArray(model.value)
-        ? model.value.map(value => String(value))
-        : []
+      return Array.isArray(model.value) ? model.value.map((value) => String(value)) : []
     }
 
-    return model.value == null || Array.isArray(model.value)
-      ? ''
-      : String(model.value)
+    return model.value == null || Array.isArray(model.value) ? '' : String(model.value)
   },
 
   set(value) {
     if (Array.isArray(value)) {
-      model.value = value.map(
-        item => valueByDomValue.value.get(item) ?? item,
-      )
+      model.value = value.map((item) => valueByDomValue.value.get(item) ?? item)
 
       return
     }
@@ -136,11 +121,7 @@ const domModel = computed<string | string[]>({
       :multiple="multiple"
       :size="size"
     >
-      <option
-        v-if="placeholder && !multiple"
-        disabled
-        value=""
-      >
+      <option v-if="placeholder && !multiple" disabled value="">
         {{ placeholder }}
       </option>
 
@@ -169,11 +150,7 @@ const domModel = computed<string | string[]>({
     :multiple="multiple"
     :size="size"
   >
-    <option
-      v-if="placeholder && !multiple"
-      disabled
-      value=""
-    >
+    <option v-if="placeholder && !multiple" disabled value="">
       {{ placeholder }}
     </option>
 

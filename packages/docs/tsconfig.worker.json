@@ -6,7 +6,7 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "types": [ "./worker-configuration.d.ts","vite/client"],
+    "types": ["./worker-configuration.d.ts", "vite-plus/client"]
   },
-  "include": ["env.d.ts", "server"],
+  "include": ["env.d.ts", "server"]
 }

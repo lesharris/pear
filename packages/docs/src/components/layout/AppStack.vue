@@ -1,7 +1,7 @@
 <script setup>
 defineProps({
   gap: { type: String, default: '1rem' },
-  as: { type: String, default: 'div' }
+  as: { type: String, default: 'div' },
 })
 </script>
 

@@ -28,9 +28,7 @@ const {
 
 const fallbackName = useId()
 
-const groupName = computed(() =>
-  name ?? fallbackName,
-)
+const groupName = computed(() => name ?? fallbackName)
 </script>
 
 <template>
@@ -50,12 +48,7 @@ const groupName = computed(() =>
       :value="option.value"
       :disabled="option.disabled"
     >
-      <slot
-        name="option"
-        :option="option"
-        :index="index"
-        :checked="model === option.value"
-      >
+      <slot name="option" :option="option" :index="index" :checked="model === option.value">
         {{ option.label }}
       </slot>
     </p-radio>

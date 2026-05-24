@@ -1,11 +1,11 @@
 packages:
-  - "packages/*"
+  - 'packages/*'
 
 onlyBuiltDependencies:
-  - "@parcel/watcher"
-  - "esbuild"
-  - "sharp"
-  - "workerd"
+  - '@parcel/watcher'
+  - 'esbuild'
+  - 'sharp'
+  - 'workerd'
 allowBuilds:
   '@parcel/watcher': true
   esbuild: true
@@ -14,5 +14,17 @@ allowBuilds:
 
 peerDependencyRules:
   allowedVersions:
-    vite-dev-rpc>vite: "^8.0.0"
-    vite-plugin-inspect>vite: "^8.0.0"
+    vite-dev-rpc>vite: '^8.0.0'
+    vite-plugin-inspect>vite: '^8.0.0'
+    vite: '*'
+    vitest: '*'
+  allowAny:
+    - vite
+    - vitest
+catalog:
+  vite: npm:@voidzero-dev/vite-plus-core@latest
+  vitest: npm:@voidzero-dev/vite-plus-test@latest
+  vite-plus: ^0.1.22
+overrides:
+  vite: npm:@voidzero-dev/vite-plus-core@latest
+  vitest: npm:@voidzero-dev/vite-plus-test@latest

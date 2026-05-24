@@ -2,13 +2,7 @@
 import { computed, provide, useId } from 'vue'
 import { PFieldKey } from '@/types/PField'
 
-const {
-  label,
-  helper,
-  error,
-  invalid,
-  disabled,
-} = defineProps<{
+const { label, helper, error, invalid, disabled } = defineProps<{
   label?: string
   helper?: string
   error?: string
@@ -20,25 +14,15 @@ const id = useId()
 
 const hasError = computed(() => !!error)
 
-const helperId = computed(() =>
-  helper && !hasError.value ? `${id}-helper` : undefined,
-)
+const helperId = computed(() => (helper && !hasError.value ? `${id}-helper` : undefined))
 
-const errorId = computed(() =>
-  hasError.value ? `${id}-error` : undefined,
-)
+const errorId = computed(() => (hasError.value ? `${id}-error` : undefined))
 
-const describedBy = computed(() =>
-  errorId.value ?? helperId.value,
-)
+const describedBy = computed(() => errorId.value ?? helperId.value)
 
-const isInvalid = computed(() =>
-  invalid || hasError.value,
-)
+const isInvalid = computed(() => invalid || hasError.value)
 
-const isDisabled = computed(() =>
-  disabled || false,
-)
+const isDisabled = computed(() => disabled || false)
 
 provide(PFieldKey, {
   id,
@@ -62,18 +46,11 @@ provide(PFieldKey, {
 
     <slot />
 
-    <small
-      v-if="error"
-      :id="errorId"
-      aria-live="polite"
-    >
+    <small v-if="error" :id="errorId" aria-live="polite">
       {{ error }}
     </small>
 
-    <small
-      v-else-if="helper"
-      :id="helperId"
-    >
+    <small v-else-if="helper" :id="helperId">
       {{ helper }}
     </small>
   </div>

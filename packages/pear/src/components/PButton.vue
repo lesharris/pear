@@ -12,23 +12,23 @@ const {
   loading = false,
   tooltip,
   tooltipPlacement,
-} = defineProps<{
-  type?: 'submit' | 'reset' | 'button'
-  variant?: 'secondary' | 'contrast'
-  disabled?: boolean
-  outline?: boolean
-  value?: string
-  loading?: boolean
-} & PTooltipProps>()
+} = defineProps<
+  {
+    type?: 'submit' | 'reset' | 'button'
+    variant?: 'secondary' | 'contrast'
+    disabled?: boolean
+    outline?: boolean
+    value?: string
+    loading?: boolean
+  } & PTooltipProps
+>()
 
 defineOptions({ inheritAttrs: false })
 
 const isDisabled = computed(() => disabled || loading)
 const needsTooltipHost = computed(() => Boolean(tooltip && isDisabled.value))
-const ariaBusy = computed(() => loading ? 'true' : undefined)
-const rendersNativeInput = computed(() =>
-  (type === 'submit' || type === 'reset') && !loading,
-)
+const ariaBusy = computed(() => (loading ? 'true' : undefined))
+const rendersNativeInput = computed(() => (type === 'submit' || type === 'reset') && !loading)
 const { tooltipId, ariaDescribedBy } = useTooltip(() => tooltip)
 </script>
 
@@ -48,7 +48,7 @@ const { tooltipId, ariaDescribedBy } = useTooltip(() => tooltip)
       :aria-describedby="ariaDescribedBy"
       :class="[variant, { outline }]"
       :value="value"
-    >
+    />
 
     <button
       v-else
@@ -60,7 +60,9 @@ const { tooltipId, ariaDescribedBy } = useTooltip(() => tooltip)
       :class="[variant, { outline }]"
       :value="value"
     >
-      <template v-if="(type === 'submit' || type === 'reset') && value != null">{{ value }}</template>
+      <template v-if="(type === 'submit' || type === 'reset') && value != null">{{
+        value
+      }}</template>
       <slot v-else-if="type === 'submit' || type === 'reset'" />
       <slot v-else />
     </button>
@@ -80,7 +82,7 @@ const { tooltipId, ariaDescribedBy } = useTooltip(() => tooltip)
       :value="value"
       :data-tooltip="tooltip"
       :data-placement="tooltipPlacement"
-    >
+    />
 
     <button
       v-else
@@ -94,7 +96,9 @@ const { tooltipId, ariaDescribedBy } = useTooltip(() => tooltip)
       :data-tooltip="tooltip"
       :data-placement="tooltipPlacement"
     >
-      <template v-if="(type === 'submit' || type === 'reset') && value != null">{{ value }}</template>
+      <template v-if="(type === 'submit' || type === 'reset') && value != null">{{
+        value
+      }}</template>
       <slot v-else-if="type === 'submit' || type === 'reset'" />
       <slot v-else />
     </button>

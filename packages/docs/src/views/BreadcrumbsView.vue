@@ -1,33 +1,33 @@
 <script lang="ts">
-import type { DocsMeta } from "@/types/docs";
+import type { DocsMeta } from '@/types/docs'
 
 export const docsMeta = {
-  title: "Breadcrumbs | Pear",
-  description: "Breadcrumb navigation examples for Pear.",
+  title: 'Breadcrumbs | Pear',
+  description: 'Breadcrumb navigation examples for Pear.',
   tocItems: [
-    { id: "overview", label: "Overview" },
-    { id: "items", label: "Items" },
-    { id: "slots", label: "Slots" },
-    { id: "api", label: "API" },
+    { id: 'overview', label: 'Overview' },
+    { id: 'items', label: 'Items' },
+    { id: 'slots', label: 'Slots' },
+    { id: 'api', label: 'API' },
   ],
-} satisfies DocsMeta;
+} satisfies DocsMeta
 </script>
 
 <script setup lang="ts">
-import DocsApiTable, { type DocsApiItem } from "@/components/DocsApiTable.vue";
-import DocsExample from "@/components/DocsExample.vue";
-import DocsIntroCard from "@/components/DocsIntroCard.vue";
-import { PBreadcrumb, PCard } from "@ontic/pear";
+import DocsApiTable, { type DocsApiItem } from '@/components/DocsApiTable.vue'
+import DocsExample from '@/components/DocsExample.vue'
+import DocsIntroCard from '@/components/DocsIntroCard.vue'
+import { PBreadcrumb, PCard } from '@ontic/pear'
 
 const items = [
-  { label: "Docs", href: "#docs" },
-  { label: "Layout", href: "#layout" },
-  { label: "Breadcrumbs", current: true },
-];
+  { label: 'Docs', href: '#docs' },
+  { label: 'Layout', href: '#layout' },
+  { label: 'Breadcrumbs', current: true },
+]
 
 const itemsCode = String.raw`
 <p-breadcrumb :items="items" />
-`;
+`
 
 const slotsCode = String.raw`
 <p-breadcrumb>
@@ -37,22 +37,25 @@ const slotsCode = String.raw`
     <li><span aria-current="page">Pear</span></li>
   </ul>
 </p-breadcrumb>
-`;
+`
 
 const props: DocsApiItem[] = [
-  { name: "items", type: "PBreadcrumbItem[]", description: "Labels with optional hrefs. Use the slot for RouterLink or custom markup." },
-  { name: "label", type: "string", default: "'Breadcrumb'", description: "Accessible nav label." },
-  { name: "divider", type: "string", description: "Optional Pico breadcrumb divider." },
-  { name: "default", type: "slot", description: "Custom breadcrumb markup." },
-];
+  {
+    name: 'items',
+    type: 'PBreadcrumbItem[]',
+    description: 'Labels with optional hrefs. Use the slot for RouterLink or custom markup.',
+  },
+  { name: 'label', type: 'string', default: "'Breadcrumb'", description: 'Accessible nav label.' },
+  { name: 'divider', type: 'string', description: 'Optional Pico breadcrumb divider.' },
+  { name: 'default', type: 'slot', description: 'Custom breadcrumb markup.' },
+]
 </script>
 
 <template>
   <section id="overview" data-section class="docs-section">
     <DocsIntroCard name="PBreadcrumb">
-      <code>PBreadcrumb</code> wraps Pico's breadcrumb nav pattern. Use the
-      <code>items</code> prop for simple links, or slot your own list when
-      your app needs router links or custom markup.
+      <code>PBreadcrumb</code> wraps Pico's breadcrumb nav pattern. Use the <code>items</code> prop
+      for simple links, or slot your own list when your app needs router links or custom markup.
     </DocsIntroCard>
   </section>
 
