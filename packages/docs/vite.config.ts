@@ -56,4 +56,21 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
+  test: {
+    environment: 'happy-dom',
+    include: ['src/**/*.test.ts'],
+    coverage: {
+      provider: 'v8',
+      reportsDirectory: './coverage',
+      reporter: ['text', 'html'],
+      include: [
+        'src/head.ts',
+        'src/metadata.ts',
+        'src/router/index.ts',
+        'src/components/DocsApiTable.vue',
+        'src/components/DocsExample.vue',
+      ],
+      exclude: ['src/**/*.d.ts'],
+    },
+  },
 })
