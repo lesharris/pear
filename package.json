@@ -14,9 +14,9 @@
     "prepare": "vp config"
   },
   "devDependencies": {
-    "@types/node": "^25.9.1",
-    "@vitest/coverage-v8": "^4.1.7",
-    "happy-dom": "^20.9.0",
+    "@types/node": "^25.9.2",
+    "@vitest/coverage-v8": "^4.1.8",
+    "happy-dom": "^20.10.2",
     "typescript": "~6.0.3",
     "vite": "catalog:",
     "vite-plus": "catalog:",
